@@ -127,9 +127,9 @@
 \ctutemplateset{loft}{
 	\begin{twocolumnfrontmatterpage}
 		\selectctulanguage{main}
-		\ctuifswitch { list-of-figures } { \listoffigures } { }
+		\ctuifswitch { front-list-of-figures } { \listoffigures } { }
 		\newpage
-		\ctuifswitch { list-of-tables } { \listoftables } { }
+		\ctuifswitch { front-list-of-tables } { \listoftables } { }
 	\end{twocolumnfrontmatterpage}
 }
 
@@ -142,14 +142,17 @@
 	\cleardoublepage*
 	% If the specification has to be in front, include it. It it's one page only,
 	% the verso is left empty
-	\ctuifswitch{specification-in-front}{
+	\ctuifswitch{front-specification}{
 		\ctutemplate{include~specification}
 		\cleardoublepage
 	} { }
 	% The abstract and alike
 	\ctutemplate{abstract}
 	% The "loft" template is included only if at least one of the lists is enabled
-	\bool_if:nTF { \ctuthesis_if_switch_p:n { list-of-figures } || \ctuthesis_if_switch_p:n { list-of-tables } } {
+	\bool_if:nTF {
+		\ctuthesis_if_switch_p:n { front-list-of-figures }
+		|| \ctuthesis_if_switch_p:n { front-list-of-tables }
+	} {
 		\ctutemplate{loft}
 	} { }
 	% Get back to a recto page before starting the document

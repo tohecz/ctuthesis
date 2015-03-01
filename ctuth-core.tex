@@ -72,7 +72,7 @@
 }
 
 % booleans defaulting to false
-\tl_map_inline:Nn { {specification-in-front}{monochrome} } {
+\tl_map_inline:Nn { {front-specification}{monochrome} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
 		#1 .groups:n = { dc, pre, post },
@@ -81,7 +81,7 @@
 }
 
 % booleans defaulting to true
-\tl_map_inline:Nn { {list-of-tables}{list-of-figures} } {
+\tl_map_inline:Nn { {front-list-of-tables}{front-list-of-figures} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
 		#1 .groups:n = { dc, pre, post },
