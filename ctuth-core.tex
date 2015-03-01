@@ -105,21 +105,31 @@
 	}
 }
 
+% Error messages for the keyvalue interface
+\msg_new:nnn { ctuthesis } { keys-unknown } { The~key~'#1'~is~not~known~to~the~
+	class~'ctuthesis'~and~will~be~ignored. }
+
+\msg_new:nnn { ctuthesis } { keys-nopost } { The~key~'#1'~is~forbidden~after~
+	\token_to_str:N \ctuprocess \space and~will~be~ignored.~You~may~wish~to~
+	set~it~up~before. }
+
+\msg_new:nnn { ctuthesis } { keys-nop } { The~key~'#1'~is~forbidden~in~
+	\token_to_str:N \ctusetup \space and~will~be~ignored.~use~the~optional~argument~
+	of~ \token_to_str:N \documentclass \space to~set~it~up. }
+
+% Unknown key treatment
+\keys_define:nn { ctuthesis } {
+	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-unknown } { \l_keys_key_tl },
+}
 % Key tweak for dc-only keys used in preamble
 \keys_define:nn { ctuthesis-nop } {
-	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-nop } { \l_keys_key_tl }
+	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-nop } { \l_keys_key_tl },
 }
-
-\msg_new:nnn { ctuthesis } { keys-nop } { The~key~'#1'~is~forbidden~in~ \token_to_str:N \ctusetup ,~
-	use~the~optional~argument~of~ \token_to_str:N \documentclass \space to~set~it~up. }
 
 % Key tweak for pre-only keys used after \ctuprocess
 \keys_define:nn { ctuthesis-nopost } {
-	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-nopost } { \l_keys_key_tl }
+	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-nopost } { \l_keys_key_tl },
 }
-
-\msg_new:nnn { ctuthesis } { keys-nopost } { The~key~'#1'~is~forbidden~after~ \token_to_str:N \ctuprocess ,~
-	set~it~up~before. }
 
 % Language-dependent keys and stuff
 \tl_map_inline:Nn \g_ctuthesis_alllanguages_tl {
@@ -155,7 +165,7 @@
 
 
 \cs_generate_variant:Nn \keys_set:nn { nx }
-\cs_generate_variant:Nn \tl_if_eq:nnTF { xnTF }
+\cs_generate_variant:Nn \tl_if_eq:nnTF { xn }
 
 % A macro called after every \keys_set{ctuthesis}{...}
 \cs_new:Nn \ctuthesis_ctusetup_trigger: {

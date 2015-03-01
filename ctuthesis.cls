@@ -10,6 +10,7 @@
 % Some general remarks: the module name for this class is `ctuthesis`. Yes, it is quite long,
 % but at the very same time, it's descriptive.
 
+% The core of the class.
 \input{ctuth-core.tex}
 
 % Process class keys (and call the trigger)
