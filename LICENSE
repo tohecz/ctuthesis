@@ -1,0 +1,20 @@
+
+This is the LICENSE file for the github repository tohecz/ctuthesis.
+
+The project is in early development phase.
+
+Copyrights to all text files that do not bear their own license information
+belong to Tomas Hejda. The same is true for any files generated from these by
+LaTeX and related programs. The only allowed usage of the files is for testing
+purposes by members of the academic community of CTU in Prague.
+
+Files ctu_logo_black.pdf and ctu_logo_blue.pdf are copyrighted by the Czech
+Technical University in Prague and details about their license can be found at
+http://cvut.cz/
+
+NOTE: Later, the works will be re-licensed to the LaTeX Project Public License
+version 1.3c or newer, which can be found at
+http://latex-project.org/lppl/lppl-1-3c.txt
+The status of the works will be 'author-maintained' by 'The Czech Technical
+University in Prague (Tomas Hejda)'.
+
