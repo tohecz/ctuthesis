@@ -1,0 +1,23 @@
+
+You stepped in the repo of the ctuthesis -- LaTeX template for theses at the
+Czech Technical University in Prague. The repo contains the class files and
+a set of test files.
+
+The class files are:
+ctuthesis.cls
+ctuth-core.tex
+ctuth-names.tex
+ctuth-pkg.tex
+ctuth-templates.tex
+ctu_logo_black.tex
+ctu_logo_blue.tex
+ctuthesis.ist
+
+The test files are:
+ctutest.tex
+ctutest-1.tex
+ctutest-2.tex
+ctutest-zadani.pdf
+ctutest.bib
+ctutest.* (auxiliary files)
+
