@@ -114,7 +114,7 @@
 	set~it~up~before. }
 
 \msg_new:nnn { ctuthesis } { keys-nop } { The~key~'#1'~is~forbidden~in~
-	\token_to_str:N \ctusetup \space and~will~be~ignored.~use~the~optional~argument~
+	\token_to_str:N \ctusetup \space and~will~be~ignored.~Use~the~optional~argument~
 	of~ \token_to_str:N \documentclass \space to~set~it~up. }
 
 % Unknown key treatment
@@ -167,6 +167,33 @@
 \cs_generate_variant:Nn \keys_set:nn { nx }
 \cs_generate_variant:Nn \tl_if_eq:nnTF { xn }
 
+\cs_new_protected_nopar:Npn \ctuthesis__keys_filter:nnnN
+  {  \ctutesis__@@_filter:onnnN \l_@@_unused_clist }
+\cs_generate_variant:Nn \ctuthesis__keys_filter:nnnN { nnV , nnv , nno }
+\cs_new_protected:Npn \ctuthesis__@@_filter:nnnnN #1#2#3#4#5
+  {
+    \clist_clear:N \l_@@_unused_clist
+    \ctuthesis__keys_filter:nnn {#2} {#3} {#4}
+    \tl_set:Nx #5 { \exp_not:o { \l_@@_unused_clist } }
+    \tl_set:Nn \l_@@_unused_clist {#1}
+  }
+\cs_generate_variant:Nn \ctuthesis__@@_filter:nnnnN { o }
+\cs_new_protected:Npn \ctuthesis__keys_filter:nnn #1#2#3
+  {
+  	\begingroup
+  	\cs_set:Nn \@@_set_elt_aux: {}
+    \bool_set_true:N \l_@@_selective_bool
+    \bool_set_true:N \l_@@_filtered_bool
+    \seq_set_from_clist:Nn \l_@@_selective_seq {#2}
+    \keys_set:nn {#1} {#3}
+    \bool_set_false:N \l_@@_selective_bool
+    \endgroup
+  }
+\cs_generate_variant:Nn \ctuthesis__keys_filter:nnn { nnV , nnv , nno }
+
+
+
+
 % A macro called after every \keys_set{ctuthesis}{...}
 \cs_new:Nn \ctuthesis_ctusetup_trigger: {
 	% Remove duplicates from the language list
@@ -191,7 +218,7 @@
 
 % Key setup to be used in the preamble
 \NewDocumentCommand \ctusetup { m } {
-	% 'nopre' group keys are forbidden. We collect them and if there are any, we invoke the error 'keys-nopre'
+	% 'nop' group keys are forbidden. We collect them and if there are any, we invoke the error 'keys-nopre'
 	\keys_set_filter:nnnN { ctuthesis } { nop } { #1 } \l_temp_ctuthesis_a_tl
 	\keys_set:nV { ctuthesis-nop } \l_temp_ctuthesis_a_tl
 	\ctuthesis_ctusetup_trigger:
@@ -199,9 +226,17 @@
 
 % Variant of the command above. After \ctuprocess, this one will be used.
 \NewDocumentCommand \ctusetup@postprocess { m } {
-	% 'nopre' group keys are forbidden. We collect them and if there are any, we invoke the error 'keys-nopre'
+	% 'nopost' group keys are forbidden. We collect them and if there are any, we invoke the error 'keys-nopre'
 	\keys_set_filter:nnnN { ctuthesis } { nopost } { #1 } \l_temp_ctuthesis_a_tl
-	\keys_set:nV { ctuthesis-nopost } \l_temp_ctuthesis_a_tl
+  	\group_begin:
+	  	\cs_set:Nn \@@_set_elt_aux: {}
+		\keys_set_filter:nnVN { ctuthesis } { nop } \l_temp_ctuthesis_a_tl \l_temp_ctuthesis_b_tl
+		\tl_gset_eq:NN \g_temp_ctuthesis_b_tl \l_temp_ctuthesis_b_tl
+		\keys_set_filter:nnVN { ctuthesis } { pre } \l_temp_ctuthesis_a_tl \l_temp_ctuthesis_c_tl
+		\tl_gset_eq:NN \g_temp_ctuthesis_c_tl \l_temp_ctuthesis_c_tl
+	\group_end:
+	\keys_set:nV { ctuthesis-nop } \g_temp_ctuthesis_b_tl
+	\keys_set:nV { ctuthesis-nopost } \g_temp_ctuthesis_c_tl
 	\ctuthesis_ctusetup_trigger:
 }
 
