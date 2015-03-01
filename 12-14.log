@@ -1,0 +1,116 @@
+9c9,10
+<  environ.sty    2008/06/18 v0.2 A new way to define environments
+---
+>  environ.sty    2014/05/04 v0.3 A new way to define environments
+> trimspaces.sty    2009/09/17 v1.1 Trim spaces around a token list
+11,15c12,16
+< inputenc.sty    2008/03/30 v1.1d Input encoding file
+<     utf8.def    2008/04/05 v1.1m UTF-8 support for inputenc
+<    t1enc.dfu    2008/04/05 v1.1m UTF-8 support for inputenc
+<   ot1enc.dfu    2008/04/05 v1.1m UTF-8 support for inputenc
+<   omsenc.dfu    2008/04/05 v1.1m UTF-8 support for inputenc
+---
+> inputenc.sty    2014/04/30 v1.2b Input encoding file
+>     utf8.def    2014/09/29 v1.1m UTF-8 support for inputenc
+>    t1enc.dfu    2014/09/29 v1.1m UTF-8 support for inputenc
+>   ot1enc.dfu    2014/09/29 v1.1m UTF-8 support for inputenc
+>   omsenc.dfu    2014/09/29 v1.1m UTF-8 support for inputenc
+17,18c18,19
+<     book.cls    2007/10/19 v1.4h Standard LaTeX document class
+<     bk11.clo    2007/10/19 v1.4h Standard LaTeX file (size option)
+---
+>     book.cls    2014/09/29 v1.4h Standard LaTeX document class
+>     bk11.clo    2014/09/29 v1.4h Standard LaTeX file (size option)
+24,26c25,27
+< graphicx.sty    1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+<   keyval.sty    1999/03/16 v1.13 key=value parser (DPC)
+< graphics.sty    2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+---
+> graphicx.sty    2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+>   keyval.sty    2014/10/28 v1.15 key=value parser (DPC)
+> graphics.sty    2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+32,35c33,36
+< pdfpages.sty    2012/04/03 v0.4s Insert pages of external PDF documents (AM)
+<   ifthen.sty    2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+<     calc.sty    2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+<  eso-pic.sty    2010/10/06 v2.0c eso-pic (RN)
+---
+> pdfpages.sty    2013/08/25 v0.4v Insert pages of external PDF documents (AM)
+>   ifthen.sty    2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+>     calc.sty    2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+>  eso-pic.sty    2013/10/06 v2.0d eso-pic (RN)
+40,42c41,43
+< pppdftex.def    2012/04/03 v0.4s Pdfpages driver for pdfTeX (AM)
+<    babel.sty    2008/07/08 v3.8m The Babel package
+<  english.ldf    2005/03/30 v3.3o English support from the babel system
+---
+> pppdftex.def    2013/08/25 v0.4v Pdfpages driver for pdfTeX (AM)
+>    babel.sty    2014/09/25 3.9l The Babel package
+>  english.ldf    2012/08/20 v3.3p English support from the babel system
+45c46
+<  english.ldf    2005/03/30 v3.3o English support from the babel system
+---
+>  english.ldf    2012/08/20 v3.3p English support from the babel system
+53,54c54,55
+<  caption.sty    2012/02/19 v3.2f Customizing captions (AR)
+< caption3.sty    2012/01/12 v1.4b caption3 kernel (AR)
+---
+>  caption.sty    2013/05/02 v3.3-89 Customizing captions (AR)
+> caption3.sty    2013/05/02 v1.6-88 caption3 kernel (AR)
+56c57
+<  amsmath.sty    2000/07/18 v2.13 AMS math features
+---
+>  amsmath.sty    2013/01/14 v2.14 AMS math features
+61,62c62,63
+<  amssymb.sty    2009/06/22 v3.00
+< amsfonts.sty    2009/06/22 v3.00 Basic AMSFonts support
+---
+>  amssymb.sty    2013/01/14 v3.01 AMS font symbols
+> amsfonts.sty    2013/01/14 v3.01 Basic AMSFonts support
+64c65
+< multicol.sty    2011/06/27 v1.7a multicolumn formatting (FMi)
+---
+> multicol.sty    2014/10/28 v1.8i multicolumn formatting (FMi)
+66,67c67,68
+<  makeidx.sty    2000/03/29 v1.0m Standard LaTeX package
+< hyperref.sty    2012/05/13 v6.82q Hypertext links for LaTeX
+---
+>  makeidx.sty    2014/09/29 v1.0m Standard LaTeX package
+> hyperref.sty    2012/11/06 v6.83m Hypertext links for LaTeX
+86a88
+>  auxhook.sty    2011/03/04 v1.3 Hooks for auxiliary files (HO)
+88c90
+<   pd1enc.def    2012/05/13 v6.82q Hyperref: PDFDocEncoding definition (HO)
+---
+>   pd1enc.def    2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+90,91c92,93
+<      url.sty    2006/04/12  ver 3.3  Verb mode for urls, etc.
+<  hpdftex.def    2012/05/13 v6.82q Hyperref driver for pdfTeX
+---
+>      url.sty    2013/09/16  ver 3.4  Verb mode for urls, etc.
+>  hpdftex.def    2012/11/06 v6.83m Hyperref driver for pdfTeX
+94c96
+<   lipsum.sty    2011/04/14 v1.2 150 paragraphs of Lorem Ipsum dummy text
+---
+>   lipsum.sty    2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
+96c98
+<   xspace.sty    2009/10/20 v1.13 Space after command names (DPC,MH)
+---
+>   xspace.sty    2014/10/28 v1.13 Space after command names (DPC,MH)
+103c105
+<  nameref.sty    2010/04/30 v2.40 Cross-referencing by name of section
+---
+>  nameref.sty    2012/10/27 v2.43 Cross-referencing by name of section
+111,112c113,114
+<     umsa.fd    2009/06/22 v3.00 AMS symbols A
+<     umsb.fd    2009/06/22 v3.00 AMS symbols B
+---
+>     umsa.fd    2013/01/14 v3.01 AMS symbols A
+>     umsb.fd    2013/01/14 v3.01 AMS symbols B
+115c117
+<     ueuf.fd    2009/06/22 v3.00 Euler Fraktur
+---
+>     ueuf.fd    2013/01/14 v3.01 Euler Fraktur
+121a124,125
+> ctutest-zadani.pdf    Graphic file (type pdf)
+> ctutest-zadani.pdf    Graphic file (type pdf)

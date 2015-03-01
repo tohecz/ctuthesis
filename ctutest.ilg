@@ -1,0 +1,7 @@
+This is makeindex, version 2.15 [TeX Live 2014] (kpathsea + Thai support).
+Scanning style file ./ctuthesis.ist...done (3 attributes redefined, 0 ignored).
+Scanning input file ctutest.idx....done (26 entries accepted, 0 rejected).
+Sorting entries....done (127 comparisons).
+Generating output file ctutest.ind....done (74 lines written, 0 warnings).
+Output written in ctutest.ind.
+Transcript written in ctutest.ilg.

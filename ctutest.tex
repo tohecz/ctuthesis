@@ -1,0 +1,167 @@
+% arara: pdflatex: { synctex: yes }
+% arara: makeindex: { style: ctuthesis }
+% arara: bibtex
+
+% The class takes all the key=value arguments that \ctusetup does,
+% of them, just the fontsize has to be specified immediately;
+% 11pt is the default and we recommend keeping that, still we support
+% 10pt and 12pt as well.
+\documentclass[twoside,11pt]{ctuthesis}
+
+\ctusetup{
+	mainlanguage = english,
+	titlelanguage = english,
+	otherlanguages = {slovak},
+	title-czech = {Moje bakalářka se strašně, ale hrozně dlouhým předlouhým názvem},
+	title-english = {My Favourite Thesis; Just the Title is Soooooooo Looooong},
+	xdoctype = B,
+	xfaculty = F4,
+	department-czech = {Katedra matematiky},
+	department-english = {Department of Mathematics},
+	author = {Tomáš Hejda},
+	supervisor = {Prof. Krutoš Spravedlivý},
+	supervisor-address = {Ústav X, \\ Uliční 5, \\ Praha 99},
+	fieldofstudy-english = {Mathematical Engineering},
+	subfieldofstudy-english = {Mathematical Modelling},
+	fieldofstudy-czech = {Matematcké inženýrství},
+	subfieldofstudy-czech = {Matematické modelování},
+	keywords-czech = {slovo, klíč},
+	keywords-english = {word, key},
+	day = 10,
+	month = 2,
+	year = 2017,
+	specification-file = {ctutest-zadani.pdf},
+%	specification-in-front = true,
+	list-of-figures = false,
+	list-of-tables = false,
+}
+
+\ctuprocess
+
+% Theorem declarations, this is the reasonable default, anybody can do what they wish.
+% If you prefer theorems in italics rather than slanted, use \theoremstyle{plainit}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{note}
+\newtheorem*{remark*}{Remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% If you wish an index, you better keep these two lines
+\usepackage{makeidx}
+\makeindex
+
+% Abstract in Czech
+\begin{abstract-czech}
+Tys honí až nevrlí komise omylem kontor město sbírku a koutě, pán nu lež, slzy, nemají zasvé šťasten. Tetě veselá. Vem lépe ty jí cíp vrhá. Novinám prachy kabát. Býti čaj via pakujte přeli, dyť do chuť kroutí kolínský bába odkrouhnul. Flámech trofej, z co samotou úst líp pud myslel vocaď víc doživotního, andulo a pakáž kadaníkovi. Čímž protiva v žába vězí duní.
+
+Jé ní ticho vzoru. Lepší zburcují učil nepořádku zboží ní mučedník obdivem! Bas nemožné postele bys cítíte ať února. Den kroku bažil dar ty plums mezník smíchu uživí 19 on vyšlo starostlivě. Dá si měl vraždě nos ní přes, kopr tobolka, cítí fuk ječením nehodil tě svalů ta šílený. Uf teď jaké 19 divným.
+\end{abstract-czech}
+
+% Abstract in English
+\begin{abstract-english}
+ Let us suppose we are given a modulus $d$.  In \cite{cite:0}, the main result was the extension of Newton random variables.  We show that ${\Gamma_{\mathfrak{{r}},b}} ( {Z_{\beta,f}} ) \sim \bar{E}$.  The work in \cite{cite:0} did not consider the infinite, hyper-reversible, local case. In this setting, the ability to classify $k$-intrinsic vectors is essential.
+ 
+Let us suppose $\mathfrak{{a}} > \mathfrak{{c}}''$.  Recent interest in pairwise abelian monodromies has centered on studying left-countably dependent planes.  We show that $\Delta \ge 0$.  It was Brouwer who first asked whether classes can be described. B. Artin \cite{cite:0} improved upon the results of M. Bernoulli by deriving nonnegative classes.
+\end{abstract-english}
+
+% Acknowledgements / Podekovani
+\begin{thanks}
+Děkuji ČVUT, že mi je tak dobrou \emph{alma mater}.
+\end{thanks}
+
+% Declaration / Prohlaseni
+\begin{declaration}
+Prohlašuji, že jsem předloženou práci vypracoval samostatně, a že jsem uvedl veškerou použitou literaturu.
+
+V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
+\end{declaration}
+
+% Hyperref is not pre-loaded; we prefer not to make too many decisions for the user.
+\usepackage[pdfpagelayout=TwoPageRight]{hyperref}
+\hypersetup{colorlinks=false,linktocpage=true}
+
+% Only for testing purposes
+\listfiles
+\usepackage[pagewise]{lineno}
+\usepackage{lipsum,blindtext}
+\usepackage{mathrsfs} % provides \mathscr used in the ridiculous examples
+
+\begin{document}
+
+\maketitle
+
+\chapter{Introduction}
+
+This thesis shows that \ldots
+
+\begin{figure}[!h]
+\rule{3cm}{3cm}
+\caption{Test}
+\end{figure}
+
+\part{My Party}
+
+\input{ctutest-1}
+
+\input{ctutest-2}
+
+
+\part{Your Party}
+
+\blindmathtrue
+
+\blinddocument
+
+\begin{table}
+\begin{ctucolortab}
+\begin{tabular}{cc}
+\bfseries Foo & \bfseries Bar \\\Midrule
+foo1 & bar1 \\
+foo2 & bar2
+\end{tabular}
+\end{ctucolortab}
+\caption{Foobar.}
+\label{tab:foobar}
+\end{table}
+
+\begin{figure}
+\includegraphics[width=0.4\textwidth]{ctu_logo_black}
+\caption{Black logo of the CTU in Pragueueue.}
+\end{figure}
+
+\begin{figure}[!t]
+\includegraphics[width=0.4\textwidth]{ctu_logo_blue}
+\caption{Blue logo of the CTU in Pragueueue.}
+\end{figure}
+
+\chapter{Conclusions}
+
+\section{Test --- this is just a little test of something in the table of contents}
+
+\subsection{Yes, table of contents}
+
+\begin{theorem}\begin{enumerate} \item Bla \item Blo \end{enumerate} \end{theorem}
+
+\medskip
+
+\begin{proof}\begin{enumerate} \item Bla \item Blo \end{enumerate} \end{proof}
+
+\appendix
+
+\printindex
+
+\bibliographystyle{amsalpha}
+\bibliography{ctutest}
+
+\ctutemplate{specification as chapter}
+
+\end{document}
