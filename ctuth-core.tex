@@ -39,14 +39,14 @@
 	
 	% Oneside option
 	oneside .bool_gset:c = { g_ctuthesis_switch_oneside_bool },
-	oneside .groups:n = { dc, nopre, nopost },
+	oneside .groups:n = { dc, nopre, nopost, nop },
 	oneside .initial:n = { false },
 	twoside .meta:n = { oneside = false },
-	twoside .groups:n = { dc, nopre, nopost },
+	twoside .groups:n = { dc, nopre, nopost, nop },
 	
 	% Draft option
 	draft .bool_gset:c = { g_ctuthesis_switch_draft_bool },
-	draft .groups:n = { dc, nopre, nopost },
+	draft .groups:n = { dc, nopre, nopost, nop },
 	draft .initial:n = { false },
 	
 	% We use three languages:
@@ -71,7 +71,7 @@
 
 }
 
-% booleans defaulting to false
+% switches defaulting to false
 \tl_map_inline:Nn { {front-specification}{monochrome} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
@@ -80,7 +80,7 @@
 	}
 }
 
-% booleans defaulting to true
+% switches defaulting to true
 \tl_map_inline:Nn { {front-list-of-tables}{front-list-of-figures} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
@@ -178,14 +178,6 @@
 		}
 	}
 }
-
-
-
-
-
-% Process class keys (and remove duplicate languges)
-\ProcessKeysOptions { ctuthesis }
-\ctuthesis_ctusetup_trigger:
 
 % Key setup to be used in the preamble
 \NewDocumentCommand \ctusetup { m } {

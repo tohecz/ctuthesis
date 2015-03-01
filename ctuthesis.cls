@@ -12,6 +12,10 @@
 
 \input{ctuth-core.tex}
 
+% Process class keys (and call the trigger)
+\ProcessKeysOptions { ctuthesis }
+\ctuthesis_ctusetup_trigger:
+
 % Load the report class
 \LoadClass [
 	a4paper, % pagesize option
