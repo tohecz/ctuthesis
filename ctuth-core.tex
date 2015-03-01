@@ -72,7 +72,7 @@
 }
 
 % booleans defaulting to false
-\tl_map_inline:Nn { {specification-in-front} } {
+\tl_map_inline:Nn { {specification-in-front}{monochrome} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
 		#1 .groups:n = { dc, pre, post },

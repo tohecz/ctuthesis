@@ -34,13 +34,27 @@
 %%% COLORS, TEXT FLOW
 
 \RequirePackage{xcolor}
-\definecolor{ctubluetext}{RGB}{0,122,195}
-\definecolor{ctubluerule}{named}{ctubluetext}
-\definecolor{ctubluedarkbg}{named}{ctubluetext}
-\definecolor{ctubluedot}{RGB}{172,214,238}
-%\definecolor{ctubluebg}{RGB}{204, 235, 255}
-\colorlet{ctubluebg}{ctubluedot!50!white}
-\definecolor{ctugray}{named}{gray}
+
+% Define the colors, first in monochrome, then in colour.
+\ctuifswitch { monochrome } {
+	\definecolor { ctublue } { gray } { 0.8 }
+	\definecolor { ctubluetext } { gray } { 0.4 }
+	\definecolor { ctubluerule } { gray } { 0.4 }
+	\definecolor { ctubluedarkbg } { gray } { 0.2 }
+	\definecolor { ctulightblue } { gray } { 0.9 }
+	\definecolor { ctubluedot } { gray } { 0.9 }
+	\definecolor { ctubluebg } { gray } { 0.95 }
+	\definecolor { ctugray } { gray } { 0.5 }
+} {
+	\definecolor { ctublue } { RGB } { 0, 122, 195 }
+	\colorlet    { ctubluetext } { ctublue }
+	\colorlet    { ctubluerule } { ctublue }
+	\colorlet    { ctubluedarkbg } { ctublue }
+	\definecolor { ctulightblue } { RGB }{ 172, 214, 238 }
+	\colorlet    { ctubluedot } { ctulightblue }
+	\colorlet    { ctubluebg } { ctulightblue!50!white }
+	\colorlet    { ctugray } { gray }
+}
 
 \setlength{\parskip}{0pt plus 1pt}
 
@@ -731,7 +745,7 @@
 	\chapter* {\indexname }
 	\begin{multicols*}{2}
 	\let\item\@idxitem
-	% Do not put index sections in ToC
+	% Do not put index sections in ToC. We save the tocdepth and set it to zero, only to restore it after.
 	\addtocontents{toc}{\protect\ctu@savetocdepth}
 	\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 	% Inside index, the sections are tighter together
@@ -742,8 +756,10 @@
 	\clearpage
 }
 
-\newcommand\ctu@savetocdepth{\xdef\ctu@tocdepth{\the\c@tocdepth}}
-\newcommand\ctu@restoretocdepth{\c@tocdepth\ctu@tocdepth\relax}
+% How does this work: in \ctu@tocdepth we save the current tocdepth
+\newcommand\ctu@savetocdepth{\xdef\ctu@saved@tocdepth{\the\c@tocdepth}}
+% This macro restores the saved value.
+\newcommand\ctu@restoretocdepth{\global\c@tocdepth\ctu@saved@tocdepth\relax}
 
 
 

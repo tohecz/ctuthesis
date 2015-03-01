@@ -3,45 +3,6 @@
 
 \ProvidesExplFile{ctuthesis-template.def}{2014/01/18}{0.1}{"Templates" part of the class ctuthesis}
 
-% Abstract template includes the Acknowledgements, Declaration and two Abstracts
-% the abstracts are accompanied by the keywords and possibly other information
-\ctutemplateset{abstract}{
-	\begin{twocolumnfrontmatterpage}
-		\selectctulanguage{title}
-		\chapter{\thanksname}\noindent
-		\ctufield{thanks}
-	\newpage
-		\selectctulanguage{title}
-		\chapter{\declarationname}\noindent
-		\ctufield{declaration}
-	\clearpage
-		\selectctulanguage{title}
-		\chapter{\abstractname}\noindent
-		\ctufield[title]{abstract}
-		\paragraph{\keywordsname :}
-		\ctufield[title]{keywords}
-	\newpage
-		\selectctulanguage{second}
-		\chapter{\abstractname}\noindent
-		\ctufield[second]{abstract}
-		\paragraph{\keywordsname :}
-		\ctufield[second]{keywords}
-	\clearpage
-		\selectctulanguage{main}
-		\tableofcontents
-	\end{twocolumnfrontmatterpage}
-}
-
-% Lists of Figures and Tables
-\ctutemplateset{loft}{
-	\begin{twocolumnfrontmatterpage}
-		\selectctulanguage{main}
-		\ctuifswitch { list-of-figures } { \listoffigures } { }
-		\newpage
-		\ctuifswitch { list-of-tables } { \listoftables } { }
-	\end{twocolumnfrontmatterpage}
-}
-
 % The titlepage, includes doctype, faculty, department, title, author,
 % and some auxiliary information at the bottom
 \ctutemplateset{titlepage}{
@@ -127,6 +88,49 @@
 		\addcontentsline{toc}{chapter}{\specificationname}
 	\fi
 	\ctutemplate{include~specification}
+}
+
+% Abstract template includes the Acknowledgements, Declaration and two Abstracts
+% the abstracts are accompanied by the keywords and possibly other information
+\ctutemplateset{abstract}{
+	\begin{twocolumnfrontmatterpage}
+		\selectctulanguage{title}
+		\chapter{\thanksname}\noindent
+		\ctufield{thanks}
+	\newpage
+		\selectctulanguage{title}
+		\chapter{\declarationname}\noindent
+		\ctufield{declaration}
+	\clearpage
+		\selectctulanguage{title}
+		\chapter{\abstractname}\noindent
+		\ctufield[title]{abstract}\par
+		{ \raggedright
+		\paragraph{\keywordsname :}
+		\ctufield[title]{keywords}
+		\par }
+	\newpage
+		\selectctulanguage{second}
+		\chapter{\abstractname}\noindent
+		\ctufield[second]{abstract}\par
+		{ \raggedright
+		\paragraph{\keywordsname :}
+		\ctufield[second]{keywords}
+		\par }
+	\clearpage
+		\selectctulanguage{main}
+		\tableofcontents
+	\end{twocolumnfrontmatterpage}
+}
+
+% Lists of Figures and Tables
+\ctutemplateset{loft}{
+	\begin{twocolumnfrontmatterpage}
+		\selectctulanguage{main}
+		\ctuifswitch { list-of-figures } { \listoffigures } { }
+		\newpage
+		\ctuifswitch { list-of-tables } { \listoftables } { }
+	\end{twocolumnfrontmatterpage}
 }
 
 % The maketitle command (moreorless): roman page numbering
