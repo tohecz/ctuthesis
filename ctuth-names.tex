@@ -22,6 +22,7 @@
 	\def\subfieldofstudyname{Subfield}
 	\def\specificationname{Project\ Specification}
 	\def\keywordsname{Keywords}
+	\def\titletranslationname{Title\ translation}
 }
 
 \def\ctucaptionsczech{
@@ -35,6 +36,7 @@
 	\def\subfieldofstudyname{Zam\v e\v ren\'i}
 	\def\specificationname{Zad\'an\'i\ pr\'ace}
 	\def\keywordsname{Kl\'i \v cov\'a\ slova}
+	\def\titletranslationname{P\v reklad\ n\'azvu\ pr\'ace}
 }
 
 \def\ctucaptionsslovak{
@@ -49,6 +51,7 @@
 	\def\subfieldofstudyname{Zameranie}
 	\def\specificationname{Zad\'an\'i\ \ pr\'ace}
 	\def\keywordsname{K\v l\'u\v cov\'e\ slov\'a}
+	\def\titletranslationname{Preklad\ n\'azvu\ pr\'ace}
 }
 
 % Name of the university
@@ -102,47 +105,39 @@
 		doctype-czech = { Bakalářská ~ práce },
 		doctype-slovak = { Bakalárska ~ práca }
 	},
-	xdoctype-B .groups:n = { dc, nopre, nopost },
 	xdoctype-M .meta:n = {
 		doctype-english = { Master ~ Thesis },
 		doctype-czech = { Diplomová ~ práce },
 		doctype-slovak = { Diplomová ~ práca }
 	},
-	xdoctype-M .groups:n = { dc, nopre, nopost },
 	xdoctype-D .meta:n = {
 		doctype-english = { Dissertation ~ Thesis },
 		doctype-czech = { Disertační ~ práce },
 		doctype-slovak = { Dizertačná ~ práca }
 	},
-	xdoctype-D .groups:n = { dc, nopre, nopost },
 
 	xfaculty .meta:n = { xfaculty-#1, facultynum={#1}, },
-	xfaculty .groups:n = { dc, nopre, nopost },
 
 	xfaculty-F1 .meta:n = {
 		faculty-english = { Faculty ~ of ~ Civil ~ Engineering },
 		faculty-czech = { Fakulta ~ stavební },
 		faculty-slovak = { Fakulta ~ stavební }
 	},
-	xfaculty-F1 .groups:n = { dc, nopre, nopost },
 	xfaculty-F2 .meta:n = {
 		faculty-english = { Faculty ~ of ~ Mechanical ~ Engineering },
 		faculty-czech = { Fakulta ~ strojní },
 		faculty-slovak = { Fakulta ~ strojní }
 	},
-	xfaculty-F2 .groups:n = { dc, nopre, nopost },
 	xfaculty-F3 .meta:n = {
 		faculty-english = { Faculty ~ of ~ Electrical ~ Engineering },
 		faculty-czech = { Fakulta ~ elektrotechnická },
 		faculty-slovak = { Fakulta ~ elektrotechnická }
 	},
-	xfaculty-F3 .groups:n = { dc, nopre, nopost },
 	xfaculty-F4 .meta:n = {
 		faculty-english = { Faculty ~ of ~ Nuclear ~ Sciences ~ and ~ Physical ~ Engineering },
 		faculty-czech = { Fakulta ~ jaderná ~ a ~ fyzikálně ~ inženýrská },
 		faculty-slovak = { Fakulta ~ jaderná ~ a ~ fyzikálně ~ inženýrská }
 	},
-	xfaculty-F4 .groups:n = { dc, nopre, nopost },
 	
 	%TODO: Other Faculties
 	
