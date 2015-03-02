@@ -44,8 +44,12 @@
 		% The title, in two languages
 		{\LARGE\color{ctubluetext}
 		\ctufield[title]{title}
-		\vskip1ex
-		\ctufield[second]{title}
+		\par}
+		%
+		\vspace{3ex}
+		%
+		{\Large\color{ctubluetext}
+		\ctufield[title]{subtitle}
 		\par}
 		%
 		\vspace*{8ex}
@@ -123,6 +127,9 @@
 		\ctufield[second]{keywords}
 		\paragraph{\titletranslationname :}
 		\ctufield[second]{title}
+		\ctuiffield*[second]{subtitle}{
+			\ --- \ \ctufield[second]{subtitle}
+		} { }
 		\par }
 	\clearpage
 		\selectctulanguage{main}

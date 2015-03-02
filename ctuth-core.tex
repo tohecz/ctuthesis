@@ -156,7 +156,7 @@
 % Language-dependent keys and environments
 \tl_map_inline:Nn \g_ctuthesis_alllanguages_tl {
 	% Various fields in various languages
-	\tl_map_inline:nn { {title}{university}{university-endl}{faculty}{department}
+	\tl_map_inline:nn { {title}{subtitle}{university}{university-endl}{faculty}{department}
 		  {doctype}{fieldofstudy}{subfieldofstudy}{keywords} } {
 		\keys_define:nn { ctuthesis } {
 			##1-#1 .tl_gset:c = g_ctuthesis_field_##1_#1_tl,
@@ -309,6 +309,7 @@
 	}
 }
 
+% The starred variant checks for emptiness rather than for existance
 \DeclareDocumentCommand \ctuiffield { s >{\TrimSpaces}o >{\TrimSpaces}m +m +m } {
 	\IfValueTF { #2 } {
 		\ctuthesis_field_exists:nF { #2 language } { \msg_error:nnx { ctuthesis } { unknown-field } { #1 } }
