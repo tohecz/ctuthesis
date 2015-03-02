@@ -5,7 +5,9 @@
 \RequirePackage{xparse}
 \RequirePackage[utf8]{inputenc}
 
-\ProvidesExplClass{ctuthesis}{2014/01/32}{0.1}{Class for typesetting CTU theses and alike}
+\ProvidesExplClass{ctuthesis}%
+	{2015/03/02}{0.1 t150302024332}%GIT DATE HERE {0.1}
+	{Class for typesetting CTU theses and alike}
 
 % Some general remarks: the module name for this class is `ctuthesis`. Yes, it is quite long,
 % but at the very same time, it's descriptive.

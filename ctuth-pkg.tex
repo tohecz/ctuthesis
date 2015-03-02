@@ -1,7 +1,9 @@
 
 %!TEX ROOT = ctutest.tex
 
-\ProvidesExplFile{ctuthesis-titles.def}{2014/01/18}{0.1}{"Titles" part of the class ctuthesis}
+\ProvidesExplFile{ctuth-pkg.tex}%
+	{2015/03/02}{0.1 t150302024332}%GIT DATE HERE {0.1}
+	{"Packagess"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
 % it heavily depends on l2e packages, and we decided not to mix the code together too much.
@@ -447,6 +449,7 @@
 % and we abuse \fancyhead[C] to include the dividing rule
 \fancypagestyle{twocol}{
 	\fancyhf { }
+	\fancyfoot [ RO, LE ] { \texttt { \ctufield { preprint } } }
 	\fancyfoot [ C ] { \thepage }
 	\fancyhead [ C ] {
 		\leavevmode

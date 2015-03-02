@@ -1,7 +1,9 @@
 
 %!TEX ROOT = ctutest.tex
 
-\ProvidesExplFile{ctuth-core.tex}{2014/01/18}{0.1}{"Core" part of the class ctuthesis}
+\ProvidesExplFile{ctuth-core.tex}%
+	{2015/03/02}{0.1 t150302024332}%GIT DATE HERE {0.1}
+	{"Core"\space part\space of\space the\space class\space ctuthesis}
 
 
 
@@ -81,6 +83,11 @@
 		\seq_gconcat:NNN \g_ctuthesis_languages_seq \g_ctuthesis_languages_seq \l_temp_ctuthesis_a_seq
 		,
 	otherlanguages .groups:n = { dc, pre, nopost },
+	
+	% the value of preprint will appear in the foot of every page
+	preprint .tl_gset:c = g_ctuthesis_field_preprint_tl,
+	preprint .groups:n = { dc, pre, post },
+%	preprint .initial:n = { bla },
 
 }
 
@@ -361,6 +368,11 @@
 }
 
 
+
+
+\def\ctugitlog{}
+
+\IfFileExists{.git}{\typeout{GIT TRUE}}{\typeout{GIT FALSE}}
 
 
 

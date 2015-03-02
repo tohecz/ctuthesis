@@ -8,4 +8,5 @@
 *.lot
 *.out
 *.synctex.gz
+*.sh
 *.toc
