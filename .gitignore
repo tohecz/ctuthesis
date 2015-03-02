@@ -2,7 +2,7 @@
 *.aux
 *.blg
 *.ilg
-*.ind
+*.idx
 *.lof
 *.log
 *.lot

@@ -7,6 +7,18 @@
 
 
 
+
+%%% GENERAL LaTeX3 THINGIES
+
+\cs_generate_variant:Nn \keys_set:nn { nx }
+\cs_generate_variant:Nn \tl_if_eq:nnTF { xn }
+
+
+
+
+
+
+
 %%% CLASS SETUP, FIELDS, TEMPLATES, THEMES
 
 % Set allowed languages: No other languages can ever be main, title or second
@@ -19,6 +31,7 @@
 % Error message for not using \ctuprocess at all
 \msg_new:nnn { ctuthesis } { ctuprocess-none } { It~is~necessary~to~use~the~
 	macro~ \token_to_str:N \ctuprocess\ once~in~the~preamble. }
+
 
 
 
@@ -71,7 +84,7 @@
 
 }
 
-% switches defaulting to false
+% Switches defaulting to false
 \tl_map_inline:Nn { {front-specification}{monochrome} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
@@ -80,7 +93,7 @@
 	}
 }
 
-% switches defaulting to true
+% Switches defaulting to true
 \tl_map_inline:Nn { {front-list-of-tables}{front-list-of-figures} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
@@ -89,21 +102,61 @@
 	}
 }
 
-% we allow keys 10pt, 11pt and 12pt along with the key fontsize
+% We allow keys 10pt, 11pt and 12pt along with the key fontsize
 \tl_map_inline:Nn { {10pt}{11pt}{12pt} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .meta:n = { fontsize = #1 },
-		#1 .groups:n = { dc, nopre, nopost },
+		#1 .groups:n = { dc, nopre, nopost, nop },
 	}
 }
 
-% basic fields that are not language-dependent
+% Basic fields that are not language-dependent
 \tl_map_inline:Nn { {author}{supervisor}{supervisor-address}{day}{month}{year}{facultynum}{specification-file} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .tl_gset:c = { g_ctuthesis_field_#1_tl },
 		#1 .groups:n = { dc, pre, post },
 	}
 }
+
+% Language-dependent keys and environments
+\tl_map_inline:Nn \g_ctuthesis_alllanguages_tl {
+	% Various fields in various languages
+	\tl_map_inline:nn { {title}{university}{university-endl}{faculty}{department}
+		  {doctype}{fieldofstudy}{subfieldofstudy}{keywords} } {
+		\keys_define:nn { ctuthesis } {
+			##1-#1 .tl_gset:c = g_ctuthesis_field_##1_#1_tl,
+			##1-#1 .groups:n = { dc, pre, post }
+		}
+	}
+	% Sets up the importance of each of the languages
+	\tl_map_inline:nn { {mainlanguage}{titlelanguage}{secondlanguage} } {
+		\keys_define:nn { ctuthesis } {
+			##1 / #1 .code:n =
+				\tl_gset:cn { g_ctuthesis_field_##1_tl } { #1 }
+				\seq_gput_right:Nn \g_ctuthesis_languages_seq { #1 }
+		}
+	}
+	% The abstract is now language-dependent
+	\NewEnviron { abstract-#1 } { \tl_gset:cV { g_ctuthesis_field_abstract_#1_tl } \BODY }
+	\tl_new:c { g_ctuthesis_field_abstract_#1_tl }
+}
+
+% "abstract" itself is not used, the language of the abstract has to be specified
+\msg_new:nnn { ctuthesis } { abstract-forbidden } { The~environment~'abstract'~should~be~replaced~
+	by~'abstract-lang'~with~the~proper~language~specified. }
+
+\DeclareDocumentEnvironment{ abstract }{ }{ \msg_error:nn { ctuthesis } { abstract-forbidden } }{ }
+
+% "thanks" and "declaration" are fields, but set up as environments rather then KVs
+\cs_undefine:c { thanks }
+\NewEnviron { thanks } { \tl_gset:cV { g_ctuthesis_field_thanks_tl } \BODY }
+\tl_new:c { g_ctuthesis_field_thanks_tl }
+\NewEnviron { declaration } { \tl_gset:cV { g_ctuthesis_field_declaration_tl } \BODY }
+\tl_new:c { g_ctuthesis_field_declaration_tl }
+
+
+
+
 
 % Error messages for the keyvalue interface
 \msg_new:nnn { ctuthesis } { keys-unknown } { The~key~'#1'~is~not~known~to~the~
@@ -121,6 +174,7 @@
 \keys_define:nn { ctuthesis } {
 	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-unknown } { \l_keys_key_tl },
 }
+
 % Key tweak for dc-only keys used in preamble
 \keys_define:nn { ctuthesis-nop } {
 	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-nop } { \l_keys_key_tl },
@@ -131,65 +185,7 @@
 	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-nopost } { \l_keys_key_tl },
 }
 
-% Language-dependent keys and stuff
-\tl_map_inline:Nn \g_ctuthesis_alllanguages_tl {
-	% Various fields in various languages
-	\tl_map_inline:nn { {title}{university}{university-endl}{faculty}{department}
-		  {doctype}{fieldofstudy}{subfieldofstudy}{keywords} } {
-		\keys_define:nn { ctuthesis } {
-			##1-#1 .tl_gset:c = g_ctuthesis_field_##1_#1_tl,
-			##1-#1 .groups:n = { dc, pre, post }
-			}
-		}
-	% Sets up the importance of each of the languages
-	\tl_map_inline:nn { {mainlanguage}{titlelanguage}{secondlanguage} } {
-		\keys_define:nn { ctuthesis } {
-			##1 / #1 .code:n =
-				\tl_gset:cn { g_ctuthesis_field_##1_tl } { #1 }
-				\seq_gput_right:Nn \g_ctuthesis_languages_seq { #1 }
-				,
-			}
-		}
-	% The abstract is now language-dependent
-	\NewEnviron { abstract-#1 } { \tl_gset:cV { g_ctuthesis_field_abstract_#1_tl } \BODY }
-	\tl_new:c { g_ctuthesis_field_abstract_#1_tl }
-	}
 
-% "thanks" and "declaration" are fields, but set up as environments rather then KVs
-\cs_undefine:c { thanks }
-\NewEnviron { thanks } { \tl_gset:cV { g_ctuthesis_field_thanks_tl } \BODY }
-\tl_new:c { g_ctuthesis_field_thanks_tl }
-\NewEnviron { declaration } { \tl_gset:cV { g_ctuthesis_field_declaration_tl } \BODY }
-\tl_new:c { g_ctuthesis_field_declaration_tl }
-
-
-
-\cs_generate_variant:Nn \keys_set:nn { nx }
-\cs_generate_variant:Nn \tl_if_eq:nnTF { xn }
-
-\cs_new_protected_nopar:Npn \ctuthesis__keys_filter:nnnN
-  {  \ctutesis__@@_filter:onnnN \l_@@_unused_clist }
-\cs_generate_variant:Nn \ctuthesis__keys_filter:nnnN { nnV , nnv , nno }
-\cs_new_protected:Npn \ctuthesis__@@_filter:nnnnN #1#2#3#4#5
-  {
-    \clist_clear:N \l_@@_unused_clist
-    \ctuthesis__keys_filter:nnn {#2} {#3} {#4}
-    \tl_set:Nx #5 { \exp_not:o { \l_@@_unused_clist } }
-    \tl_set:Nn \l_@@_unused_clist {#1}
-  }
-\cs_generate_variant:Nn \ctuthesis__@@_filter:nnnnN { o }
-\cs_new_protected:Npn \ctuthesis__keys_filter:nnn #1#2#3
-  {
-  	\begingroup
-  	\cs_set:Nn \@@_set_elt_aux: {}
-    \bool_set_true:N \l_@@_selective_bool
-    \bool_set_true:N \l_@@_filtered_bool
-    \seq_set_from_clist:Nn \l_@@_selective_seq {#2}
-    \keys_set:nn {#1} {#3}
-    \bool_set_false:N \l_@@_selective_bool
-    \endgroup
-  }
-\cs_generate_variant:Nn \ctuthesis__keys_filter:nnn { nnV , nnv , nno }
 
 
 
@@ -229,16 +225,29 @@
 	% 'nopost' group keys are forbidden. We collect them and if there are any, we invoke the error 'keys-nopre'
 	\keys_set_filter:nnnN { ctuthesis } { nopost } { #1 } \l_temp_ctuthesis_a_tl
   	\group_begin:
+  		% The calls of \keys_set_filter here should actually not set anything, but better behave like
+  		% the non-existant \keys_filter. This is done by disabling any action of \@@_set_elt_aux:,
+  		% which is responsible for the key setting. This works certainly with expl3.sty 2014/11/25 v5471.
+  		% A feature request to the LaTeX3 team will be sent.
 	  	\cs_set:Nn \@@_set_elt_aux: {}
+	  	% Store 'nop' keys in one variable and 'pre' keys in another one.
 		\keys_set_filter:nnVN { ctuthesis } { nop } \l_temp_ctuthesis_a_tl \l_temp_ctuthesis_b_tl
 		\tl_gset_eq:NN \g_temp_ctuthesis_b_tl \l_temp_ctuthesis_b_tl
 		\keys_set_filter:nnVN { ctuthesis } { pre } \l_temp_ctuthesis_a_tl \l_temp_ctuthesis_c_tl
 		\tl_gset_eq:NN \g_temp_ctuthesis_c_tl \l_temp_ctuthesis_c_tl
 	\group_end:
+	% Use \keys_set to the special key modules to call the error functions
 	\keys_set:nV { ctuthesis-nop } \g_temp_ctuthesis_b_tl
 	\keys_set:nV { ctuthesis-nopost } \g_temp_ctuthesis_c_tl
+	% Trigger called after any \keys_set
 	\ctuthesis_ctusetup_trigger:
 }
+
+
+
+
+
+%%% THEMES, TEMPLATES AND FIELDS
 
 % Theme, template and field hadling - "unknown" error messages
 \msg_new:nnn { ctuthesis } { unknown-theme } { Theme~'#1'~has~not~been~defined~
@@ -351,11 +360,7 @@
 	\bool_if:cTF { g_ctuthesis_switch_#1_bool } { #2 } { #3 }
 }
 
-% Abstract itself is not used, the language of the abstract has to be specified
-\msg_new:nnn { ctuthesis } { abstract-forbidden } { The~environment~'abstract'~should~be~replaced~
-	by~'abstract-lang'~with~the~proper~language~specified. }
 
-\DeclareDocumentEnvironment{ abstract }{ }{ \msg_error:nn { ctuthesis } { abstract-forbidden } }{ a }
 
 
 

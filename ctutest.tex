@@ -2,6 +2,8 @@
 % arara: makeindex: { style: ctuthesis }
 % arara: bibtex
 
+\listfiles
+
 % The class takes all the key=value arguments that \ctusetup does,
 % of them, just the fontsize has to be specified immediately;
 % 11pt is the default and we recommend keeping that, still we support
@@ -39,11 +41,13 @@
 
 \ctuprocess
 
+\tracingmacros=1
 \ctusetup{
 	10pt,
 	year = 2018,
 	mainlanguage = czech,
 }
+\tracingmacros=0
 
 % Theorem declarations, this is the reasonable default, anybody can do what they wish.
 % If you prefer theorems in italics rather than slanted, use \theoremstyle{plainit}
