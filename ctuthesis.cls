@@ -6,7 +6,7 @@
 \RequirePackage[utf8]{inputenc}
 
 \ProvidesExplClass{ctuthesis}%
-	{2015/03/02}{0.1 t1503021759}%GIT DATE HERE {0.1}
+	{2015/03/02}{0.1 t1503022307}%MY TIMESTAMP HERE {0.1}
 	{Class for typesetting CTU theses and alike}
 
 % Some general remarks: the module name for this class is `ctuthesis`. Yes, it is quite long,
@@ -27,6 +27,9 @@
 	\tl_use:N \g_ctuthesis_fontsize_tl % fontsize option
 	] { book }
 
+% Once the class is loaded, we disable keys marked 'nop'
+\ctuthesis_disable_keys:n { nop }
+
 % This is the macro that actually loads all the stuff. It ought to be used exactly in the preamble.
 % The reason for this setup is that it allows \ctusetup parameters to influence things that need
 % to be influenced.
@@ -39,8 +42,8 @@
 	\input{ctuth-templates.tex}
 	\ExplSyntaxOff
 	\makeatother
-	% Change the behaviour of \ctusetup slightly, cf. definition of \ctusetup@postprocess
-	\let\ctusetup\ctusetup@postprocess
+	% Once \ctuprocess is called, we disable keys marked 'nop'
+	\ctuthesis_disable_keys:n { nopost }
 	% Make more calls to \ctuprocess lead to an error
 	\let\ctuprocess\ctuprocess@postprocess
 	% Disable check for missing \ctuprocess

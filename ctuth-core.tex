@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-core.tex}%
-	{2015/03/02}{0.1 t1503021759}%GIT DATE HERE {0.1}
+	{2015/03/02}{0.1 t1503022307}%MY TIMESTAMP HERE {0.1}
 	{"Core"\space part\space of\space the\space class\space ctuthesis}
 
 
@@ -14,6 +14,7 @@
 
 \cs_generate_variant:Nn \keys_set:nn { nx }
 \cs_generate_variant:Nn \tl_if_eq:nnTF { xn }
+\cs_generate_variant:Nn \seq_gconcat:NNN { cc }
 
 
 
@@ -43,6 +44,44 @@
 
 %%% KEY-VALUE SETUP
 
+% Two seqs: one for keys that need disabling after \documentclass,
+% another one for keys that need disabling after \ctuprocess
+\seq_new:N \g_ctuthesis_keys_nop_seq
+\seq_new:N \g_ctuthesis_keys_nopost_seq
+% Add the clist #2 into seq #1
+\cs_new:Nn \ctuthesis_keys_add_no:nn {
+	\group_begin:
+	\seq_set_from_clist:Nn \l_temp_ctuthesis_a_seq { #2 }
+	\seq_gconcat:ccN { g_ctuthesis_keys_#1_seq } { g_ctuthesis_keys_#1_seq } \l_temp_ctuthesis_a_seq
+	\group_end:
+}
+
+% Error messages for the keyvalue interface
+\msg_new:nnn { ctuthesis } { keys-unknown } { The~key~'#1'~is~not~known~to~the~
+	class~'ctuthesis'~and~will~be~ignored. }
+
+\msg_new:nnn { ctuthesis } { keys-nopost } { The~key~'#1'~is~forbidden~after~
+	\token_to_str:N \ctuprocess \space and~will~be~ignored.~You~may~wish~to~
+	set~it~up~before. }
+
+\msg_new:nnn { ctuthesis } { keys-nop } { The~key~'#1'~is~forbidden~in~
+	\token_to_str:N \ctusetup \space and~will~be~ignored.~Use~the~optional~argument~
+	of~ \token_to_str:N \documentclass \space to~set~it~up. }
+
+% Very standard unknown key treatment
+\keys_define:nn { ctuthesis } {
+	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-unknown } { \l_keys_key_tl },
+}
+
+% Disables keys marked '#1' (either 'nop' or 'nopost')
+\cs_new:Nn \ctuthesis_disable_keys:n {
+	\seq_map_inline:cn { g_ctuthesis_keys_#1_seq } {
+		\keys_define:nn { ctuthesis } {
+			##1 .code:n = \msg_error:nnx { ctuthesis } { keys-#1 } { ##1 },
+		}
+	}
+}
+
 % General keys
 \tl_gset:Nn \g_ctuthesis_fontsize_tl {11pt}
 \seq_new:N \g_ctuthesis_languages_seq
@@ -50,78 +89,67 @@
 	
 	% Allowed fontsizes are 10pt, 11pt, 12pt, defaulting in 11pt (see above)
 	fontsize .choices:nn = { 10pt, 11pt, 12pt } { \tl_gset_eq:NN \g_ctuthesis_fontsize_tl \l_keys_choice_tl },
-	fontsize .groups:n = { dc, nopre, nopost, nop },
 	
 	% Oneside option
 	oneside .bool_gset:c = { g_ctuthesis_switch_oneside_bool },
-	oneside .groups:n = { dc, nopre, nopost, nop },
 	oneside .initial:n = { false },
 	twoside .meta:n = { oneside = false },
-	twoside .groups:n = { dc, nopre, nopost, nop },
 	
 	% Draft option
 	draft .bool_gset:c = { g_ctuthesis_switch_draft_bool },
-	draft .groups:n = { dc, nopre, nopost, nop },
 	draft .initial:n = { false },
 	
 	% We use three languages:
 	% main for the work itself, ToC and LoFT
 	mainlanguage .choice:,
-	mainlanguage .groups:n = { dc, pre, nopost },
 	% title for the titlepage, thanks, declaration and abstract
 	titlelanguage .choice:,
-	titlelanguage .groups:n = { dc, pre, nopost },
 	% second is the language of second abstract. First abstract is in title language,
 	% second abstract is either in main language, or in English for Czech/Slovak theses
-	% or Czech for English theses
+	% or Czech for English theses. It will be set automatically.
 	secondlanguage .choice:,
-	secondlanguage .groups:n = { dc, pre, nopost },
 
 	% otherlanguages will be simply passed on to babel
 	otherlanguages .code:n =
 		\seq_set_from_clist:Nn \l_temp_ctuthesis_a_seq { #1 }
 		\seq_gconcat:NNN \g_ctuthesis_languages_seq \g_ctuthesis_languages_seq \l_temp_ctuthesis_a_seq
 		,
-	otherlanguages .groups:n = { dc, pre, nopost },
-	
-	% the value of preprint will appear in the foot of every page
-	preprint .tl_gset:c = g_ctuthesis_field_preprint_tl,
-	preprint .groups:n = { dc, pre, post },
-%	preprint .initial:n = { bla },
 
 }
 
+\ctuthesis_keys_add_no:nn { nop } { draft, fontsize, oneside, twoside }
+\ctuthesis_keys_add_no:nn { nopost } { mainlanguage, titlelanguage, secondlanguage }
+
 % Switches defaulting to false
-\tl_map_inline:Nn { {front-specification}{monochrome} } {
+\tl_map_inline:nn { {front-specification}{monochrome} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
-		#1 .groups:n = { dc, pre, post },
 		#1 .initial:n = { false },
 	}
 }
+\ctuthesis_keys_add_no:nn { nopost } { monochrome }
 
 % Switches defaulting to true
-\tl_map_inline:Nn { {front-list-of-tables}{front-list-of-figures} } {
+\tl_map_inline:nn { {front-list-of-tables}{front-list-of-figures} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
-		#1 .groups:n = { dc, pre, post },
 		#1 .initial:n = { true },
 	}
 }
 
 % We allow keys 10pt, 11pt and 12pt along with the key fontsize
-\tl_map_inline:Nn { {10pt}{11pt}{12pt} } {
+\tl_map_inline:nn { {10pt}{11pt}{12pt} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .meta:n = { fontsize = #1 },
-		#1 .groups:n = { dc, nopre, nopost, nop },
 	}
+	\ctuthesis_keys_add_no:nn { nop } { #1 }
 }
 
 % Basic fields that are not language-dependent
-\tl_map_inline:Nn { {author}{supervisor}{supervisor-address}{day}{month}{year}{facultynum}{specification-file} } {
+\tl_map_inline:nn { {author}{supervisor}{supervisor-address}{day}{month}{year}
+	  {facultynum}{specification-file}{preprint} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .tl_gset:c = { g_ctuthesis_field_#1_tl },
-		#1 .groups:n = { dc, pre, post },
 	}
 }
 
@@ -132,10 +160,9 @@
 		  {doctype}{fieldofstudy}{subfieldofstudy}{keywords} } {
 		\keys_define:nn { ctuthesis } {
 			##1-#1 .tl_gset:c = g_ctuthesis_field_##1_#1_tl,
-			##1-#1 .groups:n = { dc, pre, post }
 		}
 	}
-	% Sets up the importance of each of the languages
+	% Sets up the choice for each of the languages
 	\tl_map_inline:nn { {mainlanguage}{titlelanguage}{secondlanguage} } {
 		\keys_define:nn { ctuthesis } {
 			##1 / #1 .code:n =
@@ -151,7 +178,6 @@
 % "abstract" itself is not used, the language of the abstract has to be specified
 \msg_new:nnn { ctuthesis } { abstract-forbidden } { The~environment~'abstract'~should~be~replaced~
 	by~'abstract-lang'~with~the~proper~language~specified. }
-
 \DeclareDocumentEnvironment{ abstract }{ }{ \msg_error:nn { ctuthesis } { abstract-forbidden } }{ }
 
 % "thanks" and "declaration" are fields, but set up as environments rather then KVs
@@ -162,35 +188,6 @@
 \tl_new:c { g_ctuthesis_field_declaration_tl }
 
 
-
-
-
-% Error messages for the keyvalue interface
-\msg_new:nnn { ctuthesis } { keys-unknown } { The~key~'#1'~is~not~known~to~the~
-	class~'ctuthesis'~and~will~be~ignored. }
-
-\msg_new:nnn { ctuthesis } { keys-nopost } { The~key~'#1'~is~forbidden~after~
-	\token_to_str:N \ctuprocess \space and~will~be~ignored.~You~may~wish~to~
-	set~it~up~before. }
-
-\msg_new:nnn { ctuthesis } { keys-nop } { The~key~'#1'~is~forbidden~in~
-	\token_to_str:N \ctusetup \space and~will~be~ignored.~Use~the~optional~argument~
-	of~ \token_to_str:N \documentclass \space to~set~it~up. }
-
-% Unknown key treatment
-\keys_define:nn { ctuthesis } {
-	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-unknown } { \l_keys_key_tl },
-}
-
-% Key tweak for dc-only keys used in preamble
-\keys_define:nn { ctuthesis-nop } {
-	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-nop } { \l_keys_key_tl },
-}
-
-% Key tweak for pre-only keys used after \ctuprocess
-\keys_define:nn { ctuthesis-nopost } {
-	unknown .code:n = \msg_error:nnx { ctuthesis } { keys-nopost } { \l_keys_key_tl },
-}
 
 
 
@@ -221,34 +218,10 @@
 
 % Key setup to be used in the preamble
 \NewDocumentCommand \ctusetup { m } {
-	% 'nop' group keys are forbidden. We collect them and if there are any, we invoke the error 'keys-nopre'
-	\keys_set_filter:nnnN { ctuthesis } { nop } { #1 } \l_temp_ctuthesis_a_tl
-	\keys_set:nV { ctuthesis-nop } \l_temp_ctuthesis_a_tl
+	\keys_set:nn { ctuthesis } { #1 }
 	\ctuthesis_ctusetup_trigger:
 }
 
-% Variant of the command above. After \ctuprocess, this one will be used.
-\NewDocumentCommand \ctusetup@postprocess { m } {
-	% 'nopost' group keys are forbidden. We collect them and if there are any, we invoke the error 'keys-nopre'
-	\keys_set_filter:nnnN { ctuthesis } { nopost } { #1 } \l_temp_ctuthesis_a_tl
-  	\group_begin:
-  		% The calls of \keys_set_filter here should actually not set anything, but better behave like
-  		% the non-existant \keys_filter. This is done by disabling any action of \@@_set_elt_aux:,
-  		% which is responsible for the key setting. This works certainly with expl3.sty 2014/11/25 v5471.
-  		% A feature request to the LaTeX3 team will be sent.
-	  	\cs_set:Nn \@@_set_elt_aux: {}
-	  	% Store 'nop' keys in one variable and 'pre' keys in another one.
-		\keys_set_filter:nnVN { ctuthesis } { nop } \l_temp_ctuthesis_a_tl \l_temp_ctuthesis_b_tl
-		\tl_gset_eq:NN \g_temp_ctuthesis_b_tl \l_temp_ctuthesis_b_tl
-		\keys_set_filter:nnVN { ctuthesis } { pre } \l_temp_ctuthesis_a_tl \l_temp_ctuthesis_c_tl
-		\tl_gset_eq:NN \g_temp_ctuthesis_c_tl \l_temp_ctuthesis_c_tl
-	\group_end:
-	% Use \keys_set to the special key modules to call the error functions
-	\keys_set:nV { ctuthesis-nop } \g_temp_ctuthesis_b_tl
-	\keys_set:nV { ctuthesis-nopost } \g_temp_ctuthesis_c_tl
-	% Trigger called after any \keys_set
-	\ctuthesis_ctusetup_trigger:
-}
 
 
 
@@ -269,11 +242,11 @@
 % Theme and template hadling - setters
 \NewDocumentCommand \ctuthemeset { >{\TrimSpaces}m +m } {
 	\cs_set:cn { ctuthesis_theme_#1_var: } { #2 }
-	}
+}
 
 \NewDocumentCommand \ctutemplateset { >{\TrimSpaces}m +m } {
 	\cs_set:cn { ctuthesis_template_#1_var: } { #2 }
-	}
+}
 
 % Theme, template and field hadling - getters
 \NewDocumentCommand \ctutheme { >{\TrimSpaces}m } {
@@ -379,7 +352,7 @@
 % the timestamp on every page.
 \cs_new:Npx \ctuverlog {
 	ctuthesis ~ \use_ii:nn
-	{2015/03/02}{ t1503021759}%GIT DATE HERE {}	
+	{2015/03/02}{ t1503022307}%MY TIMESTAMP HERE {}	
 }
 
 
