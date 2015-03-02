@@ -2,8 +2,8 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/03/02}{0.1 t150302115333}%GIT DATE HERE {0.1}
-	{"Packagess"\space part\space of\space the\space class\space ctuthesis}
+	{15/03/02}{0.1 t150302121647}%GIT DATE HERE {0.1}
+	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
 % it heavily depends on l2e packages, and we decided not to mix the code together too much.
@@ -472,6 +472,7 @@
 % Plain pagestyle for chapter and part titles: no rules, just the page number
 \fancypagestyle { plain } {
 	\fancyhf { }
+	\fancyfoot [ RO, LE ] { \texttt { \ctufield { preprint } } }
 	\fancyfoot [ C ] { \thepage }
 	\renewcommand \headrulewidth { 0pt }
 	\renewcommand \footrulewidth { 0pt }
