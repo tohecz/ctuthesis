@@ -115,8 +115,13 @@
 		\paragraph{\keywordsname :}
 		\ctufield[title]{keywords}
 		\paragraph{\supervisorname :}
-		\ctufield{supervisor}\\
-		\ctufield{supervisor-address}
+		\ctuiffield*{supervisor}{
+			\ctufield{supervisor}
+			\ctuiffield*{supervisor-address}{
+				\\
+				\ctufield{supervisor-address}
+			}{}
+		}{}
 		\par }
 	\newpage
 		\selectctulanguage{second}
