@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/03/03}{0.1 t1503030022}%MY TIMESTAMP HERE {0.1}
+	{2015/03/03}{0.1 t1503032316}%MY TIMESTAMP HERE {0.1}
 	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
@@ -39,24 +39,46 @@
 \RequirePackage{xcolor}
 
 % Define the colors, first in monochrome, then in colour.
-\ctuifswitch { monochrome } {
-	\definecolor { ctublue } { gray } { 0.8 }
-	\definecolor { ctubluetext } { gray } { 0.4 }
-	\definecolor { ctubluerule } { gray } { 0.4 }
-	\definecolor { ctubluedarkbg } { gray } { 0.2 }
-	\definecolor { ctulightblue } { gray } { 0.9 }
-	\definecolor { ctubluedot } { gray } { 0.9 }
-	\definecolor { ctubluebg } { gray } { 0.95 }
-	\definecolor { ctugray } { gray } { 0.5 }
-} {
+\ctuifswitch { savetoner } {
+	% savetoner: true
 	\definecolor { ctublue } { RGB } { 0, 122, 195 }
-	\colorlet    { ctubluetext } { ctublue }
-	\colorlet    { ctubluerule } { ctublue }
-	\colorlet    { ctubluedarkbg } { ctublue }
 	\definecolor { ctulightblue } { RGB }{ 172, 214, 238 }
-	\colorlet    { ctubluedot } { ctulightblue }
-	\colorlet    { ctubluebg } { ctulightblue!50!white }
+	\colorlet    { ctubluetext } { ctublue }
+	\colorlet    { ctubluerule } { ctulightblue }
+	\colorlet    { ctubluedarkbg } { white }
+	\colorlet    { ctubluedarkfg } { ctublue!50!black }
+	\colorlet    { ctubluedot } { white }%ctulightblue }
+	\colorlet    { ctubluebg } { white }
+	\colorlet    { ctublueitemi } { ctublue }
+	\colorlet    { ctublueitemii } { ctulightblue }
 	\colorlet    { ctugray } { gray }
+} {
+	\ctuifswitch { monochrome } {
+		% savetoner: false, monochrome: true
+		\definecolor { ctublue } { gray } { 0.8 }
+		\definecolor { ctulightblue } { gray } { 0.9 }
+		\definecolor { ctubluetext } { gray } { 0.4 }
+		\definecolor { ctubluerule } { gray } { 0.4 }
+		\definecolor { ctubluedarkbg } { gray } { 0.2 }
+		\definecolor { ctubluedarkfg } { gray } { 1 }
+		\definecolor { ctubluedot } { gray } { 0.9 }
+		\definecolor { ctubluebg } { gray } { 0.95 }
+		\definecolor { ctublueitemi } { gray } { 0.4 }
+		\definecolor { ctublueitemii } { gray } { 0.4 }
+		\definecolor { ctugray } { gray } { 0.5 }
+	} {
+		% savetoner: false, monochrome: false
+		\definecolor { ctublue } { RGB } { 0, 122, 195 }
+		\definecolor { ctulightblue } { RGB }{ 172, 214, 238 }
+		\colorlet    { ctubluetext } { ctublue }
+		\colorlet    { ctubluerule } { ctublue }
+		\colorlet    { ctubluedarkbg } { ctublue }
+		\colorlet    { ctubluedot } { ctulightblue }
+		\colorlet    { ctubluebg } { ctulightblue!50!white }
+		\colorlet    { ctublueitemi } { ctublue }
+		\colorlet    { ctublueitemii } { ctulightblue }
+		\colorlet    { ctugray } { gray }
+	}
 }
 
 \setlength{\parskip}{0pt plus 1pt}
@@ -646,8 +668,8 @@
 	\cs_set:cpn { labelitem #1 } { \box_use:c { g_ctuthesis_list_label_#1_box } }
 }
 % The four labels for itemize
-\ctuthesis_list_prepare_labelitem:nnnn { i } { 0.18 } { 3.6 } { ctubluerule }
-\ctuthesis_list_prepare_labelitem:nnnn { ii } { 0.18 } { 3.6 } { ctubluedot }
+\ctuthesis_list_prepare_labelitem:nnnn { i } { 0.18 } { 3.6 } { ctublueitemi }
+\ctuthesis_list_prepare_labelitem:nnnn { ii } { 0.18 } { 3.6 } { ctublueitemii }
 \ctuthesis_list_prepare_labelitem:nnnn { iii } { 0.36 } { 2.4 } { black }
 \ctuthesis_list_prepare_labelitem:nnnn { iv } { 0.48 } { 1.2 } { black }
 
@@ -780,6 +802,10 @@
 		basicstyle = \ttfamily,
 		columns = fullflexible,
 		tabsize = 4,
+		frame = leftline,
+		framesep = 0pt,
+		framexleftmargin = 3pt,
+		rulecolor = \color{ctubluerule},
 	}
 	\cs_new_eq:NN \ctuthesis_lst_orig_lstinline:w \lstinline
 	\newsavebox{\ctuthesis_lst_box}
