@@ -779,7 +779,6 @@
 		backgroundcolor = \color{ctubluebg},
 		basicstyle = \ttfamily,
 		columns = fullflexible,
-		inputencoding = utf8,
 		tabsize = 4,
 	}
 	\cs_new_eq:NN \ctuthesis_lst_orig_lstinline:w \lstinline
@@ -788,10 +787,16 @@
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]#3#4#3
 		\end{lrbox}
-		\colorbox{#1}{\box\ctuthesis_lst_box}
+		{\fboxsep0pt\colorbox{#1}{\strut\hspace*{0.2em}\box\ctuthesis_lst_box\hspace*{0.2em}}}
 	}
-	\DeclareDocumentCommand \ctulstinline { D(){ctubluebg} O{} m } {
+	\DeclareDocumentCommand \ctulst { D(){ctubluebg} O{} m } {
 		\ctuthesis_lst_do_ctulstinline:nnw { #1 } { #2 } { #3 } #3
+	}
+	\DeclareDocumentCommand \ctulstbr { D(){ctubluebg} O{} m } {
+		\begin{lrbox}{\ctuthesis_lst_box}
+		\ctuthesis_lst_orig_lstinline:w[#2]{#3}
+		\end{lrbox}
+		\colorbox{#1}{\box\ctuthesis_lst_box}
 	}
 }
 

@@ -121,13 +121,13 @@
 \ctuthesis_keys_add_no:nn { nopost } { mainlanguage, titlelanguage, secondlanguage }
 
 % Switches defaulting to false
-\tl_map_inline:nn { {front-specification}{monochrome}{pkg-listings} } {
+\tl_map_inline:nn { {front-specification}{monochrome}{savetoner}{pkg-listings} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
 		#1 .initial:n = { false },
 	}
 }
-\ctuthesis_keys_add_no:nn { nopost } { monochrome, pkg-listings }
+\ctuthesis_keys_add_no:nn { nopost } { monochrome, savetoner, pkg-listings }
 
 % Switches defaulting to true
 \tl_map_inline:nn { {front-list-of-tables}{front-list-of-figures}{pkg-hyperref} } {
@@ -136,7 +136,7 @@
 		#1 .initial:n = { true },
 	}
 }
-\ctuthesis_keys_add_no:nn { nopost } { monochrome, pkg-listings, pkg-hyperref }
+\ctuthesis_keys_add_no:nn { nopost } { pkg-hyperref }
 
 % We allow keys 10pt, 11pt and 12pt along with the key fontsize
 \tl_map_inline:nn { {10pt}{11pt}{12pt} } {
