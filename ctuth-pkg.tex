@@ -162,22 +162,30 @@
 
 %%% GEOMETRY
 
+% The ratios of inner:outer margins
+% Needs to be separate as this to make the colon ":" have the right catcode
+\cs_new:Nx \ctuthesis_geometry_hmarginratio: {4\string :6}
+
 % Target textwidth is 33*basesize (10pt to 12pt)
 \dim_const:Nn \g_ctuthesis_geometry_textwidth_dim { \tl_use:N \g_ctuthesis_fontsize_tl * 33 }
 
-% The ratios of inner:outer and top:bottom margins
-% Needs to be separate as this to make the colon ":" have the right catcode
-\cs_new:Nx \ctuthesis_geometry_hmarginratio: {4\string :6}
-\cs_new:Nx \ctuthesis_geometry_vmarginratio: {5\string :6}
+% Text occupies 75% of the height of the page by default, less if layout-short is active
+% The vmargin ratio is set here in the same manner as the hmargin one above
+\ctuifswitch { layout-short } {
+	\dim_const:Nn \g_ctuthesis_geometry_texthright_dim { 1.5\g_ctuthesis_geometry_textwidth_dim }
+	\cs_new:Nx \ctuthesis_geometry_vmarginratio: {4\string :3}
+} {
+	\dim_const:Nn \g_ctuthesis_geometry_texthright_dim { 0.75\paperheight }
+	\cs_new:Nx \ctuthesis_geometry_vmarginratio: {5\string :6}
+}
 
 % Loading the geometry package.
 % Almost the same setting appears again in \ctuthesis_geometry_plain:
 \RequirePackage [ a4paper ,
 	hmarginratio = \ctuthesis_geometry_hmarginratio: ,
 	textwidth = \g_ctuthesis_geometry_textwidth_dim ,
-	% Text occupies 75% of the height of the page
- 	textheight = 0.75 \paperheight , ignoreheadfoot ,
-	vmarginratio = \ctuthesis_geometry_vmarginratio: ,
+ 	textheight = \g_ctuthesis_geometry_texthright_dim ,
+	vmarginratio = \ctuthesis_geometry_vmarginratio: , ignoreheadfoot ,
 	% Should be at least \baselineskip
 	headheight = 16pt ,
 	marginparsep = 10pt ,
@@ -192,9 +200,9 @@
 	\newgeometry {
 		% Use the stored innermargin value
 		inner = \g_ctuthesis_geometry_innermargin_dim ,
-		% Increase the width by 20%, but do not eceed 420pt
+		% Increase the width by 20%, but do not exceed 420pt
 		textwidth = \dim_min:nn { 420pt } { 1.2 \g_ctuthesis_geometry_textwidth_dim } ,
-		textheight = 0.75 \paperheight ,
+	 	textheight = \g_ctuthesis_geometry_texthright_dim ,
 		vmarginratio = \ctuthesis_geometry_vmarginratio: ,
 		headheight = 16pt ,
 		ignoreheadfoot ,
@@ -208,7 +216,7 @@
 		inner = \dim_use:N \g_ctuthesis_geometry_innermargin_dim ,
 		% Otherwise it's the same as in \RequirePackage[...]{geometry}
 		textwidth = \dim_use:N \g_ctuthesis_geometry_textwidth_dim ,
-		textheight = 0.75 \paperheight ,
+	 	textheight = \g_ctuthesis_geometry_texthright_dim ,
 		vmarginratio = \ctuthesis_geometry_vmarginratio: , ignoreheadfoot ,
 		headheight = 16pt ,
 		marginparsep = 10pt ,

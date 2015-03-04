@@ -121,7 +121,7 @@
 \ctuthesis_keys_add_no:nn { nopost } { mainlanguage, titlelanguage, secondlanguage }
 
 % Switches defaulting to false
-\tl_map_inline:nn { {front-specification}{monochrome}{savetoner}{pkg-listings} } {
+\tl_map_inline:nn { {front-specification}{monochrome}{savetoner}{pkg-listings}{layout-short} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
 		#1 .initial:n = { false },
