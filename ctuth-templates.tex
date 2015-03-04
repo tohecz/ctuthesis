@@ -174,10 +174,15 @@
 	} {
 		\ctutemplate{loft}
 	} { }
-	% Get back to a recto page before starting the document
 	\def\thepage{}
-	\cleardoublepage
-	% The document itself starts here: arabic page numbers, headings style
+	% Start the mainmatter
+	\mainmatter
+}
+
+% Minor change to \mainmatter: we add the star to \cleardoublepage
+\DeclareDocumentCommand \mainmatter { } {
+	\cleardoublepage*
+	\@mainmattertrue
 	\pagenumbering{arabic}
 	\pagestyle{headings}
 }
