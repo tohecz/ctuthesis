@@ -810,6 +810,7 @@
 	\cs_new_eq:NN \ctuthesis_lst_orig_lstinline:w \lstinline
 	\newsavebox{\ctuthesis_lst_box}
 	\DeclareDocumentCommand \ctuthesis_lst_do_ctulstinline:nnw { m m m v } {
+		\leavevmode
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]#3#4#3
 		\end{lrbox}
@@ -819,6 +820,7 @@
 		\ctuthesis_lst_do_ctulstinline:nnw { #1 } { #2 } { #3 } #3
 	}
 	\DeclareDocumentCommand \ctulstbr { D(){ctubluebg} O{} m } {
+		\leavevmode
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]{#3}
 		\end{lrbox}
