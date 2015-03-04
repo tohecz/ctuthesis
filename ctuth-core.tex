@@ -199,6 +199,14 @@
 \cs_new:Nn \ctuthesis_ctusetup_trigger: {
 	% Remove duplicates from the language list
 	\seq_gremove_duplicates:N \g_ctuthesis_languages_seq
+	% Set up titlelanguage as mainlanguage if the latter is defined and the former is not
+	\bool_if:nT { \tl_if_exist_p:c { g_ctuthesis_field_mainlanguage_tl }
+		&& ! \tl_if_empty_p:c { g_ctuthesis_field_mainlanguage_tl }
+		&& ( ! \tl_if_exist_p:c { g_ctuthesis_field_titlelanguage_tl }
+			|| \tl_if_empty_p:c { g_ctuthesis_field_titlelanguage_tl } )
+	} {
+		\keys_set:nx { ctuthesis } { titlelanguage = \tl_use:c { g_ctuthesis_field_mainlanguage_tl } }
+	}
 	% Set up secondlanguage if it has not been set up before
 	\bool_if:nT { \tl_if_exist_p:c { g_ctuthesis_field_mainlanguage_tl }
 		&& \tl_if_exist_p:c { g_ctuthesis_field_titlelanguage_tl }
