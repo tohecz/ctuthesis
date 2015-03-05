@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/03/04}{0.1 t1503040237}%MY TIMESTAMP HERE {0.1}
+	{2015/03/05}{0.1 t1503051948}%MY TIMESTAMP HERE {0.1}
 	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
@@ -820,10 +820,13 @@
 	\newsavebox{\ctuthesis_lst_box}
 	\DeclareDocumentCommand \ctuthesis_lst_do_ctulstinline:nnw { m m m v } {
 		\leavevmode
+		\microtypesetup{activate=false}
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]#3#4#3
-		\end{lrbox}
+%		\ctuthesis_lst_orig_lstinline:w[#2]@#4@
+		\hspace*{0pt}\end{lrbox}
 		{\fboxsep0pt\colorbox{#1}{\strut\hspace*{0.2em}\box\ctuthesis_lst_box\hspace*{0.2em}}}
+		\microtypesetup{activate=true}
 	}
 	\DeclareDocumentCommand \ctulst { D(){ctubluebg} O{} m } {
 		\ctuthesis_lst_do_ctulstinline:nnw { #1 } { #2 } { #3 } #3
@@ -847,6 +850,7 @@
 
 % Provide \phantomsection to make it available in case hyperref wasn't loaded
 \providecommand\phantomsection{}
+\providecommand\microtypesetup[1]{}
 
 
 
