@@ -63,10 +63,7 @@
 \newtheorem*{remark*}{Remark}
 \newtheorem{remark}[theorem]{Remark}
 
-% If you wish an index, you better keep these two lines
-\usepackage{makeidx}
-\makeindex
-
+% Marginpars used as navigation aids.
 \newcommand\ctump[1]{\marginpar{\footnotesize\sffamily#1}}
 
 % Abstract in Czech
@@ -190,7 +187,7 @@ Students and other `users' of the class should carefully read the basic user gui
 \ctulst!ctuth-templates.tex! & Templates for various parts of the document; users may look inside this file and see how things are done;
  this is discussed in more detail in Chapter~\ref{chap:ta}
 \end{tabularx}\end{ctucolortab}
-\caption{The files of the class \ctuclsname.}
+\caption[The files of the class ctuthesis.]{The files of the class \ctuclsname.}
 \label{tab:class-files}
 \end{table}
 
@@ -403,7 +400,9 @@ In appendix, even chapters started by \ctulst!\chapter*! such as the bibliograph
 (In a document without appendices, these should be unnumbered. Once appendices are used, all indexes and alike should be standard numbered appendices.)
 For unnumbered appendices, \ctulst!\chapter**! can be used.
 
-If the document is divided into parts, the appendices are introduced by a part-like title ``Appendices'', both in the document and in the table of contents.
+If
+\ctump{appendix* \\ appendix**}
+the document is divided into parts, the appendices are introduced by a part-like title ``Appendices'', both in the document and in the table of contents.
 This can be suppressed by using \ctulst!\appendix*! (keeps the line in the table of contents) or \ctulst!\appendix**!.
 
 If

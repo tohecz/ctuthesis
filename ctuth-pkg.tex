@@ -771,31 +771,37 @@
 
 %%% INDEX
 
-% We use multicol rather than twocolumn for the index
-\usepackage{multicol}
+\ctuthesis_if_switch:nT { pkg-makeidx } {
 
-% Redefine the index environment to just make the header and start the multicols* envrionment
-% (starred because we don't want to balance the columns), then redefine \item as in original theindex
-\DeclareDocumentEnvironment { theindex } { } {
-	\chapter* {\indexname }
-	\begin{multicols*}{2}
-	\let\item\@idxitem
-	% Do not put index sections in ToC. We save the tocdepth and set it to zero, only to restore it after.
-	\addtocontents{toc}{\protect\ctu@savetocdepth}
-	\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
-	% Inside index, the sections are tighter together
-	\titlespacing*\section{}{10pt}{4pt}
-} {
-	\addtocontents{toc}{\protect\ctu@restoretocdepth}
-	\end{multicols*}
-	\clearpage
+	% Initialize makeindex
+	\usepackage{makeidx}
+	\makeindex
+
+	% We use multicol rather than twocolumn for the index
+	\usepackage{multicol}
+	
+	% Redefine the index environment to just make the header and start the multicols* envrionment
+	% (starred because we don't want to balance the columns), then redefine \item as in original theindex
+	\DeclareDocumentEnvironment { theindex } { } {
+		\chapter* {\indexname }
+		\begin{multicols*}{2}
+		\let\item\@idxitem
+		% Do not put index sections in ToC. We save the tocdepth and set it to zero, only to restore it after.
+		\addtocontents{toc}{\protect\ctu@savetocdepth}
+		\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+		% Inside index, the sections are tighter together
+		\titlespacing*\section{}{10pt}{4pt}
+	} {
+		\addtocontents{toc}{\protect\ctu@restoretocdepth}
+		\end{multicols*}
+		\clearpage
+	}
+	
+	% How does this work: in \ctu@tocdepth we save the current tocdepth
+	\newcommand\ctu@savetocdepth{\xdef\ctu@saved@tocdepth{\the\c@tocdepth}}
+	% This macro restores the saved value.
+	\newcommand\ctu@restoretocdepth{\global\c@tocdepth\ctu@saved@tocdepth\relax}
 }
-
-% How does this work: in \ctu@tocdepth we save the current tocdepth
-\newcommand\ctu@savetocdepth{\xdef\ctu@saved@tocdepth{\the\c@tocdepth}}
-% This macro restores the saved value.
-\newcommand\ctu@restoretocdepth{\global\c@tocdepth\ctu@saved@tocdepth\relax}
-
 
 
 

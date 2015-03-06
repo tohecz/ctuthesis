@@ -130,13 +130,13 @@
 \ctuthesis_keys_add_no:nn { nopost } { monochrome, savetoner, pkg-listings }
 
 % Switches defaulting to true
-\tl_map_inline:nn { {front-list-of-tables}{front-list-of-figures}{pkg-hyperref} } {
+\tl_map_inline:nn { {front-list-of-tables}{front-list-of-figures}{pkg-hyperref}{pkg-makeidx} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
 		#1 .initial:n = { true },
 	}
 }
-\ctuthesis_keys_add_no:nn { nopost } { pkg-hyperref }
+\ctuthesis_keys_add_no:nn { nopost } { pkg-hyperref, pkg-makeidx }
 
 % We allow keys 10pt, 11pt and 12pt along with the key fontsize
 \tl_map_inline:nn { {10pt}{11pt}{12pt} } {
