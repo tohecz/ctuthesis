@@ -1,0 +1,492 @@
+% arara: pdflatex: { synctex: yes }
+% arara: makeindex: { style: ctuthesis }
+% arara: bibtex
+
+%\listfiles
+
+
+%\PassOptionsToPackage{cp1250}{inputenc}
+
+% The class takes all the key=value arguments that \ctusetup does,
+% of them, just the fontsize has to be specified immediately;
+% 11pt is the default and we recommend keeping that, still we support
+% 10pt and 12pt as well.
+\documentclass[twoside,11pt]{ctuthesis}
+
+\makeatletter
+\edef\mytoday{\expandafter\@gobbletwo\the\year\ifnum\month<10 0\fi\the\month\ifnum\day<10 0\fi\the\day}
+\makeatother
+
+\ctusetup{
+	preprint = {\ctuverlog \\ ctuman \mytoday},
+	mainlanguage = english,
+%	titlelanguage = english,
+%	otherlanguages = {czech},
+	title-czech = {Manuál ke třídě ctuthesis pro {\LaTeX}},
+	title-english = {Manual for {\LaTeX} class ctuthesis},
+	doctype-english = {User Manual},
+%	xfaculty = F4,
+%	department-czech = {Katedra matematiky},
+%	department-english = {Department of Mathematics},
+	author = {Tomáš Hejda},
+%	supervisor = {Prof. Krutoš Spravedlivý},
+%	supervisor-address = {Ústav X, \\ Uliční 5, \\ Praha 99},
+	keywords-czech = {manuál, závěrečnná práce, \LaTeX},
+	keywords-english = {manual, degree project, \LaTeX},
+	day = 10,
+	month = 3,
+	year = 2015,
+%	list-of-figures = false,
+%	list-of-tables = false,
+%	monochrome = true,
+%	savetoner = true,
+	pkg-listings = true,
+%	layout-short = true,
+}
+
+\ctuprocess
+
+% Theorem declarations, this is the reasonable default, anybody can do what they wish.
+% If you prefer theorems in italics rather than slanted, use \theoremstyle{plainit}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{note}
+\newtheorem*{remark*}{Remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% If you wish an index, you better keep these two lines
+\usepackage{makeidx}
+\makeindex
+
+\newcommand\ctump[1]{\marginpar{\footnotesize\sffamily#1}}
+
+% Abstract in Czech
+\begin{abstract-czech}
+Tento mánuál představuje \LaTeX ovou třídu ctuthesis, její použití, požadavky na systém atd.
+\end{abstract-czech}
+
+% Abstract in English
+\begin{abstract-english}
+This manual shows how to use the ctuthesis \LaTeX\ class, what are the requirements, etc.
+\end{abstract-english}
+
+% Acknowledgements / Podekovani
+\begin{thanks}
+Děkuji ČVUT, že mi je tak dobrou \emph{alma mater}.
+\end{thanks}
+
+% Declaration / Prohlaseni
+\begin{declaration}
+Prohlašuji, že jsem předloženou práci vypracoval samostatně, a že jsem uvedl veškerou použitou literaturu.
+
+V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
+\end{declaration}
+
+% Hyperref is not pre-loaded; we prefer not to make too many decisions for the user.
+\usepackage[pdfpagelayout=TwoPageRight]{hyperref}
+\hypersetup{colorlinks=false,linktocpage=true}
+
+\usepackage{url}
+
+\usepackage{tabularx,array}
+
+\usepackage{mathtools,amssymb}
+
+% A savebox for typesetting listings in the titles
+\newsavebox{\myboxa}
+
+%\newcommand*\symbO{$\color{red}\bowtie$}
+\newcommand*\symbO{\raisebox{0.5\height}{\scalebox{0.7}{\color{red}${\vartriangleright}\mkern-6mu{\vartriangleleft}$}}}
+\newcommand*\symbM{\raisebox{0.5\height}{\scalebox{0.7}{\color{red}${\blacktriangleright}\mkern-6mu{\blacktriangleleft}$}}}
+\newcommand*\itemO{\item\leavevmode\kern-0.33em\symbO}
+\newcommand*\itemM{\item\leavevmode\kern-0.33em\symbM}
+%
+%\show\lrbox
+
+\begin{document}
+
+% \ctuclsname for typesetting the class' name
+\newcommand\ctuclsname{\leavevmode\copy\ctuclsnamebox}
+\newsavebox\ctuclsnamebox
+\begin{lrbox}{\ctuclsnamebox}
+\ctulst!ctuthesis!
+\end{lrbox}
+
+\maketitle
+
+\chapter{Introduction}
+
+%%%
+%%%\newsavebox\mybox
+%%%
+%%%\DeclareDocumentCommand \boxlst{ D(){yellow} O{} v } {
+%%%		\begin{lrbox}\mybox\hbox{}%
+%%%		\lstinline[#2]@#3@%
+%%%		\hspace*{0pt}%
+%%%		\end{lrbox}
+%%%		\edef\x{\the\wd\mybox}
+%%%%		{\fboxsep0pt\fbox{\box\mybox}}	
+%%%		{I\box\mybox I}
+%%%}
+%%%
+%%%Hello\\
+%%%xxx \boxlst!{aa||}! xxx \lstinline!{|a! xxx
+%%%\\
+%%%xxx \boxlst!a{a||a! xxx \lstinline!a|a! xxx
+%%%\\
+%%%xxx \boxlst!aa{||}! xxx \lstinline!{|a! xxx
+%%%
+%%%
+%%%\end{document}
+
+
+
+In this manual, we want to explain how to use the class \ctuclsname.
+The manual consists of three main parts:
+
+\begin{itemize}
+\item basic user guide;
+\item reference manual;
+\item guide for template authors.
+\end{itemize}
+
+Students and other `users' of the class should carefully read the basic user guide (Chapter~\ref{chap:ug}),
+ and visit the reference when needed (Chapter~\ref{chap:rm}).
+
+
+
+
+
+\chapter{User Guide}
+\label{chap:ug}
+
+
+
+
+
+\section{Installing the class}
+
+\begin{table}[!b]
+\begin{ctucolortab}\begin{tabularx}{0.95\linewidth}{l>{\sloppy}X}
+\bfseries File name & \bfseries Description \\\Midrule
+\ctulst!ctuthesis.cls! & Class file itself \\[\smallskipamount]
+\ctulst!ctu_logo_blue.pdf! & Logo of the university; this file is subject to different license and copyright than the rest of the class files \\[\smallskipamount]
+\ctulst!ctuthesis.ist! & Nicely loooking style for \ctulst!makeindex! \\[\smallskipamount]
+\ctulst!latex3-tl2014.zip! & ZIP file containing the ``good'' version of \LaTeX3 \\[\smallskipamount]
+\ctulst!ctuman.pdf! & This manual \\[\smallskipamount]
+\ctulst!ctuman-*.tex! & Source code to this manual \\[\smallskipamount]
+\ctulst!ctuth-core.tex! & Core definitions for the class; users do not need to ever load this file manually \\[\smallskipamount]
+\ctulst!ctuth-pkg.tex! & Package loading code for the class; users do not need to ever load this file manually \\[\smallskipamount]
+\ctulst!ctuth-names.tex! & Language-dependent part of the class; users should not need to modify this file or load it manually \\[\smallskipamount]
+\ctulst!ctuth-templates.tex! & Templates for various parts of the document; users may look inside this file and see how things are done;
+ this is discussed in more detail in Chapter~\ref{chap:ta}
+\end{tabularx}\end{ctucolortab}
+\caption{The files of the class \ctuclsname.}
+\label{tab:class-files}
+\end{table}
+
+The class comprises the files listed in Table~\ref{tab:class-files}.
+The class is build over the \LaTeX3 bundle, which is a project under development and new programming features are added regularly.
+This means that the class works as is only with \TeX~Live 2014.
+If you have an eariler version of \LaTeX\@ distribution, you have basically two options:
+\begin{enumerate}
+\item Install \TeX~Live 2014 or newer; it is not difficult and it will save you all the troubles.
+ The installing guide is on TUG's website at \url{http://tug.org/texlive/}.
+\item Install just the new version of \LaTeX3.
+ This is tested to work on \TeX~Live from version 2010.
+ The bundle is attached as a ZIP file, it is sufficient to extract all the files in the working directory.
+\end{enumerate}
+
+
+
+
+\section{Minimal example}
+
+The minimal example of a Bachelor project at the Nuclear Faculty looks like this:
+
+% lstinputting utf8 files doesn't really work, so we do the following "hack":
+\begingroup
+% Change encoding to cp1250
+\inputencoding{cp1250}
+% Disable the conflicting shorthands
+\shorthandoff{-}
+\shorthandoff{"}
+% Convert the file from utf8 to cp1250
+\immediate\write18{iconv -fUTF8 -tCP1250 <ctuman-mwe.tex >ctuman-mwe-cp1250.tex}
+% Input the cp1250 version
+\lstinputlisting{ctuman-mwe-cp1250.tex}
+\endgroup
+
+At the first sight, it may look complicated, but the basic structure is pretty simple:
+
+\begin{lstlisting}
+\documentclass{ctuthesis}
+\ctusetup{
+	< key = value settings >
+}
+\ctuprocess
+
+< abstracts and other frontmatter text here,
+	  and standard preamble contents >
+
+\begin{document}
+
+\maketitle
+
+< the whole text here >
+
+\end{document}
+\end{lstlisting}
+
+
+
+
+
+
+\section{Setting up the class}
+
+This section lists all various settings that can be made to the class.
+The ones marked `\symbM'\ are \emph{always mandatory}.
+The ones marked `\symbO'\ are \emph{mandatory in almost all cases, with some small exceptions}.
+For most of them, no errors are issued if they are missing, though.
+
+\begin{lrbox}{\myboxa}\bfseries
+\ctulst!\documentclass!
+\end{lrbox}
+\subsection[Options to \protect\string\protect\documentclass]{Options to \box\myboxa}
+The class \ctuclsname\@ itself takes couple optional arguments, namely
+\ctulst!10pt!, \ctulst!11pt! and \ctulst!12pt! for setting up the basic font size (the default is 11\,pt).
+
+Then it takes the option \ctulst!draft! that says some draft options (the ones common in \LaTeX).
+It also takes the option \ctulst!oneside!, which switches to one-sided mode;
+ however, \emph{we strongly advice against using this option}.
+
+\begin{lrbox}{\myboxa}\bfseries
+\ctulst!\ctusetup!
+\end{lrbox}
+\subsection[Parameters to \texorpdfstring{\protect\string\protect\ctusetup}{ctusetup}]{Parameters to \box\myboxa}
+
+The parameters can be diveded into several groups.
+
+\paragraph{Text fields}
+Some of the fields --- like the theses title --- are language-dependent.
+They are marked \ctulst!key-<lang>! below, and it means that multiple keys exist: \ctulst!key-english!, \ctulst!key-czech! and \ctulst!key-slovak!.
+
+\begin{itemize}
+\itemM \ctulst!author! --- author's name, including titles.
+\itemO \ctulst!supervisor! --- supervisor's name, including titles.
+\itemO \ctulst!supervisor-address! --- supervisor's affiliation and address; use \ctulst!\\! to format it with linebreaks.
+\itemO \ctulst!year!, \symbO\ctulst!month!, \ctulst!day! --- numerical values of the date of theses publishing.
+\itemO \ctulst!title-<lang>! --- title of the thesis.
+\item \ctulst!subtitle-<lang>! --- subtitle.
+\item \ctulst!university-<lang>! --- name of the university (is preset for CTU).
+\item \ctulst!university-endl-<lang>! --- name of the univesity broken in 4 lines using \ctulst!\\!.
+\item \ctulst!faculty-<lang>! --- name of the faculty (set up automatically, see \ctulst!xfaculty! below).
+\item \ctulst!facultynum! --- standard number of the faculty (set up automatically, see \ctulst!xfaculty! below).
+\item \ctulst!doctype-<lang>! --- type of the document/thesis (set up automatically, see \ctulst!xdoctype! below).
+\itemO \ctulst!department-<lang>! --- name of the department.
+\itemO \ctulst!fieldofstudy-<lang>!, \ctulst!subfieldofstudy-<lang>! --- field of study.
+\itemO \ctulst!keywords-<lang>! --- comma-separated list of keywords.
+\end{itemize}
+
+\paragraph{General fields}
+
+\begin{itemize}
+\itemM \ctulst!mainlanguage! --- main language of the thesis; the choices are \ctulst!czech!, \ctulst!english! and \ctulst!slovak!.
+\item \ctulst!titlelanguage! --- language in which the title pages are typeset (defaults to \ctulst!mainlanguage!).
+\item \ctulst!secondlanguage! --- language of the second abstract (set up automatically so that two abstracts appear: one in English and one in Czech,
+ unless the thesis is in Slovakian, in which case the two abstracts are in English and in Slovakian).
+\item \ctulst!otherlanguages! --- allows more languages to be loaded by \ctulst!babel! package, accepts a comma-separated list.
+\itemO \ctulst!xfaculty! --- takes values \ctulst!F1!, \ctulst!F2!, \ldots, \ctulst!F8! and sets up the faculty name and number automatically.
+\itemO \ctulst!xdoctype! --- takes values \ctulst!B! (bachelor), \ctulst!M! (master) or \ctulst!D! (dissertation) and sets up the document
+ type automatically; for non-thesis-like documents, use \ctulst!doctype-<lang>!.
+\itemO \ctulst!specification-file! --- the path to the specification file (usually something like \ctulst!zadani.pdf!,
+ the current directory is searched for the file of course).
+\item \ctulst!front-specification! --- if set to true, the specification will appear just after the titlepage (defaults to \ctulst!false!).
+\item \ctulst!front-list-of-figures!, \ctulst!front-list-of-tables! --- says whether the list of figures/tables will be set
+ in the frontmatter (default to \ctulst!true!)
+\item \ctulst!monochrome! --- switches to optimized monochrome setup, in case the work will not be printed in colour.
+\item \ctulst!savetoner! --- disables background and other too dark things to save toner while printing drafts.
+\end{itemize}
+
+\paragraph{Default package loading}
+The class attempts to set up some packages nicely if the user wants to use them.
+So for instance, the package \ctulst!listings! can be pre-set to include the blue background of all listings.
+In order to leave the user the chance to mess with things ``his own way'', options are offered to enable or disable certain packages.
+The format of the option name is always \ctulst!pkg-<packagename>! and it accepts either \ctulst!true! or \ctulst!false!
+
+\begin{itemize}
+\item \ctulst!pkg-hyperref! (default: \ctulst!true!) --- sets up all the fields of the PDF document.
+\item \ctulst!pkg-listings! (default: \ctulst!false!) --- sets up \ctulst!\ttfamily! font for all listings, and adds a background to all display listings.
+ For inline listings, this is a bit more complicated; we rather implemented a new macro
+  \ctulst:\ctulst(color)[settings]!<text>!: that behaves exactly like \ctulst:\lstinline!<text>!:,
+  but applies the background; the color is an optional argument (in parentheses \ctulst!()!)
+  and defaults to the blue background color seen in this manual. Any printable symbol but one of \ctulst![({}!
+  can be used in place of \ctulst:!:.
+\item \ctulst!pkg-amsthm! (default: \ctulst!true!) --- sets up nicely the basic styles for theorems, but does not set up the theorem environment themselves.
+ More information is in Section~\ref{sect:theorems}
+\item \ctulst!pkg-biblatex! (default: \ctulst!false!) --- more details in Section~\ref{sect:biblio}.
+\end{itemize}
+
+
+
+
+
+
+
+\subsection{Text environments used in the preamble}
+
+There is a small number of environments that should be used in the preamble in order to set up various text fields,
+ mostly used in the front matter.
+
+\begin{itemize}
+\itemO \ctulst!{abstract-<lang>}! --- abstract; the language has to be always specified.
+\itemO \ctulst!{thanks}! --- acknowledgements; can be used for both personal and grant ackowledgements.
+\itemO \ctulst!{declaration}! --- students are oblidged to declare that the works is their works, and maybe some more things,
+ depending on the faculty's or deparment's regulations.
+\end{itemize}
+
+
+
+
+
+
+\section{Various parts of the document}
+
+
+
+
+
+\subsection{Frontmatter}
+
+Typically,
+\ctump{maketitle}
+the frontmatter will be only one command: \ctulst!\maketitle!.
+This typesets the titlepage, the acknowledgements, the declaration, the two abstracts, the table of contents,
+\ctump{mainmatter}
+ and possibly the lists of figures and tables. Afterwards, it immediately switches to \ctulst!\mainmatter!.
+
+Another
+\ctump{frontmatter}
+option, which should be used only in special cases, is to start the frontmatter with \ctulst!\frontmatter!,
+ include whatever material should be there and close it by \ctulst!\mainmatter!.
+This is discussed in detail in Chapter~\ref{ch:ta}.
+
+
+
+
+
+\subsection{Mainmatter and backmatter. Sectioning}
+
+Standard
+\ctump{chapter\\section\\subsection\\subsubsection\\paragraph\\subparagraph\\part}
+sectioning commands are suported, they are \ctulst!\chapter!, \ctulst!\section!, \ctulst!\subsection!, \ctulst!\subsubsection!.
+These ought to follow the hierarchy from top to bottom.
+There is also \ctulst!\paragraph! and \ctulst!\subparagraph! which can be used as lowest-level sectioning commands.
+Long works can be divided into parts using \ctulst!\part!; its numbering is independent of the other ones.
+All these commands take standard optional argument and star;  however, we advice against using starred sections.
+
+The
+\ctump{appendix}
+appendices are introduced by command \ctulst!\appendix!.
+Then, each appendix is a chapter, so the standard \ctulst!\chapter! command ought to be used.
+In appendix, even chapters started by \ctulst!\chapter*! such as the bibliography and the index are numbered.
+(In a document without appendices, these should be unnumbered. Once appendices are used, all indexes and alike should be standard numbered appendices.)
+For unnumbered appendices, \ctulst!\chapter**! can be used.
+
+If the document is divided into parts, the appendices are introduced by a part-like title ``Appendices'', both in the document and in the table of contents.
+This can be suppressed by using \ctulst!\appendix*! (keeps the line in the table of contents) or \ctulst!\appendix**!.
+
+If
+\ctump{specification as chapter}
+the project specification is to be included as an appendix, it can be done by \ctulst!\ctutemplate{specification as chapter}!.
+
+There is no true backmatter behaviour defined in the class.
+The only thing that would belong to the backmatter is the colophon (`\textit{\foreignlanguage{czech}{tiráž}}').
+Users are advised to use \ctulst!\cleardoublepage* \thispagestyle{empty}! and then typeset the colophon to their liking.
+
+
+
+
+
+
+\subsection{The bibliography}
+
+There are three ways how to include the bibliography:
+\begin{enumerate}
+
+\item
+ Using Biblatex.
+ In that case, setting up \ctulst!pkg-biblatex = true! is recommended.
+ The bibliography is then included using \ctulst!\addbibresource! and \ctulst!\printbibliography!.
+
+\item
+ Using \textsc{Bib}\TeX.
+ No special setting is needed, and the bibliography is included using \ctulst!\bibliographystyle! and \ctulst!\bibliography!.
+
+\item
+ By direct input.
+ The standard environment \ctulst!{thebibliography}! can be used for this.
+
+\end{enumerate}
+We kindly ask users to consult the manuals to the specific packages for their usage.
+
+
+
+
+
+\subsection{The index}
+
+To
+\ctump{makeindex\\printindex}
+generate the index, use \ctulst!pkg-makeidx = true!, and put \ctulst!\printindex! where the index should appear.
+We provide an in-house style for the index called \ctulst!ctuthesis.ist!.
+The index generation is dependent on calling the external tool \ctulst!makeindex!, in a similar way in which the bibliography generation depends
+ on \ctulst!bibtex! or \ctulst!biber!.
+The proper way how to call this tool is the following:
+\begin{lstlisting}
+makeindex -s ctuthesis.ist <filename>
+\end{lstlisting}
+where \ctulst!<filename>! is the root name of your main project file (without \ctulst!.tex!).
+
+
+
+
+
+\subsection{List of notation. Nomenclature}
+
+TBD
+
+
+
+
+
+\subsection{Floating objects: Figures and tables}
+
+\paragraph{Float introduction}
+Floats
+\ctump{figure\\table}
+are input either as \ctulst!{figure}! or \ctulst!{table}! environment.
+
+
+
+
+
+
+\appendix
+
+\printindex
+
+\bibliographystyle{amsalpha}
+\bibliography{ctutest}
+
+\end{document}
