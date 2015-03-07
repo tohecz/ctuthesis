@@ -269,8 +269,9 @@
 % `\ctufield` supports the context language specifier as an optional argument
 \NewDocumentCommand \ctufield { >{\TrimSpaces}o >{\TrimSpaces}m } {
 	\IfValueTF { #1 } {
-			\ctuthesis_field_exists:nF { #1 language } { \msg_error:nnx { ctuthesis } { unknown-field } { #1 } }
-			\ctuthesis_field_use:n { #2_\ctuthesis_field_use:n { #1 language } }
+%			\ctuthesis_field_exists:nF { #1 language } { \msg_error:nnx { ctuthesis } { unknown-field } { #1 } }
+%			\ctuthesis_field_use:n { #2_\ctuthesis_field_use:n { #1 language } }
+			\ctuthesis_field_use:nn { #1 } { #2 }
 	} {
 			\ctuthesis_field_use:n { #2 }
 	}
