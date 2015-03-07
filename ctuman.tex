@@ -223,6 +223,7 @@ The minimal example of a Bachelor project at the Nuclear Faculty looks like this
 \lstinputlisting{ctuman-mwe-cp1250.tex}
 \endgroup
 
+\noindent
 At the first sight, it may look complicated, but the basic structure is pretty simple:
 
 \begin{lstlisting}
@@ -260,10 +261,15 @@ For most of them, no errors are issued if they are missing, though.
 \ctulst!\documentclass!
 \end{lrbox}
 \subsection[Options to \protect\string\protect\documentclass]{Options to \box\myboxa}
-The class \ctuclsname\@ itself takes couple optional arguments, namely
+
+The
+\ctump{documentclass \\ ctuthesis \\ 10pt \\ 11pt \\ 12pt}
+class \ctuclsname\@ itself takes couple optional arguments, namely
 \ctulst!10pt!, \ctulst!11pt! and \ctulst!12pt! for setting up the basic font size (the default is 11\,pt).
 
-Then it takes the option \ctulst!draft! that says some draft options (the ones common in \LaTeX).
+Then
+\ctump{draft \\ oneside}
+it takes the option \ctulst!draft! that says some draft options (the ones common in \LaTeX).
 It also takes the option \ctulst!oneside!, which switches to one-sided mode;
  however, \emph{we strongly advice against using this option}.
 
@@ -272,47 +278,127 @@ It also takes the option \ctulst!oneside!, which switches to one-sided mode;
 \end{lrbox}
 \subsection[Parameters to \texorpdfstring{\protect\string\protect\ctusetup}{ctusetup}]{Parameters to \box\myboxa}
 
-The parameters can be diveded into several groups.
+The
+\ctump{ctusetup}
+parameters can be diveded into several groups.
 
 \paragraph{Text fields}
 Some of the fields --- like the theses title --- are language-dependent.
 They are marked \ctulst!key-<lang>! below, and it means that multiple keys exist: \ctulst!key-english!, \ctulst!key-czech! and \ctulst!key-slovak!.
 
 \begin{itemize}
-\itemM \ctulst!author! --- author's name, including titles.
-\itemO \ctulst!supervisor! --- supervisor's name, including titles.
-\itemO \ctulst!supervisor-address! --- supervisor's affiliation and address; use \ctulst!\\! to format it with linebreaks.
-\itemO \ctulst!year!, \symbO\ctulst!month!, \ctulst!day! --- numerical values of the date of theses publishing.
-\itemO \ctulst!title-<lang>! --- title of the thesis.
-\item \ctulst!subtitle-<lang>! --- subtitle.
-\item \ctulst!university-<lang>! --- name of the university (is preset for CTU).
-\item \ctulst!university-endl-<lang>! --- name of the univesity broken in 4 lines using \ctulst!\\!.
-\item \ctulst!faculty-<lang>! --- name of the faculty (set up automatically, see \ctulst!xfaculty! below).
-\item \ctulst!facultynum! --- standard number of the faculty (set up automatically, see \ctulst!xfaculty! below).
-\item \ctulst!doctype-<lang>! --- type of the document/thesis (set up automatically, see \ctulst!xdoctype! below).
-\itemO \ctulst!department-<lang>! --- name of the department.
-\itemO \ctulst!fieldofstudy-<lang>!, \ctulst!subfieldofstudy-<lang>! --- field of study.
-\itemO \ctulst!keywords-<lang>! --- comma-separated list of keywords.
+
+\itemM \ctulst!author!
+ \ctump{author}
+ --- author's name, including titles.
+
+\itemO \ctulst!supervisor!
+ \ctump{supervisor}
+ --- supervisor's name, including titles.
+
+\itemO \ctulst!supervisor-address!
+ \ctump{supervisor-address} ---
+ supervisor's affiliation and address; use \ctulst!\\! to format it with linebreaks.
+
+\itemO \ctulst!year!, \symbO\ctulst!month!, \ctulst!day! ---
+ \ctump{year \\ month \\ day}
+ numerical values of the date of theses publishing.
+
+\itemO \ctulst!title-<lang>! ---
+ \ctump{title-<lang>}
+ title of the thesis.
+
+\item \ctulst!subtitle-<lang>! ---
+ \ctump{subtitle-<lang>}
+ subtitle.
+
+\item \ctulst!university-<lang>! ---
+ \ctump{university-<lang>}
+ name of the university (is preset for CTU).
+
+\item \ctulst!university-endl-<lang>! ---
+ \ctump{university-endl-<lang>}
+ name of the univesity broken in 4 lines using \ctulst!\\!.
+
+\item \ctulst!faculty-<lang>! ---
+ \ctump{faculty-<lang>}
+ name of the faculty (set up automatically, see \ctulst!xfaculty! below).
+
+\item \ctulst!facultynum! ---
+ \ctump{facultynum}
+ standard number of the faculty (set up automatically, see \ctulst!xfaculty! below).
+
+\item \ctulst!doctype-<lang>! ---
+ \ctump{doctype-<lang>}
+ type of the document/thesis (set up automatically, see \ctulst!xdoctype! below).
+
+\itemO \ctulst!department-<lang>! ---
+ \ctump{department-<lang>}
+ name of the department.
+
+\itemO \ctulst!fieldofstudy-<lang>!, \ctulst!subfieldofstudy-<lang>! ---
+ \ctump{fieldofstudy-<lang> \\ subfieldofstudy-<lang>}
+ field of study.
+
+\itemO \ctulst!keywords-<lang>! ---
+ \ctump{keywords-<lang>}
+ comma-separated list of keywords.
+
 \end{itemize}
 
 \paragraph{General fields}
 
 \begin{itemize}
-\itemM \ctulst!mainlanguage! --- main language of the thesis; the choices are \ctulst!czech!, \ctulst!english! and \ctulst!slovak!.
-\item \ctulst!titlelanguage! --- language in which the title pages are typeset (defaults to \ctulst!mainlanguage!).
-\item \ctulst!secondlanguage! --- language of the second abstract (set up automatically so that two abstracts appear: one in English and one in Czech,
- unless the thesis is in Slovakian, in which case the two abstracts are in English and in Slovakian).
-\item \ctulst!otherlanguages! --- allows more languages to be loaded by \ctulst!babel! package, accepts a comma-separated list.
-\itemO \ctulst!xfaculty! --- takes values \ctulst!F1!, \ctulst!F2!, \ldots, \ctulst!F8! and sets up the faculty name and number automatically.
-\itemO \ctulst!xdoctype! --- takes values \ctulst!B! (bachelor), \ctulst!M! (master) or \ctulst!D! (dissertation) and sets up the document
+
+\itemM \ctulst!mainlanguage!
+ \ctump{mainlanguage}
+ --- main language of the thesis; the choices are \ctulst!czech!, \ctulst!english! and \ctulst!slovak!.
+
+\item \ctulst!titlelanguage!
+ \ctump{titlelanguage}
+ --- language in which the title pages are typeset (defaults to \ctulst!mainlanguage!).
+
+\item \ctulst!secondlanguage!
+ \ctump{secondlanguage}
+ --- language of the second abstract (set up automatically so that two abstracts appear: one in English and one in Czech,
+ unless the thesis is in Slovakian, in which case the two abstracts are in English and in Slovakian). 
+
+\item \ctulst!otherlanguages!
+ \ctump{otherlanguages}
+ --- allows more languages to be loaded by \ctulst!babel! package, accepts a comma-separated list.
+
+\itemO \ctulst!xfaculty!
+ \ctump{xfaculty}
+ --- takes values \ctulst!F1!, \ctulst!F2!, \ldots, \ctulst!F8! and sets up the faculty name and number automatically.
+
+\itemO \ctulst!xdoctype!
+ \ctump{xdoctype}
+ --- takes values \ctulst!B! (bachelor), \ctulst!M! (master) or \ctulst!D! (dissertation) and sets up the document
  type automatically; for non-thesis-like documents, use \ctulst!doctype-<lang>!.
-\itemO \ctulst!specification-file! --- the path to the specification file (usually something like \ctulst!zadani.pdf!,
+
+\itemO \ctulst!specification-file! ---
+ \ctump{specification-file}
+ the path to the specification file (usually something like \ctulst!zadani.pdf!,
  the current directory is searched for the file of course).
-\item \ctulst!front-specification! --- if set to true, the specification will appear just after the titlepage (defaults to \ctulst!false!).
-\item \ctulst!front-list-of-figures!, \ctulst!front-list-of-tables! --- says whether the list of figures/tables will be set
+
+\item \ctulst!front-specification!
+ \ctump{front-specification}
+ --- if set to true, the specification will appear just after
+ the titlepage (defaults to \ctulst!false!).
+
+\item \ctulst!front-list-of-figures!, \ctulst!front-list-of-tables!
+ \ctump{front-list-of-figures \\ front-list-of-tables}
+ --- says whether the list of figures/tables will be set
  in the frontmatter (default to \ctulst!true!)
-\item \ctulst!monochrome! --- switches to optimized monochrome setup, in case the work will not be printed in colour.
-\item \ctulst!savetoner! --- disables background and other too dark things to save toner while printing drafts.
+
+\item \ctulst!monochrome!
+ \ctump{monochrome}
+ --- switches to optimized monochrome setup, in case the work will not be printed in colour.
+
+\item \ctulst!savetoner!
+ \ctump{savetoner}
+ --- disables background and other too dark things to save toner while printing drafts.
+
 \end{itemize}
 
 \paragraph{Default package loading}
@@ -322,16 +408,30 @@ In order to leave the user the chance to mess with things ``his own way'', optio
 The format of the option name is always \ctulst!pkg-<packagename>! and it accepts either \ctulst!true! or \ctulst!false!
 
 \begin{itemize}
-\item \ctulst!pkg-hyperref! (default: \ctulst!true!) --- sets up all the fields of the PDF document.
-\item \ctulst!pkg-listings! (default: \ctulst!false!) --- sets up \ctulst!\ttfamily! font for all listings, and adds a background to all display listings.
+
+\item \ctulst!pkg-hyperref! (default: \ctulst!true!) ---
+ \ctump{pkg-hyperref}
+ sets up all the fields of the PDF document.
+
+\item \ctulst!pkg-listings! (default: \ctulst!false!) ---
+ \ctump{pkg-listings}
+ sets up \ctulst!\ttfamily! font for all listings, and adds a background to all display listings.
  For inline listings, this is a bit more complicated; we rather implemented a new macro
+ \ctump{ctulst}
   \ctulst:\ctulst(color)[settings]!<text>!: that behaves exactly like \ctulst:\lstinline!<text>!:,
   but applies the background; the color is an optional argument (in parentheses \ctulst!()!)
   and defaults to the blue background color seen in this manual. Any printable symbol but one of \ctulst![({}!
   can be used in place of \ctulst:!:.
-\item \ctulst!pkg-amsthm! (default: \ctulst!true!) --- sets up nicely the basic styles for theorems, but does not set up the theorem environment themselves.
+
+\item \ctulst!pkg-amsthm! (default: \ctulst!true!) ---
+ \ctump{pkg-amsthm}
+ sets up nicely the basic styles for theorems, but does not set up the theorem environment themselves.
  More information is in Section~\ref{sect:theorems}
-\item \ctulst!pkg-biblatex! (default: \ctulst!false!) --- more details in Section~\ref{sect:biblio}.
+
+\item \ctulst!pkg-biblatex! (default: \ctulst!false!) ---
+ \ctump{pkg-biblatex}
+ more details in Section~\ref{sect:biblio}.
+
 \end{itemize}
 
 
@@ -346,10 +446,20 @@ There is a small number of environments that should be used in the preamble in o
  mostly used in the front matter.
 
 \begin{itemize}
-\itemO \ctulst!{abstract-<lang>}! --- abstract; the language has to be always specified.
-\itemO \ctulst!{thanks}! --- acknowledgements; can be used for both personal and grant ackowledgements.
-\itemO \ctulst!{declaration}! --- students are oblidged to declare that the works is their works, and maybe some more things,
+
+\itemO \ctulst!{abstract-<lang>}! --- abstract;
+ \ctump{abstract-<lang>}
+ the language has to be always specified.
+
+\itemO \ctulst!{thanks}! --- acknowledgements;
+ \ctump{thanks}
+ can be used for both personal and grant ackowledgements.
+
+\itemO \ctulst!{declaration}! --- students
+ \ctump{declaration}
+ are oblidged to declare that the works is their works, and maybe some more things,
  depending on the faculty's or deparment's regulations.
+
 \end{itemize}
 
 
@@ -418,7 +528,7 @@ Users are advised to use \ctulst!\cleardoublepage* \thispagestyle{empty}! and th
 
 
 
-\subsection{The bibliography}
+\subsection{Bibliography}
 
 There are three ways how to include the bibliography:
 \begin{enumerate}
@@ -443,10 +553,10 @@ We kindly ask users to consult the manuals to the specific packages for their us
 
 
 
-\subsection{The index}
+\subsection{Index}
 
 To
-\ctump{makeindex\\printindex}
+\ctump{makeidx \\ makeindex \\ printindex}
 generate the index, use \ctulst!pkg-makeidx = true!, and put \ctulst!\printindex! where the index should appear.
 We provide an in-house style for the index called \ctulst!ctuthesis.ist!.
 The index generation is dependent on calling the external tool \ctulst!makeindex!, in a similar way in which the bibliography generation depends
@@ -455,7 +565,9 @@ The proper way how to call this tool is the following:
 \begin{lstlisting}
 makeindex -s ctuthesis.ist <filename>
 \end{lstlisting}
-where \ctulst!<filename>! is the root name of your main project file (without \ctulst!.tex!).
+where
+ \ctump{ctuthesis.ist}
+ \ctulst!<filename>! is the root name of your main project file (without \ctulst!.tex!).
 
 
 
@@ -463,8 +575,24 @@ where \ctulst!<filename>! is the root name of your main project file (without \c
 
 \subsection{List of notation. Nomenclature}
 
-TBD
+We do not preset any special environment for typesetting appendices such as list of notation or nomenclature.
+One of the possible standard way how to do it is with the help of the packages \ctulst!tabularx!,
+ \ctump{tabularx \\ array \\ booktabs}
+ \ctulst!array! and \ctulst!booktabs! as follows:
 
+% lstinputting files doesn't really work with shorthands:
+\begingroup
+% Disable the shorthands
+\shorthandoff{-}
+\shorthandoff{"}
+% Input the file; it's easy here since the file doesn't contain any utf8 characters
+\lstinputlisting{ctuman-notation.tex}
+\endgroup
+
+\noindent
+In the case the notation is longer than one page, the package
+ \ctump{ltxtable \\ ltablex}
+ \ctulst!ltxtable! or \ctulst!ltablex! can be used.
 
 
 
