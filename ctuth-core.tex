@@ -280,6 +280,12 @@
 	\cs_if_exist_use:cF { g_ctuthesis_field_#1_tl } { \msg_error:nnx { ctuthesis } { unknown-field } { #1 } }
 }
 
+% This one takes two arguments: the language and the field name
+\cs_new:Nn \ctuthesis_field_use:nn {
+	\cs_if_exist:cF { g_ctuthesis_field_#1language_tl } { \msg_error:nnx { ctuthesis } { unknown-field } { #1 } }
+	\ctuthesis_field_use:n { #2_\ctuthesis_field_use:n { #1 language } }
+}
+
 % Theme, template and field hadling - existance conditionals
 \prg_new_conditional:Nnn \ctuthesis_theme_exists:n { p, T, F, TF } {
 	\cs_if_exist:cTF { ctuthesis_theme_#1_var } { \prg_return_true: } { \prg_return_false: }
