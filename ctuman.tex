@@ -1,6 +1,6 @@
 % arara: pdflatex: { synctex: yes }
 % arara: makeindex: { style: ctuthesis }
-% arara: bibtex
+%% arara: bibtex
 
 %\listfiles
 
@@ -64,7 +64,23 @@
 \newtheorem{remark}[theorem]{Remark}
 
 % Marginpars used as navigation aids.
-\newcommand\ctump[1]{\marginpar{\footnotesize\sffamily#1}}
+\usepackage{mparhack}
+
+\newcommand\indexmp[1]{{\sffamily\bfseries#1}}
+
+\ExplSyntaxOn
+\cs_new:Nn \ctuman_domarginpar:n {
+	\marginpar
+	[ \raggedleft \footnotesize \sffamily #1 ]
+	{ \raggedright \footnotesize \sffamily #1 }
+}
+\cs_generate_variant:Nn \ctuman_domarginpar:n { x }
+\DeclareDocumentCommand \ctump { m } {
+	\clist_set:Nn \ctuman_temp_clist { #1 }
+	\ctuman_domarginpar:x { \clist_use:Nnnn \ctuman_temp_clist { \\ } { \\ } { \\ } }
+	\clist_map_inline:Nn \ctuman_temp_clist { \index{##1|indexmp} }
+}
+\ExplSyntaxOff
 
 % Abstract in Czech
 \begin{abstract-czech}
@@ -263,12 +279,12 @@ For most of them, no errors are issued if they are missing, though.
 \subsection[Options to \protect\string\protect\documentclass]{Options to \box\myboxa}
 
 The
-\ctump{documentclass \\ ctuthesis \\ 10pt \\ 11pt \\ 12pt}
+\ctump{documentclass, ctuthesis, 10pt, 11pt, 12pt}
 class \ctuclsname\@ itself takes couple optional arguments, namely
 \ctulst!10pt!, \ctulst!11pt! and \ctulst!12pt! for setting up the basic font size (the default is 11\,pt).
 
 Then
-\ctump{draft \\ oneside}
+\ctump{draft, oneside}
 it takes the option \ctulst!draft! that says some draft options (the ones common in \LaTeX).
 It also takes the option \ctulst!oneside!, which switches to one-sided mode;
  however, \emph{we strongly advice against using this option}.
@@ -301,7 +317,7 @@ They are marked \ctulst!key-<lang>! below, and it means that multiple keys exist
  supervisor's affiliation and address; use \ctulst!\\! to format it with linebreaks.
 
 \itemO \ctulst!year!, \symbO\ctulst!month!, \ctulst!day! ---
- \ctump{year \\ month \\ day}
+ \ctump{year, month, day}
  numerical values of the date of theses publishing.
 
 \itemO \ctulst!title-<lang>! ---
@@ -337,7 +353,7 @@ They are marked \ctulst!key-<lang>! below, and it means that multiple keys exist
  name of the department.
 
 \itemO \ctulst!fieldofstudy-<lang>!, \ctulst!subfieldofstudy-<lang>! ---
- \ctump{fieldofstudy-<lang> \\ subfieldofstudy-<lang>}
+ \ctump{fieldofstudy-<lang>, subfieldofstudy-<lang>}
  field of study.
 
 \itemO \ctulst!keywords-<lang>! ---
@@ -387,7 +403,7 @@ They are marked \ctulst!key-<lang>! below, and it means that multiple keys exist
  the titlepage (defaults to \ctulst!false!).
 
 \item \ctulst!front-list-of-figures!, \ctulst!front-list-of-tables!
- \ctump{front-list-of-figures \\ front-list-of-tables}
+ \ctump{front-list-of-figures, front-list-of-tables}
  --- says whether the list of figures/tables will be set
  in the frontmatter (default to \ctulst!true!)
 
@@ -495,7 +511,7 @@ This is discussed in detail in Chapter~\ref{ch:ta}.
 \subsection{Mainmatter and backmatter. Sectioning}
 
 Standard
-\ctump{chapter\\section\\subsection\\subsubsection\\paragraph\\subparagraph\\part}
+\ctump{chapter, section, subsection, subsubsection, paragraph, subparagraph, part}
 sectioning commands are suported, they are \ctulst!\chapter!, \ctulst!\section!, \ctulst!\subsection!, \ctulst!\subsubsection!.
 These ought to follow the hierarchy from top to bottom.
 There is also \ctulst!\paragraph! and \ctulst!\subparagraph! which can be used as lowest-level sectioning commands.
@@ -511,7 +527,7 @@ In appendix, even chapters started by \ctulst!\chapter*! such as the bibliograph
 For unnumbered appendices, \ctulst!\chapter**! can be used.
 
 If
-\ctump{appendix* \\ appendix**}
+\ctump{appendix*, appendix**}
 the document is divided into parts, the appendices are introduced by a part-like title ``Appendices'', both in the document and in the table of contents.
 This can be suppressed by using \ctulst!\appendix*! (keeps the line in the table of contents) or \ctulst!\appendix**!.
 
@@ -556,7 +572,7 @@ We kindly ask users to consult the manuals to the specific packages for their us
 \subsection{Index}
 
 To
-\ctump{makeidx \\ makeindex \\ printindex}
+\ctump{makeidx, makeindex, printindex}
 generate the index, use \ctulst!pkg-makeidx = true!, and put \ctulst!\printindex! where the index should appear.
 We provide an in-house style for the index called \ctulst!ctuthesis.ist!.
 The index generation is dependent on calling the external tool \ctulst!makeindex!, in a similar way in which the bibliography generation depends
@@ -573,11 +589,13 @@ where
 
 
 
+
+
 \subsection{List of notation. Nomenclature}
 
 We do not preset any special environment for typesetting appendices such as list of notation or nomenclature.
 One of the possible standard way how to do it is with the help of the packages \ctulst!tabularx!,
- \ctump{tabularx \\ array \\ booktabs}
+ \ctump{tabularx, array, booktabs}
  \ctulst!array! and \ctulst!booktabs! as follows:
 
 % lstinputting files doesn't really work with shorthands:
@@ -591,7 +609,7 @@ One of the possible standard way how to do it is with the help of the packages \
 
 \noindent
 In the case the notation is longer than one page, the package
- \ctump{ltxtable \\ ltablex}
+ \ctump{ltxtable, ltablex}
  \ctulst!ltxtable! or \ctulst!ltablex! can be used.
 
 
@@ -601,8 +619,22 @@ In the case the notation is longer than one page, the package
 
 \paragraph{Float introduction}
 Floats
-\ctump{figure\\table}
+\ctump{figure, table}
 are input either as \ctulst!{figure}! or \ctulst!{table}! environment.
+
+
+
+
+
+
+\subsection{Mathematics}
+
+
+
+
+
+\subsection{Colours}
+
 
 
 
