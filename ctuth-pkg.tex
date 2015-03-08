@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/03/07}{0.1 t1503070000}%MY TIMESTAMP HERE {0.1}
+	{2015/03/08}{0.1 t1503080149}%MY TIMESTAMP HERE {0.1}
 	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
@@ -851,11 +851,34 @@
 
 
 
+%%% HYPERREF
+
+\ctuifswitch { pkg-hyperref } {
+	\usepackage[
+		pdfpagelayout=TwoPageRight, % Correct twopage layout with recto on the right
+	]{hyperref}
+	\hypersetup{colorlinks=false,linktocpage=true}
+	\cs_new:Nx \ctuthesis_hyperref_pdfinfo: {
+		pdfinfo = {
+			Title = \ctuthesis_field_use:n {pdftitle},
+			Author = \ctuthesis_field_use:n {pdfauthor},
+		}
+	} 
+	\exp_args:NV \hypersetup \ctuthesis_hyperref_pdfinfo:
+%	\cs_show:N \ctuthesis_hyperref_pdfinfo:
+}
+
+
+
+
+
+
 
 %%% VARIOUS TWEAKS
 
 % Provide \phantomsection to make it available in case hyperref wasn't loaded
 \providecommand\phantomsection{}
+% Provide \microtype to make it available in case microtype wasn't loaded
 \providecommand\microtypesetup[1]{}
 
 

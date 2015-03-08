@@ -79,6 +79,7 @@
 	\clist_set:Nn \ctuman_temp_clist { #1 }
 	\ctuman_domarginpar:x { \clist_use:Nnnn \ctuman_temp_clist { \\ } { \\ } { \\ } }
 	\clist_map_inline:Nn \ctuman_temp_clist { \index{##1|indexmp} }
+	\ignorespaces
 }
 \ExplSyntaxOff
 
@@ -128,7 +129,7 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \begin{document}
 
 % \ctuclsname for typesetting the class' name
-\newcommand\ctuclsname{\leavevmode\copy\ctuclsnamebox}
+\newcommand\ctuclsname{\leavevmode\unhcopy\ctuclsnamebox}
 \newsavebox\ctuclsnamebox
 \begin{lrbox}{\ctuclsnamebox}
 \ctulst!ctuthesis!
@@ -138,28 +139,8 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 
 \chapter{Introduction}
 
-%%%
-%%%\newsavebox\mybox
-%%%
-%%%\DeclareDocumentCommand \boxlst{ D(){yellow} O{} v } {
-%%%		\begin{lrbox}\mybox\hbox{}%
-%%%		\lstinline[#2]@#3@%
-%%%		\hspace*{0pt}%
-%%%		\end{lrbox}
-%%%		\edef\x{\the\wd\mybox}
-%%%%		{\fboxsep0pt\fbox{\box\mybox}}	
-%%%		{I\box\mybox I}
-%%%}
-%%%
-%%%Hello\\
-%%%xxx \boxlst!{aa||}! xxx \lstinline!{|a! xxx
-%%%\\
-%%%xxx \boxlst!a{a||a! xxx \lstinline!a|a! xxx
-%%%\\
-%%%xxx \boxlst!aa{||}! xxx \lstinline!{|a! xxx
-%%%
-%%%
-%%%\end{document}
+
+
 
 
 
@@ -269,8 +250,8 @@ At the first sight, it may look complicated, but the basic structure is pretty s
 \section{Setting up the class}
 
 This section lists all various settings that can be made to the class.
-The ones marked `\symbM'\ are \emph{always mandatory}.
-The ones marked `\symbO'\ are \emph{mandatory in almost all cases, with some small exceptions}.
+The ones marked `\symbM' are \emph{always mandatory}.
+The ones marked `\symbO' are \emph{mandatory in almost all cases, with some small exceptions}.
 For most of them, no errors are issued if they are missing, though.
 
 \begin{lrbox}{\myboxa}\bfseries
@@ -285,7 +266,7 @@ class \ctuclsname\@ itself takes couple optional arguments, namely
 
 Then
 \ctump{draft, oneside}
-it takes the option \ctulst!draft! that says some draft options (the ones common in \LaTeX).
+it takes the option \ctulst!draft! that sets some draft options (the ones common in \LaTeX).
 It also takes the option \ctulst!oneside!, which switches to one-sided mode;
  however, \emph{we strongly advice against using this option}.
 
