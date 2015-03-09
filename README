@@ -4,14 +4,16 @@ Czech Technical University in Prague. The repo contains the class files and
 a set of test files.
 
 The class files are:
-ctuthesis.cls
+ctuthesis.cls (the class)
 ctuth-core.tex
 ctuth-names.tex
 ctuth-pkg.tex
 ctuth-templates.tex
-ctu_logo_black.tex
-ctu_logo_blue.tex
+ctu_logo_black.pdf (licensed by CTU)
+ctu_logo_blue.pdf (licensed by CTU)
 ctuthesis.ist
+ctuman.pdf (the manual)
+ctuman* (the manual's code)
 
 The test files are:
 ctutest.tex

@@ -42,6 +42,7 @@
 %	savetoner = true,
 	pkg-listings = true,
 %	layout-short = true,
+	pkg-hyperref = false,
 }
 
 \ctuprocess
@@ -106,8 +107,8 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \end{declaration}
 
 % Hyperref is not pre-loaded; we prefer not to make too many decisions for the user.
-\usepackage[pdfpagelayout=TwoPageRight]{hyperref}
-\hypersetup{colorlinks=false,linktocpage=true}
+%\usepackage[pdfpagelayout=TwoPageRight]{hyperref}
+%\hypersetup{colorlinks=false,linktocpage=true}
 
 \usepackage{url}
 
@@ -602,8 +603,42 @@ In the case the notation is longer than one page, the package
 Floats
 \ctump{figure, table}
 are input either as \ctulst!{figure}! or \ctulst!{table}! environment.
+All floats are automatically typeset centered, so a typical code for a figure is the following:
+
+\begin{lstlisting}
+\begin{figure}
+\includegraphics[width=0.8\linewidth]{mygraphicfile.pdf}
+\caption{We depict a foo-bar here.}
+\label{fig:foobar}
+\end{figure}
+\end{lstlisting}
+
+\noindent
+For a table, it is the following:
+
+\begin{lstlisting}
+\begin{table}
+\begin{ctucolortab}
+\begin{tabular}{cc}
+\bfseries Foo & \bfseries Bar \\\Midrule
+foo1 & bar1 \\
+foo2 & bar2
+\end{tabular}
+\end{ctucolortab}
+\caption{Table of foo-bar.}
+\label{tab:foobar}
+\end{table}
+\end{lstlisting}
+
+Note
+\ctump{ctucolortab, Midrule, midrule}
+the usage of the environment \ctulst!ctucolortab! to make the table get a blue background,
+ and the usage of \ctulst!\Midrule! to get a horizontal line in the table
+ (a thinner line can be obtained using \ctulst!\midrule!).
+Also note the deliberate absence of verical rules.
 
 
+\pagebreak
 
 
 
