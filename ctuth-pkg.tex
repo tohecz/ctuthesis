@@ -821,7 +821,7 @@
 		framexleftmargin = 3pt,
 		framerule = 0.667pt,
 		rulecolor = \color{ctubluerule},
-		xrightmargin = -2pt,
+		xrightmargin = -3pt,
 	}
 	\cs_new_eq:NN \ctuthesis_lst_orig_lstinline:w \lstinline
 	\newsavebox{\ctuthesis_lst_box}
@@ -830,8 +830,7 @@
 		\microtypesetup{activate=false}
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]#3#4#3
-%		\ctuthesis_lst_orig_lstinline:w[#2]@#4@
-		\hspace*{0pt}\end{lrbox}
+		\end{lrbox}
 		{\fboxsep0pt\colorbox{#1}{\strut\hspace*{0.2em}\box\ctuthesis_lst_box\hspace*{0.2em}}}
 		\microtypesetup{activate=true}
 	}
@@ -877,8 +876,9 @@
 
 %%% VARIOUS TWEAKS
 
-% Provide \phantomsection to make it available in case hyperref wasn't loaded
+% Provide \phantomsection and \texorpdfstring to make them available in case hyperref wasn't loaded
 \providecommand\phantomsection{}
+\providecommand\texorpdfstring[2]{#1}
 % Provide \microtype to make it available in case microtype wasn't loaded
 \providecommand\microtypesetup[1]{}
 
