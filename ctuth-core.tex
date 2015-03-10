@@ -330,7 +330,7 @@
 	\IfValueTF { #2 } {
 		\ctuthesis_field_exists:nF { #2 language } { \msg_error:nnx { ctuthesis } { unknown-field } { #1 } }
 		\IfBooleanTF { #1 } {
-			\ctuiffield* { #3_\ctuthesis_field_use:n { #2 language } } { #4 } { #5 }
+			\ctuiffield * { #3_\ctuthesis_field_use:n { #2 language } } { #4 } { #5 }
 		} {
 			\ctuiffield { #3_\ctuthesis_field_use:n { #2 language } } { #4 } { #5 }
 		}
