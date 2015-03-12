@@ -646,19 +646,51 @@ Also note the deliberate absence of verical rules.
 \subsection{Mathematics}
 
 All standard concepts for typesetting mathematics are working as in any other \LaTeX\@ class.
-% TODO
+We only emphasize how the class behaves in relation to theorem-like environments and proofs.
+The default behaviour is that the package \ctulst!amsthm! is loaded and theorem styles \ctulst!plain!, \ctulst!definition! and \ctulst!note!.
+Theorems (plain style) are by default slanted rather than italic, should italic theorems be preferred, use \ctulst!plainit!.
+However, no theorem-like environments are predefined, everybody can do this to their liking.
+The preamble declarations could look like this:
+\begin{lstlisting}
+\theoremstyle{plain} % not necessary, it is the default
+\newtheorem{theorem}{Theorem}[chapter] % per-chapter numbering
+\newtheorem{lemma}[theorem]{Lemma} % use the same counter for
+                                   % all of them
+\newtheorem{proposition}[theorem]{Proposition} 
 
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
 
+\theoremstyle{note}
+\newtheorem{remark}[theorem]{Remark} % numbered remark
+\newtheorem*{remark*}{Remark} % unnumbered remark*
+\end{lstlisting}
+\noindent
+The environment \ctulst!{proof}! is provided by default.
+All theorem handling can be disabled by \ctulst!\ctusetup{ pkg-amsthm = false }!.
 
 
 \subsection{Colors}
 
 The class uses internally many named colors.
 For the general use, two non-standard colors are provided:
-\ctump{ctublue, ctulightblue}
-{\color{white}\ctulst(ctublue)!ctublue!} {\color{ctublue}\ctulst(white)!ctublue!}
-and
-{\color{black}\ctulst(ctulightblue)!ctulightblue!} {\color{ctulightblue}\ctulst(white)!ctulightblue!}.
+\begin{itemize}
+\item
+ {\color{white}\ctulst(ctublue)!ctublue!}
+ \ctump{ctublue}
+ {\color{ctublue}\ctulst(white)!ctublue!};
+% {\color{black}\ctulst(ctublue)!ctublue!}
+% {\color{ctublue}\ctulst(ctulightblue)!ctublue!};
+
+\item
+ {\color{black}\ctulst(ctulightblue)!ctulightblue!}
+ \ctump{ctulightblue}
+ {\color{ctulightblue}\ctulst(white)!ctulightblue!}.
+% {\color{white}\ctulst(ctulightblue)!ctulightblue!}.
+% {\color{ctulightblue}\ctulst(ctublue)!ctulightblue!};
+
+\end{itemize}
 The colours are used for the headers, rules in the titles, title texts, backgrounds for listings and tables etc.
 
 
