@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/03/09}{0.1 t1503091801}%MY TIMESTAMP HERE {0.1}
+	{2015/03/15}{0.1 t1503152132}%MY TIMESTAMP HERE {0.1}
 	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
@@ -383,7 +383,14 @@
 	}
 	% \chapter ignores one star, so that things like {thebibliography} are numbered
 	\DeclareDocumentCommand \chapter { s } { \ctuthesis_title_orig_chapter: }
+	% another \appendix will generate a warning and be silently ignored
+	\DeclareDocumentCommand \appendix { s s } {
+		\msg_warning:nn { ctuthesis } { appendix-twice }
+	}
 }
+
+\msg_new:nnn { ctuthesis } { appendix-twice } { The~macro~ \token_to_str:N \appendix\ should~
+	be~used~only~once.~Silently~ignoring. }
 
 
 
@@ -604,6 +611,7 @@
 
 
 %%% FLOATS
+
 \usepackage{float,caption}
 % default placement of all floats is `t`
 \floatplacement{figure}{t}
