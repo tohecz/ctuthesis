@@ -96,18 +96,7 @@
 	\ctutemplate{include~specification}
 }
 
-% Abstract template includes the Acknowledgements, Declaration and two Abstracts
-% the abstracts are accompanied by the keywords and possibly other information
-\ctutemplateset{abstract}{
-	\begin{twocolumnfrontmatterpage}
-		\selectctulanguage{title}
-		\chapter{\thanksname}\noindent
-		\ctufield{thanks}
-	\newpage
-		\selectctulanguage{title}
-		\chapter{\declarationname}\noindent
-		\ctufield{declaration}
-	\clearpage
+\ctutemplateset{twocolumn~abstract~in~titlelanguage}{
 		\selectctulanguage{title}
 		\chapter{\abstractname}\noindent
 		\ctufield[title]{abstract}\par
@@ -123,7 +112,9 @@
 			}{}
 		}{}
 		\par }
-	\newpage
+}
+
+\ctutemplateset{twocolumn~abstract~in~secondlanguage}{
 		\selectctulanguage{second}
 		\chapter{\abstractname}\noindent
 		\ctufield[second]{abstract}\par
@@ -136,9 +127,38 @@
 			\ --- \ \ctufield[second]{subtitle}
 		} { }
 		\par }
-	\clearpage
+}
+
+\ctutemplateset{twocolumn~tableofcontents}{
 		\selectctulanguage{main}
 		\tableofcontents
+}
+
+\ctutemplateset{twocolumn~thanks}{
+		\selectctulanguage{title}
+		\chapter{\thanksname}\noindent
+		\ctufield{thanks}
+}
+
+\ctutemplateset{twocolumn~declaration}{
+		\selectctulanguage{title}
+		\chapter{\declarationname}\noindent
+		\ctufield{declaration}
+}
+
+% Abstract template includes the Acknowledgements, Declaration and two Abstracts
+% the abstracts are accompanied by the keywords and possibly other information
+\ctutemplateset{abstract}{
+	\begin{twocolumnfrontmatterpage}
+		\ctutemplate{twocolumn~thanks}
+	\newpage
+		\ctutemplate{twocolumn~declaration}
+	\clearpage
+		\ctutemplate{twocolumn~abstract~in~titlelanguage}
+	\newpage
+		\ctutemplate{twocolumn~abstract~in~secondlanguage}
+	\clearpage
+		\ctutemplate{twocolumn~tableofcontents}
 	\end{twocolumnfrontmatterpage}
 }
 
