@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-core.tex}%
-	{2015/03/15}{0.1 t1503152132}%MY TIMESTAMP HERE {0.1}
+	{2015/03/20}{0.1 t1503201027}%MY TIMESTAMP HERE {0.1}
 	{"Core"\space part\space of\space the\space class\space ctuthesis}
 
 
@@ -16,6 +16,7 @@
 \cs_generate_variant:Nn \tl_if_eq:nnTF { xn }
 \cs_generate_variant:Nn \seq_gconcat:NNN { cc }
 
+\skip_new:N \g_ctuthesis_tempa_skip
 
 
 
@@ -368,7 +369,7 @@
 % the timestamp on every page.
 \cs_new:Npx \ctuverlog {
 	ctuthesis ~ \use_ii:nn
-	{2015/03/15}{ t1503152132}%MY TIMESTAMP HERE {}	
+	{2015/03/20}{ t1503201027}%MY TIMESTAMP HERE {}	
 }
 
 

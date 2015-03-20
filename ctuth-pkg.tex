@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/03/15}{0.1 t1503152132}%MY TIMESTAMP HERE {0.1}
+	{2015/03/20}{0.1 t1503201027}%MY TIMESTAMP HERE {0.1}
 	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
@@ -119,18 +119,40 @@
 	% We are narrow, so we wanna be sloppy
 	\sloppy
 	% Chapter behaves differently. Both the [] argument and the star * are ignored.
+%	\DeclareDocumentCommand\chapter{ s o m }{\relax
+%		% Vertical adjustment
+%		\vspace* { -\baselineskip }
+%		\nointerlineskip
+%		% Zero measure vertical box, the contents are raised by something and typeset
+%		\vbox to 0pt{\noindent\leavevmode\smash{\raise6pt\hbox to \linewidth{%
+%			% In the first column its right-aligned, in the second left-aligned.
+%			% It can't be more than one line.
+%			\if@firstcolumn\hfil\fi
+%			\color{ctubluetext}\LARGE\bfseries\sffamily##3
+%			\if@firstcolumn\else\hfil\fi
+%		}}}
+%		\everypar{\noindent}
+%	}
 	\DeclareDocumentCommand\chapter{ s o m }{\relax
+		% Compute the vertical adjustment
+		\skip_gset:Nn \g_ctuthesis_tempa_skip { - \box_ht:N \strutbox }
+		{ \LARGE \skip_gsub:Nn \g_ctuthesis_tempa_skip { \box_ht:N \strutbox + \box_dp:N \strutbox } }
+		% Space used if not at the beginning of a column
+		\skip_vertical:n { 12pt - \g_ctuthesis_tempa_skip }
+		% Add the space below the chapter title to the adjustment
+		\skip_gsub:Nn \g_ctuthesis_tempa_skip { 2pt }
 		% Vertical adjustment
-		\vspace* { -\baselineskip }
-		\nointerlineskip
+		\vspace* { \g_ctuthesis_tempa_skip }
 		% Zero measure vertical box, the contents are raised by something and typeset
-		\vbox to 0pt{\noindent\leavevmode\smash{\raise6pt\hbox to \linewidth{%
+		\noindent \leavevmode
+		\hbox_to_wd:nn \linewidth {
 			% In the first column its right-aligned, in the second left-aligned.
 			% It can't be more than one line.
 			\if@firstcolumn\hfil\fi
-			\color{ctubluetext}\LARGE\bfseries\sffamily##3
+			\leavevmode\color{ctubluetext}\LARGE\strut\bfseries\sffamily##3
 			\if@firstcolumn\else\hfil\fi
-		}}}
+		}\par
+		\skip_vertical:n { 2pt }
 		\everypar{\noindent}
 	}
 	\DeclareDocumentCommand \tableofcontents {  }{ \ctuthesis_maketoc_twocol:nn { toc } { \contentsname } }

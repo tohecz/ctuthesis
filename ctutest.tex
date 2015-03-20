@@ -35,13 +35,24 @@
 	year = 2017,
 	specification-file = {ctutest-zadani.pdf},
 %	front-specification = true,
-	front-list-of-figures = false,
-	front-list-of-tables = false,
+%	front-list-of-figures = false,
+%	front-list-of-tables = false,
 %	monochrome = true,
 %	layout-short = true,
 }
 
 \ctuprocess
+
+\ctutemplateset{maketitle twocolumn default}{
+	\begin{twocolumnfrontmatterpage}
+		\ctutemplate{twocolumn.thanks}
+		\ctutemplate{twocolumn.declaration}
+		\ctutemplate{twocolumn.abstract.in.titlelanguage}
+		\ctutemplate{twocolumn.abstract.in.secondlanguage}
+		\ctutemplate{twocolumn.tableofcontents}
+		\ctutemplate{twocolumn.listoffigures}
+	\end{twocolumnfrontmatterpage}
+}
 
 % Theorem declarations, this is the reasonable default, anybody can do what they wish.
 % If you prefer theorems in italics rather than slanted, use \theoremstyle{plainit}
@@ -72,6 +83,10 @@ Jé ní ticho vzoru. Lepší zburcují učil nepořádku zboží ní mučedník 
  Let us suppose we are given a modulus $d$.  In \cite{cite:10}, the main result was the extension of Newton random variables.  We show that ${\Gamma_{\mathfrak{{r}},b}} ( {Z_{\beta,f}} ) \sim \bar{E}$.  The work in \cite{cite:20} did not consider the infinite, hyper-reversible, local case. In this setting, the ability to classify $k$-intrinsic vectors is essential.
  
 Let us suppose $\mathfrak{{a}} > \mathfrak{{c}}''$.  Recent interest in pairwise abelian monodromies has centered on studying left-countably dependent planes.  We show that $\Delta \ge 0$.  It was Brouwer who first asked whether classes can be described. B. Artin \cite{cite:30} improved upon the results of M. Bernoulli by deriving nonnegative classes.
+
+x\par x\par x\par x\par x\par x\par x\par x\par x\par x\par x\par x\par x
+
+
 \end{abstract-english}
 
 % Acknowledgements / Podekovani
@@ -161,6 +176,6 @@ foo2 & bar2
 \bibliographystyle{amsalpha}
 \bibliography{ctutest}
 
-\ctutemplate{specification as chapter}
+\ctutemplate{specification.as.chapter}
 
 \end{document}

@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-templates.tex}%
-	{2015/03/15}{0.1 t1503152132}%MY TIMESTAMP HERE {0.1}
+	{2015/03/20}{0.1 t1503201027}%MY TIMESTAMP HERE {0.1}
 	{"Templates"\space part\space of\space the\space class\space ctuthesis}
 
 % The titlepage, includes doctype, faculty, department, title, author,
@@ -77,12 +77,12 @@
 }
 
 % This include the specification file, and does nothing more
-\ctutemplateset{include~specification}{
+\ctutemplateset{include.specification}{
 	\includepdf[pages=-]{\tl_use:c{ g_ctuthesis_field_specification-file_tl }}
 }
 
 % Includes the specification as a chapter
-\ctutemplateset{specification~as~chapter}{
+\ctutemplateset{specification.as.chapter}{
 	\cleardoublepage
 	% If it is an appendix, it gets a number, if not, it does not
 	\ifctu@app
@@ -93,10 +93,10 @@
 		\phantomsection
 		\addcontentsline{toc}{chapter}{\specificationname}
 	\fi
-	\ctutemplate{include~specification}
+	\ctutemplate{include.specification}
 }
 
-\ctutemplateset{twocolumn~abstract~in~titlelanguage}{
+\ctutemplateset{twocolumn.abstract.in.titlelanguage}{
 		\selectctulanguage{title}
 		\chapter{\abstractname}\noindent
 		\ctufield[title]{abstract}\par
@@ -114,7 +114,7 @@
 		\par }
 }
 
-\ctutemplateset{twocolumn~abstract~in~secondlanguage}{
+\ctutemplateset{twocolumn.abstract.in.secondlanguage}{
 		\selectctulanguage{second}
 		\chapter{\abstractname}\noindent
 		\ctufield[second]{abstract}\par
@@ -129,47 +129,62 @@
 		\par }
 }
 
-\ctutemplateset{twocolumn~tableofcontents}{
+\ctutemplateset{twocolumn.tableofcontents}{
 		\selectctulanguage{main}
 		\tableofcontents
 }
 
-\ctutemplateset{twocolumn~thanks}{
+\ctutemplateset{twocolumn.thanks}{
 		\selectctulanguage{title}
 		\chapter{\thanksname}\noindent
 		\ctufield{thanks}
 }
 
-\ctutemplateset{twocolumn~declaration}{
+\ctutemplateset{twocolumn.declaration}{
 		\selectctulanguage{title}
 		\chapter{\declarationname}\noindent
 		\ctufield{declaration}
 }
 
+\ctutemplateset{twocolumn.listoffigures}{
+		\selectctulanguage{main}
+		\listoffigures
+}
+
+\ctutemplateset{twocolumn.listoftables}{
+		\selectctulanguage{main}
+		\listoftables
+}
+
 % Abstract template includes the Acknowledgements, Declaration and two Abstracts
 % the abstracts are accompanied by the keywords and possibly other information
-\ctutemplateset{abstract}{
+\ctutemplateset{maketitle.twocolumn.default}{
 	\begin{twocolumnfrontmatterpage}
-		\ctutemplate{twocolumn~thanks}
+		\ctutemplate{twocolumn.thanks}
 	\newpage
-		\ctutemplate{twocolumn~declaration}
+		\ctutemplate{twocolumn.declaration}
 	\clearpage
-		\ctutemplate{twocolumn~abstract~in~titlelanguage}
+		\ctutemplate{twocolumn.abstract.in.titlelanguage}
 	\newpage
-		\ctutemplate{twocolumn~abstract~in~secondlanguage}
+		\ctutemplate{twocolumn.abstract.in.secondlanguage}
 	\clearpage
-		\ctutemplate{twocolumn~tableofcontents}
+		\ctutemplate{twocolumn.tableofcontents}
+	% The "loft" template is included only if at least one of the lists is enabled
+	\bool_if:nTF {
+		\ctuthesis_if_switch_p:n { front-list-of-figures }
+		|| \ctuthesis_if_switch_p:n { front-list-of-tables }
+	} {
+		\clearpage
+		\ctutemplate{twocolumn.loft}
+	} { }
 	\end{twocolumnfrontmatterpage}
 }
 
 % Lists of Figures and Tables
-\ctutemplateset{loft}{
-	\begin{twocolumnfrontmatterpage}
-		\selectctulanguage{main}
-		\ctuifswitch { front-list-of-figures } { \listoffigures } { }
-		\newpage
-		\ctuifswitch { front-list-of-tables } { \listoftables } { }
-	\end{twocolumnfrontmatterpage}
+\ctutemplateset{twocolumn.loft}{
+		\ctuifswitch { front-list-of-figures } { \ctutemplate{twocolumn.listoffigures} } { }
+	\newpage
+		\ctuifswitch { front-list-of-tables } { \ctutemplate{twocolumn.listoftables} } { }
 }
 
 % The maketitle command (moreorless): roman page numbering
@@ -182,18 +197,11 @@
 	% If the specification has to be in front, include it. It it's one page only,
 	% the verso is left empty
 	\ctuifswitch{front-specification}{
-		\ctutemplate{include~specification}
+		\ctutemplate{include.specification}
 		\cleardoublepage*
 	} { }
 	% The abstract and alike
-	\ctutemplate{abstract}
-	% The "loft" template is included only if at least one of the lists is enabled
-	\bool_if:nTF {
-		\ctuthesis_if_switch_p:n { front-list-of-figures }
-		|| \ctuthesis_if_switch_p:n { front-list-of-tables }
-	} {
-		\ctutemplate{loft}
-	} { }
+	\ctutemplate{maketitle.twocolumn.default}
 	\def\thepage{}
 	% Start the mainmatter
 	\mainmatter
