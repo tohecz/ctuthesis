@@ -884,11 +884,23 @@
 
 %%% HYPERREF
 
+% since \hypersetup is looking for explicit spaces, we need to give them
+\ExplSyntaxOff
+\def\ctuthesis@hyperref@setupcolor#1#2#3#4{\hypersetup{#1=#2 #3 #4}}
+\ExplSyntaxOn
+\cs_set_eq:NN \ctuthesis_hyperref_setupcolor:nnnn \ctuthesis@hyperref@setupcolor
+
 \ctuifswitch { pkg-hyperref } {
 	\usepackage[
 		pdfpagelayout=TwoPageRight, % Correct twopage layout with recto on the right
 	]{hyperref}
+	% Links with borders, in ToC only the page is linked
 	\hypersetup{colorlinks=false,linktocpage=true}
+	% Link borders orange
+	\ctuthesis_hyperref_setupcolor:nnnn { linkbordercolor } { 1 } { .373 } { 0 }
+	\ctuthesis_hyperref_setupcolor:nnnn { citebordercolor } { 1 } { .373 } { 0 }
+	\ctuthesis_hyperref_setupcolor:nnnn { filebordercolor } { 1 } { .373 } { 0 }
+	% Prepare PDFinfo
 	\cs_new:Nx \ctuthesis_hyperref_pdfinfo: {
 		pdfinfo = {
 			Title = \ctuthesis_field_use:n {pdftitle},
@@ -896,9 +908,11 @@
 		}
 	} 
 	\exp_args:NV \hypersetup \ctuthesis_hyperref_pdfinfo:
-%	\cs_show:N \ctuthesis_hyperref_pdfinfo:
-}
+}{}
 
+%\ctuifswitch { pkg-hyperref } {
+%	\hypersetup{colorlinks=false,linktocpage=true,linkbordercolor=0 122 195}
+%}
 
 
 
