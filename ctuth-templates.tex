@@ -14,7 +14,7 @@
 	% The titlepage goes all way up to the header (taking one \baselineskip of the head)
 	\vspace*{\dimexpr-\baselineskip-\headsep}
 	\vss%
-	{\noindent\leavevmode\color{ctubluerule}\vrule width 11pt\hspace*{6pt}}
+	{\noindent\leavevmode\color{ctubluerule}\vrule width 11pt\hspace*{11pt}}
 	% The main vbox of the titlepage is larger by (bls + heasep) up and (footskip) down
 	\vbox to \dimexpr\textheight + \baselineskip + \headsep + \footskip{
 		% Reduce hsize by the rule width and the sep
@@ -34,7 +34,7 @@
 		&
 			\Large\color{ctubluetext}\begin{tabular}[b]{@{}l@{}}\ctufield[title]{university-endl}\end{tabular}
 		\\[3ex]
-			\begin{tabular}[c]{@{}l@{}}\fontsize{35.83}{35.83}\selectfont\color{ctubluetext}\ctufield{facultynum}\end{tabular}
+			\begin{tabular}[c]{@{}l@{}}\fontsize{35.83}{35.83}\selectfont\ctufield{facultynum}\end{tabular}
 		&
 			\begin{tabular}[c]{@{}l@{}}\rlap{\ctufield[title]{faculty}}\\[2pt]\ctufield[title]{department}\end{tabular}
 		\end{tabular}\par
