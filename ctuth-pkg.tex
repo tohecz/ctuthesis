@@ -49,6 +49,7 @@
 	\colorlet    { ctubluedarkfg } { ctublue!50!black }
 	\colorlet    { ctubluedot } { white }%ctulightblue }
 	\colorlet    { ctubluebg } { white }
+	\colorlet    { ctulstbg } { ctubluebg }
 	\colorlet    { ctublueitemi } { ctublue }
 	\colorlet    { ctublueitemii } { ctulightblue }
 	\colorlet    { ctugray } { gray }
@@ -64,6 +65,7 @@
 		\definecolor { ctubluedarkfg } { gray } { 1 }
 		\definecolor { ctubluedot } { gray } { 0.9 }
 		\definecolor { ctubluebg } { gray } { 0.95 }
+		\definecolor { ctulstbg } { gray } { 0.95 }
 		\definecolor { ctublueitemi } { gray } { 0.4 }
 		\definecolor { ctublueitemii } { gray } { 0.4 }
 		\definecolor { ctugray } { gray } { 0.5 }
@@ -77,6 +79,7 @@
 		\colorlet    { ctubluedarkbg } { ctublue }
 		\colorlet    { ctubluedot } { ctulightblue }
 		\colorlet    { ctubluebg } { ctulightblue!50!white }
+		\colorlet    { ctulstbg } { ctulightblue!50!white }
 		\colorlet    { ctublueitemi } { ctublue }
 		\colorlet    { ctublueitemii } { ctulightblue }
 		\colorlet    { ctugray } { gray }
@@ -860,20 +863,21 @@
 		xrightmargin = -3pt,
 	}
 	\cs_new_eq:NN \ctuthesis_lst_orig_lstinline:w \lstinline
-	\newsavebox{\ctuthesis_lst_box}
+	\newsavebox \ctuthesis_lst_box
+	\newcommand* \ctulstsep {0.2em}
 	\DeclareDocumentCommand \ctuthesis_lst_do_ctulstinline:nnw { m m m v } {
 		\leavevmode
 		\microtypesetup{activate=false}
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]#3#4#3
 		\end{lrbox}
-		{\fboxsep0pt\colorbox{#1}{\strut\hspace*{0.2em}\box\ctuthesis_lst_box\hspace*{0.2em}}}
+		{\fboxsep0pt\colorbox{#1}{\strut\hspace*{\ctulstsep}\box\ctuthesis_lst_box\hspace*{\ctulstsep}}}
 		\microtypesetup{activate=true}
 	}
-	\DeclareDocumentCommand \ctulst { D(){ctubluebg} O{} m } {
+	\DeclareDocumentCommand \ctulst { D(){ctulstbg} O{} m } {
 		\ctuthesis_lst_do_ctulstinline:nnw { #1 } { #2 } { #3 } #3
 	}
-	\DeclareDocumentCommand \ctulstbr { D(){ctubluebg} O{} m } {
+	\DeclareDocumentCommand \ctulstbr { D(){ctulstbg} O{} m } {
 		\leavevmode
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]{#3}
