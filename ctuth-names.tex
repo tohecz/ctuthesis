@@ -97,6 +97,11 @@
 % Document types and Faculty names in all langauges
 \keys_define:nn { ctuthesis } {
 
+	% Make doctype and faculty aliases for xdoctype and xfaculty
+	doctype .meta:n = { xdoctype = {#1} },
+	faculty .meta:n = { xfaculty = {#1} },
+
+	% Setup doctypes
 	xdoctype .meta:n = { xdoctype-#1 },
 	xdoctype .groups:n = { dc, nopre, nopost },
 
