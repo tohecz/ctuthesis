@@ -17,13 +17,24 @@
 \edef\mytoday{\expandafter\@gobbletwo\the\year\ifnum\month<10 0\fi\the\month\ifnum\day<10 0\fi\the\day}
 \makeatother
 
+% LaTeX logo with better kerning in sf bf font
+\makeatletter
+\newcommand\LaTeX@lmss@bx{L\kern -.33em{\sbox \z@ T\vbox to\ht \z@ {\hbox {\check@mathfonts \fontsize \sf@size \z@ \math@fontsfalse \selectfont A}\vss }}\kern -.15em\TeX}
+\DeclareRobustCommand\myLaTeX{%
+	\ifcsname LaTeX@\f@family @\f@series\endcsname
+		\csname LaTeX@\f@family @\f@series\endcsname
+	\else
+		\LaTeX
+	\fi
+}
+
 \ctusetup{
 	preprint = {\ctuverlog \\ ctuman \mytoday},
 	mainlanguage = english,
 %	titlelanguage = english,
 %	otherlanguages = {czech},
-	title-czech = {Manuál ke třídě ctuthesis pro {\LaTeX}},
-	title-english = {Manual for {\LaTeX} class ctuthesis},
+	title-czech = {Manuál ke třídě ctuthesis pro {\myLaTeX}},
+	title-english = {Manual for {\myLaTeX} class ctuthesis},
 	doctype-english = {User Manual},
 %	xfaculty = F4,
 %	department-czech = {Katedra matematiky},
@@ -106,10 +117,6 @@ Prohlašuji, že jsem předloženou práci vypracoval samostatně, a že jsem uv
 V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \end{declaration}
 
-% Hyperref is not pre-loaded; we prefer not to make too many decisions for the user.
-%\usepackage[pdfpagelayout=TwoPageRight]{hyperref}
-%\hypersetup{colorlinks=false,linktocpage=true}
-
 \usepackage{url}
 
 \usepackage{tabularx,array}
@@ -124,8 +131,8 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \newcommand*\symbM{\raisebox{0.5\height}{\scalebox{0.7}{\color{red}${\blacktriangleright}\mkern-6mu{\blacktriangleleft}$}}}
 \newcommand*\itemO{\item\leavevmode\kern-0.33em\symbO}
 \newcommand*\itemM{\item\leavevmode\kern-0.33em\symbM}
-%
-%\show\lrbox
+
+
 
 \begin{document}
 
