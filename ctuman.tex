@@ -136,6 +136,10 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 
 \begin{document}
 
+% We actually don't want inline listings to have a background color
+\colorlet{ctulstbg}{white}
+\renewcommand \ctulstsep {0pt}
+
 % \ctuclsname for typesetting the class' name
 \newcommand\ctuclsname{\leavevmode\unhcopy\ctuclsnamebox}
 \newsavebox\ctuclsnamebox
@@ -438,7 +442,7 @@ The format of the option name is always \ctulst!pkg-<packagename>! and it accept
  \ctump{pkg-listings}
  sets up \ctulst!\ttfamily! font for all listings, and adds a background to all display listings.
  For inline listings, this is a bit more complicated; we rather implemented a new macro
- \ctump{ctulst}
+ \ctump{ctulst} % Be careful, lstinline (LSTINLINE) is mentioned explicitly here!
   \ctulst:\ctulst(color)[settings]!<text>!: that behaves exactly like \ctulst:\lstinline!<text>!:,
   but applies the background; the color is an optional argument (in parentheses \ctulst!()!)
   and defaults to the blue background color seen in this manual. Any printable symbol but one of \ctulst![({}!
