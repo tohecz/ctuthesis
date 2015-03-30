@@ -796,21 +796,18 @@
 
 % We redefine proof to include a more reasonable spacing above it.
 \DeclareDocumentEnvironment { proof } { O{\proofname} } {
-  \par
-  \pushQED{\qed}%
-  \normalfont \topsep0pt plus 1pt
-  \trivlist
-  \item[\hskip\labelsep
-        \itshape\color{ctubluetext!70!black}
-    #1\@addpunct{.}]\ignorespaces
-}{%
-  \popQED\endtrivlist\@endpefalse
-}
-
-\cs_new_eq:NN \AMSqedbox \qedsymbol
-
-\DeclareDocumentCommand \qedsymbol { } {
-	{ \color{ctubluetext!70!black} \AMSqedbox }
+	\par
+	\pushQED{\qed}
+	\normalfont \topsep0pt plus 1pt
+	\trivlist
+	\item[
+		\hskip\labelsep
+	    \itshape
+		#1\@addpunct{.}
+	]
+	\ignorespaces
+}{
+	\popQED\endtrivlist\@endpefalse
 }
 
 
