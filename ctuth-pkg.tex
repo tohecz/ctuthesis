@@ -700,15 +700,25 @@
 
 %%% LISTS
 
+% Temp box
+\box_new:N \g_ctuthesis_tempa_box
 % Macro used to generate the itemize labels
 % parameters 1:depth, 2: raise (without ex), 3: scale, 4:color
 \cs_new:Nn \ctuthesis_list_prepare_labelitem:nnnn {
 	% Each label stored in a box
 	\box_new:c { g_ctuthesis_list_label_#1_box }
+	% use the temp box to measure the symbol
+	\hbox_gset:Nn \g_ctuthesis_tempa_box {
+		\scalebox{#3}{\fontfamily{lmss}\bfseries\color{#4}.}
+	}
 	% The label is actually a shifted up, scaled, coloured lmss bf dot
 	\hbox_gset:cn { g_ctuthesis_list_label_#1_box } {
-		\box_move_up:nn { #2 ex } \hbox:n {
+		\box_move_up:nn { #2 ex } \hbox_to_wd:nn {
+			\box_ht:N \g_ctuthesis_tempa_box
+		} {
+			\hss
 			\scalebox{#3}{\fontfamily{lmss}\bfseries\color{#4}.}
+			\hss
 		}
 	}
 	\cs_set:cpn { labelitem #1 } { \box_use:c { g_ctuthesis_list_label_#1_box } }
@@ -762,6 +772,8 @@
 \def\labelenumiii{{\normalfont(\theenumiii)}}
 \def\labelenumiv{{\normalfont(\theenumiv)}}
 
+\leftmargini22.2pt
+\labelsep6pt
 
 
 
