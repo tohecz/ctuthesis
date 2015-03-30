@@ -131,7 +131,7 @@
 \ctuthesis_keys_add_no:nn { nopost } { monochrome, savetoner, pkg-listings }
 
 % Switches defaulting to true
-\tl_map_inline:nn { {front-list-of-tables}{front-list-of-figures}{pkg-hyperref}{pkg-makeidx} } {
+\tl_map_inline:nn { {front-list-of-tables}{front-list-of-figures}{pkg-hyperref}{pkg-makeidx}{pkg-amsthm} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .bool_gset:c = { g_ctuthesis_switch_#1_bool },
 		#1 .initial:n = { true },

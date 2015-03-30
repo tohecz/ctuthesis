@@ -783,33 +783,39 @@
 
 %%% MATH, THEOREMS
 
-\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{amsmath,amssymb,amsfonts}
 
-% Redefine standard styles: plain is slanted, definition is normal, note has an italic head (like proof)
-\newtheoremstyle{plain}{3pt plus 1pt}{3pt plus 1pt}{\slshape}{}{\bfseries\sffamily}{.}{.5em}{}
-\newtheoremstyle{plainit}{3pt plus 1pt}{3pt plus 1pt}{\slshape}{}{\bfseries\sffamily}{.}{.5em}{}
-\newtheoremstyle{definition}{3pt plus 1pt}{3pt plus 1pt}{}{}{\bfseries\sffamily}{.}{.5em}{}
-\newtheoremstyle{note}{3pt plus 1pt}{3pt plus 1pt}{}{}{\itshape}{.}{.5em}{}
+% Optional loading of amsthm
+\ctuthesis_if_switch:nT { pkg-amsthm } {
 
-% Default style: plain
-\theoremstyle{plain}
+	\usepackage{amsthm}
 
-% We redefine proof to include a more reasonable spacing above it.
-\DeclareDocumentEnvironment { proof } { O{\proofname} } {
-	\par
-	\pushQED{\qed}
-	\normalfont \topsep0pt plus 1pt
-	\trivlist
-	\item[
-		\hskip\labelsep
-	    \itshape
-		#1\@addpunct{.}
-	]
-	\ignorespaces
-}{
-	\popQED\endtrivlist\@endpefalse
-}
+	% Redefine standard styles: plain is slanted, definition is normal, note has an italic head (like proof)
+	\newtheoremstyle{plain}{3pt plus 1pt}{3pt plus 1pt}{\slshape}{}{\bfseries\sffamily}{.}{.5em}{}
+	\newtheoremstyle{plainit}{3pt plus 1pt}{3pt plus 1pt}{\slshape}{}{\bfseries\sffamily}{.}{.5em}{}
+	\newtheoremstyle{definition}{3pt plus 1pt}{3pt plus 1pt}{}{}{\bfseries\sffamily}{.}{.5em}{}
+	\newtheoremstyle{note}{3pt plus 1pt}{3pt plus 1pt}{}{}{\itshape}{.}{.5em}{}
 
+	% Default style: plain
+	\theoremstyle{plain}
+	
+	% We redefine proof to include a more reasonable spacing above it.
+	\DeclareDocumentEnvironment { proof } { O{\proofname} } {
+		\par
+		\pushQED{\qed}
+		\normalfont \topsep0pt plus 1pt
+		\trivlist
+		\item[
+			\hskip\labelsep
+		    \itshape
+			#1\@addpunct{.}
+		]
+		\ignorespaces
+	}{
+		\popQED\endtrivlist\@endpefalse
+	}
+
+}	
 
 
 
