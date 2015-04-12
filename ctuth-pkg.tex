@@ -41,7 +41,7 @@
 % Define the colors, first in monochrome, then in colour.
 \ctuifswitch { savetoner } {
 	% savetoner: true
-	\definecolor { ctublue } { RGB } { 0, 122, 195 }
+	\definecolor { ctublue } { CMYK } { 100, 43, 0, 0 }
 	\definecolor { ctulightblue } { RGB }{ 172, 214, 238 }
 	\colorlet    { ctubluetext } { ctublue }
 	\colorlet    { ctubluerule } { ctulightblue }
@@ -72,8 +72,8 @@
 		\definecolor { ctuorange } { gray } { 0.9 }
 	} {
 		% savetoner: false, monochrome: false
-		\definecolor { ctublue } { RGB } { 0, 122, 195 }
-		\definecolor { ctulightblue } { RGB }{ 172, 214, 238 }
+		\definecolor { ctublue } { cmyk } { 1, .43, 0, 0 }
+		\definecolor { ctulightblue } { cmyk }{ .3, .13, 0, 0 }
 		\colorlet    { ctubluetext } { ctublue }
 		\colorlet    { ctubluerule } { ctublue }
 		\colorlet    { ctubluedarkbg } { ctublue }
@@ -83,7 +83,7 @@
 		\colorlet    { ctublueitemi } { ctublue }
 		\colorlet    { ctublueitemii } { ctulightblue }
 		\colorlet    { ctugray } { gray }
-		\definecolor { ctuorange } { Hsb } { 22, 0.5, 1 }
+		\definecolor { ctuorange } { cmyk } { 0, .51, 1, 0 }
 	}
 }
 
@@ -916,9 +916,7 @@
 	\hypersetup{
 		colorlinks=false,
 		linktocpage=true,
-		linkbordercolor=ctuorange,
-		citebordercolor=ctuorange,
-		filebordercolor=ctuorange,
+		allbordercolors=ctuorange,
 	}
 	% Prepare PDFinfo
 	\cs_new:Nx \ctuthesis_hyperref_pdfinfo: {
