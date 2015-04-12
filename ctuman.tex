@@ -200,16 +200,16 @@ The small team around the \ctuclsname\@ package (Tomáš Hejda, Václav Hlaváč
 \begin{table}[!b]
 \begin{ctucolortab}\begin{tabularx}{0.95\linewidth}{l>{\sloppy}X}
 \bfseries File name & \bfseries Description \\\Midrule
-\ctulst!ctuthesis.cls! & Class file itself \\[\smallskipamount]
-\ctulst!ctu_logo_blue.pdf! & Logo of the university; this file is subject to different license and copyright than the rest of the class files \\[\smallskipamount]
-\ctulst!ctuthesis.ist! & Nicely loooking style for \ctulst!makeindex! \\[\smallskipamount]
-\ctulst!latex3-tl2014.zip! & ZIP file containing the ``good'' version of \LaTeX3 \\[\smallskipamount]
-\ctulst!ctuman.pdf! & This manual \\[\smallskipamount]
-\ctulst!ctuman-*.tex! & Source code to this manual \\[\smallskipamount]
-\ctulst!ctuth-core.tex! & Core definitions for the class; users do not need to ever load this file manually \\[\smallskipamount]
-\ctulst!ctuth-pkg.tex! & Package loading code for the class; users do not need to ever load this file manually \\[\smallskipamount]
-\ctulst!ctuth-names.tex! & Language-dependent part of the class; users should not need to modify this file or load it manually \\[\smallskipamount]
-\ctulst!ctuth-templates.tex! & Templates for various parts of the document; users may look inside this file and see how things are done;
+\ctulst(none)!ctuthesis.cls! & Class file itself \\[\smallskipamount]
+\ctulst(none)!ctu_logo_blue.pdf! & Logo of the university; this file is subject to different license and copyright than the rest of the class files \\[\smallskipamount]
+\ctulst(none)!ctuthesis.ist! & Nicely loooking style for \ctulst(none)!makeindex! \\[\smallskipamount]
+\ctulst(none)!latex3-tl2014.zip! & ZIP file containing the ``good'' version of \LaTeX3 \\[\smallskipamount]
+\ctulst(none)!ctuman.pdf! & This manual \\[\smallskipamount]
+\ctulst(none)!ctuman-*.tex! & Source code to this manual \\[\smallskipamount]
+\ctulst(none)!ctuth-core.tex! & Core definitions for the class; users do not need to ever load this file manually \\[\smallskipamount]
+\ctulst(none)!ctuth-pkg.tex! & Package loading code for the class; users do not need to ever load this file manually \\[\smallskipamount]
+\ctulst(none)!ctuth-names.tex! & Language-dependent part of the class; users should not need to modify this file or load it manually \\[\smallskipamount]
+\ctulst(none)!ctuth-templates.tex! & Templates for various parts of the document; users may look inside this file and see how things are done;
  this is discussed in more detail in Chapter~\ref{chap:ta}
 \end{tabularx}\end{ctucolortab}
 \caption[The files of the class ctuthesis.]{The files of the class \ctuclsname.}
@@ -447,6 +447,7 @@ The format of the option name is always \ctulst!pkg-<packagename>! and it accept
   but applies the background; the color is an optional argument (in parentheses \ctulst!()!)
   and defaults to the blue background color seen in this manual. Any printable symbol but one of \ctulst![({}!
   can be used in place of \ctulst:!:.
+ Using \ctulst!none! makes the background transparent.
 
 \item \ctulst!pkg-amsthm! (default: \ctulst!true!) ---
  \ctump{pkg-amsthm}

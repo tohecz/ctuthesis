@@ -870,12 +870,19 @@
 		columns = fullflexible,
 		keepspaces = true,
 		tabsize = 4,
-		frame = leftline,
+%		frame = leftline,
+%		framesep = 0pt,
+%		framexleftmargin = 3pt,
+%		framerule = 0.667pt,
+%		rulecolor = \color{ctubluerule},
+		frame = single,
 		framesep = 0pt,
-		framexleftmargin = 3pt,
-		framerule = 0.667pt,
-		rulecolor = \color{ctubluerule},
-		xrightmargin = -3pt,
+		framexleftmargin = 2pt,
+		framerule = 2pt,
+		rulecolor = \color{ctubluebg},
+		framexrightmargin = 2pt,
+		xleftmargin = 4pt,
+		xrightmargin = 4pt,
 	}
 	\cs_new_eq:NN \ctuthesis_lst_orig_lstinline:w \lstinline
 	\newsavebox \ctuthesis_lst_box
@@ -886,7 +893,9 @@
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]#3#4#3
 		\end{lrbox}
-		{\fboxsep0pt\colorbox{#1}{\strut\hspace*{\ctulstsep}\box\ctuthesis_lst_box\hspace*{\ctulstsep}}}
+		\str_if_eq:nnTF {#1} {none}
+			{{ \hbox:n {\strut\hspace*{\ctulstsep}\box\ctuthesis_lst_box\hspace*{\ctulstsep}} }}
+			{{ \fboxsep0pt\colorbox{#1} {\strut\hspace*{\ctulstsep}\box\ctuthesis_lst_box\hspace*{\ctulstsep}} }}
 		\microtypesetup{activate=true}
 	}
 	\DeclareDocumentCommand \ctulst { D(){ctulstbg} O{} m } {
@@ -942,7 +951,7 @@
 % Provide \phantomsection and \texorpdfstring to make them available in case hyperref wasn't loaded
 \providecommand\phantomsection{}
 \providecommand\texorpdfstring[2]{#1}
-% Provide \microtype to make it available in case microtype wasn't loaded
+% Provide \microtypesetup to make it available in case microtype wasn't loaded
 \providecommand\microtypesetup[1]{}
 
 
