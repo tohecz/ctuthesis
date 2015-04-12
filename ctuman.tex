@@ -8,10 +8,8 @@
 %\PassOptionsToPackage{cp1250}{inputenc}
 
 % The class takes all the key=value arguments that \ctusetup does,
-% of them, just the fontsize has to be specified immediately;
-% 11pt is the default and we recommend keeping that, still we support
-% 10pt and 12pt as well.
-\documentclass[twoside,11pt]{ctuthesis}
+% and couple more: draft and oneside
+\documentclass[twoside]{ctuthesis}
 
 \makeatletter
 \edef\mytoday{\expandafter\@gobbletwo\the\year\ifnum\month<10 0\fi\the\month\ifnum\day<10 0\fi\the\day}
@@ -288,14 +286,10 @@ For most of them, no errors are issued if they are missing, though.
 \subsection[Options to \protect\string\protect\documentclass]{Options to \box\myboxa}
 
 The
-\ctump{documentclass, ctuthesis, 10pt, 11pt, 12pt}
-class \ctuclsname\@ itself takes couple optional arguments, namely
-\ctulst!10pt!, \ctulst!11pt! and \ctulst!12pt! for setting up the basic font size (the default is 11\,pt).
-
-Then
-\ctump{draft, oneside}
-it takes the option \ctulst!draft! that sets some draft options (the ones common in \LaTeX).
-It also takes the option \ctulst!oneside!, which switches to one-sided mode;
+\ctump{documentclass, draft, oneside}
+class \ctuclsname\@ itself takes an optional argument \ctulst!draft!
+ that sets some draft options (the ones common in \LaTeX).
+It also takes the option \ctulst!oneside! which switches to one-sided mode;
  however, \emph{we strongly advice against using this option}.
 
 \begin{lrbox}{\myboxa}\bfseries
@@ -665,8 +659,6 @@ the usage of the environment \ctulst!{ctucolortab}! to make the table get a blue
  (a thinner line can be obtained using \ctulst!\midrule!).
 Also note the deliberate absence of verical rules.
 
-
-\pagebreak
 
 
 

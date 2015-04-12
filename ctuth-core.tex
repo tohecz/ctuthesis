@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-core.tex}%
-	{2015/03/24}{0.1 t1503242320}%MY TIMESTAMP HERE {0.1}
+	{2015/04/12}{0.1 t1504122333}%MY TIMESTAMP HERE {0.1}
 	{"Core"\space part\space of\space the\space class\space ctuthesis}
 
 
@@ -88,8 +88,8 @@
 \seq_new:N \g_ctuthesis_languages_seq
 \keys_define:nn { ctuthesis } {
 	
-	% Allowed fontsizes are 10pt, 11pt, 12pt, defaulting in 11pt (see above)
-	fontsize .choices:nn = { 10pt, 11pt, 12pt } { \tl_gset_eq:NN \g_ctuthesis_fontsize_tl \l_keys_choice_tl },
+	% Only 11pt fontsize is allowed
+	fontsize .choices:nn = { 11pt } { \tl_gset_eq:NN \g_ctuthesis_fontsize_tl \l_keys_choice_tl },
 	
 	% Oneside option
 	oneside .bool_gset:c = { g_ctuthesis_switch_oneside_bool },
@@ -139,8 +139,8 @@
 }
 \ctuthesis_keys_add_no:nn { nopost } { pkg-hyperref, pkg-makeidx }
 
-% We allow keys 10pt, 11pt and 12pt along with the key fontsize
-\tl_map_inline:nn { {10pt}{11pt}{12pt} } {
+% We allow the key 11pt along with the key fontsize
+\tl_map_inline:nn { {11pt} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .meta:n = { fontsize = #1 },
 	}
@@ -369,7 +369,7 @@
 % the timestamp on every page.
 \cs_new:Npx \ctuverlog {
 	ctuthesis ~ \use_ii:nn
-	{2015/03/24}{ t1503242320}%MY TIMESTAMP HERE {}	
+	{2015/04/12}{ t1504122333}%MY TIMESTAMP HERE {}	
 }
 
 
