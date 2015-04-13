@@ -893,12 +893,12 @@
 		\begin{lrbox}{\ctuthesis_lst_box}
 		\ctuthesis_lst_orig_lstinline:w[#2]#3#4#3
 		\end{lrbox}
-		\str_if_eq:nnTF {#1} {none}
+		\str_if_eq:xnTF {#1} {none}
 			{{ \hbox:n {\strut\hspace*{\ctulstsep}\box\ctuthesis_lst_box\hspace*{\ctulstsep}} }}
 			{{ \fboxsep0pt\colorbox{#1} {\strut\hspace*{\ctulstsep}\box\ctuthesis_lst_box\hspace*{\ctulstsep}} }}
 		\microtypesetup{activate=true}
 	}
-	\DeclareDocumentCommand \ctulst { D(){ctulstbg} O{} m } {
+	\DeclareDocumentCommand \ctulst { D(){\g_ctuthesis_ctulstbg_tl} O{} m } {
 		\ctuthesis_lst_do_ctulstinline:nnw { #1 } { #2 } { #3 } #3
 	}
 	\DeclareDocumentCommand \ctulstbr { D(){ctulstbg} O{} m } {

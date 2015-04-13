@@ -50,6 +50,7 @@
 %	monochrome = true,
 %	savetoner = true,
 	pkg-listings = true,
+	ctulstbg = none,
 %	layout-short = true,
 %	pkg-hyperref = false,
 }
@@ -135,7 +136,6 @@ V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 \begin{document}
 
 % We actually don't want inline listings to have a background color
-\colorlet{ctulstbg}{white}
 \renewcommand \ctulstsep {0pt}
 
 % \ctuclsname for typesetting the class' name
@@ -442,11 +442,12 @@ The format of the option name is always \ctulst!pkg-<packagename>! and it accept
   and defaults to the blue background color seen in this manual. Any printable symbol but one of \ctulst![({}!
   can be used in place of \ctulst:!:.
  Using \ctulst!none! makes the background transparent.
+ The default background for inline listings can be changed by \ctulst!\ctusetup{ ctulstbg = <color> }!.
 
 \item \ctulst!pkg-amsthm! (default: \ctulst!true!) ---
  \ctump{pkg-amsthm}
  sets up nicely the basic styles for theorems, but does not set up the theorem environment themselves.
- More information is in Section~\ref{sect:theorems}
+ More information is in Section~\ref{subsect:math}
 
 \item \ctulst!pkg-biblatex! (default: \ctulst!false!) ---
  \ctump{pkg-biblatex}
@@ -663,7 +664,7 @@ Also note the deliberate absence of verical rules.
 
 
 
-\subsection{Mathematics}
+\subsection{Mathematics}\label{subsect:math}
 
 All standard concepts for typesetting mathematics are working as in any other \LaTeX\@ class.
 We only emphasize how the class behaves in relation to theorem-like environments and proofs.
@@ -706,7 +707,7 @@ For the general use, two non-standard colors are provided:
  {\color{ctulightblue}\ctulst(white)!ctulightblue!}.
 
 \end{itemize}
-The colours are used for the headers, rules in the titles, title texts, backgrounds for listings and tables etc.
+The colors are used for the headers, rules in the titles, title texts, backgrounds for listings and tables etc.
 
 
 

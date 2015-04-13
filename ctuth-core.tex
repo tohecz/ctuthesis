@@ -15,6 +15,7 @@
 \cs_generate_variant:Nn \keys_set:nn { nx }
 \cs_generate_variant:Nn \tl_if_eq:nnTF { xn }
 \cs_generate_variant:Nn \seq_gconcat:NNN { cc }
+\cs_generate_variant:Nn \str_if_eq:nnTF { xn }
 
 \skip_new:N \g_ctuthesis_tempa_skip
 
@@ -169,7 +170,7 @@
 		\keys_define:nn { ctuthesis } {
 			##1 / #1 .code:n =
 				\tl_gset:cn { g_ctuthesis_field_##1_tl } { #1 }
-				\seq_gput_right:Nn \g_ctuthesis_languages_seq { #1 }
+				\seq_gput_right:Nn \g_ctuthesis_languages_seq { #1 },
 		}
 	}
 	% The abstract is now language-dependent
@@ -189,6 +190,10 @@
 \NewEnviron { declaration } { \tl_gset:cV { g_ctuthesis_field_declaration_tl } \BODY }
 \tl_new:c { g_ctuthesis_field_declaration_tl }
 
+\tl_gset:Nn \g_ctuthesis_ctulstbg_tl { ctulstbg }
+\keys_define:nn { ctuthesis } {
+		ctulstbg .tl_gset:N = \g_ctuthesis_ctulstbg_tl
+}
 
 
 
