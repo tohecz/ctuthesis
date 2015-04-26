@@ -27,7 +27,7 @@
 }
 
 \ctusetup{
-	preprint = {\ctuverlog \\ ctuman \mytoday},
+%	preprint = {\ctuverlog \\ ctuman \mytoday},
 	mainlanguage = english,
 %	titlelanguage = english,
 %	otherlanguages = {czech},
@@ -42,8 +42,8 @@
 %	supervisor-address = {Ústav X, \\ Uliční 5, \\ Praha 99},
 	keywords-czech = {manuál, závěrečnná práce, \LaTeX},
 	keywords-english = {manual, degree project, \LaTeX},
-	day = 10,
-	month = 3,
+	day = 16,
+	month = 4,
 	year = 2015,
 %	list-of-figures = false,
 %	list-of-tables = false,
@@ -106,14 +106,25 @@ This manual shows how to use the ctuthesis \LaTeX\ class, what are the requireme
 
 % Acknowledgements / Podekovani
 \begin{thanks}
-Děkuji ČVUT, že mi je tak dobrou \emph{alma mater}.
+We thank the CTU in Prague for being a~very good \emph{alma mater}.
 \end{thanks}
 
 % Declaration / Prohlaseni
 \begin{declaration}
+I declare that this work is all my own work and I have cited all sources I have
+used in the bibliography.
+
+\medskip
+
+Prague, \monthinlanguage{title} \ctufield{day}, \ctufield{year}
+
+\vspace*{2cm}
+
 Prohlašuji, že jsem předloženou práci vypracoval samostatně, a že jsem uvedl veškerou použitou literaturu.
 
-V Praze, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
+\medskip
+
+V Praze, \ctufield{day}.~\monthinlanguage{second}~\ctufield{year}
 \end{declaration}
 
 \usepackage{url}
@@ -696,6 +707,7 @@ All theorem handling can be disabled by \ctulst!\ctusetup{ pkg-amsthm = false }!
 The class uses internally many named colors.
 For the general use, two non-standard colors are provided:
 \begin{itemize}
+
 \item
  {\color{white}\ctulst(ctublue)!ctublue!}
  \ctump{ctublue}
@@ -717,7 +729,7 @@ The colors are used for the headers, rules in the titles, title texts, backgroun
 
 \printindex
 
-\bibliographystyle{amsalpha}
-\bibliography{ctutest}
+%\bibliographystyle{amsalpha}
+%\bibliography{ctutest}
 
 \end{document}

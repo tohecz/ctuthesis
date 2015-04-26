@@ -34,7 +34,13 @@
 		&
 			\Large\color{ctubluetext}\begin{tabular}[b]{@{}l@{}}\ctufield[title]{university-endl}\end{tabular}
 		\\[3ex]
-			\begin{tabular}[c]{@{}l@{}}\color{ctubluetext}\fontsize{32.7}{32.7}\selectfont\ctufield{facultynum}\end{tabular}
+%			\begin{tabular}[c]{@{}l@{}}
+			\raisebox{-8pt}{
+			\color{ctubluetext}\fontsize{32.7}{32.7}\selectfont
+			\setbox0\hbox{\smash{\ctufield{facultynum}}\vphantom{X}}
+			\ifdim\wd0>2em \scalebox{0.9}[1]{\textls[-50]{\smash{\ctufield{facultynum}}\vphantom{X}}}\else\box0\fi
+			}
+%			\end{tabular}
 		&
 			\begin{tabular}[c]{@{}l@{}}\rlap{\ctufield[title]{faculty}}\\[2pt]\ctufield[title]{department}\end{tabular}
 		\end{tabular}\par

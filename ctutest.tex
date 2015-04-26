@@ -9,7 +9,7 @@
 \ctusetup{
 	preprint = \ctuverlog,
 	mainlanguage = english,
-	titlelanguage = english,
+	titlelanguage = czech,
 	otherlanguages = {slovak},
 	title-czech = {Moje bakalářka se strašně, ale hrozně dlouhým předlouhým názvem},
 	title-english = {My Favourite Thesis; Just the Title is Soooooooo Looooong},
@@ -40,6 +40,11 @@
 }
 
 \ctuprocess
+
+\addto\ctucaptionsczech{%
+	\def\supervisorname{Vedoucí}%
+	\def\subfieldofstudyname{Studijní program}%
+}
 
 \ctutemplateset{maketitle twocolumn default}{
 	\begin{twocolumnfrontmatterpage}
