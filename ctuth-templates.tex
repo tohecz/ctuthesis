@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-templates.tex}%
-	{2015/04/12}{0.1 t1504122333}%MY TIMESTAMP HERE {0.1}
+	{2015/06/07}{0.1 t1506072002}%MY TIMESTAMP HERE {0.1}
 	{"Templates"\space part\space of\space the\space class\space ctuthesis}
 
 % The titlepage, includes doctype, faculty, department, title, author,
@@ -70,6 +70,7 @@
 		% The "metadata": supervisor, field of study, month and year
 		\parskip 1pt
 		\ctuiffield*{supervisor}{\supervisorname :~{\frenchspacing\ctufield{supervisor}}\par}{}
+		\ctuiffield*{supervisor-specialist}{\supervisorspecialistname :~{\frenchspacing\ctufield{supervisor-specialist}}\par}{}
 		\ctuiffield*[title]{fieldofstudy}{\fieldofstudyname :~\ctufield[title]{fieldofstudy}\par}{}
 		\ctuiffield*[title]{subfieldofstudy}{\subfieldofstudyname :~\ctufield[title]{subfieldofstudy}\par}{}
 		\monthinlanguage*{title}~\ctufield{year}\par

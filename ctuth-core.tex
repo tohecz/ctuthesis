@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-core.tex}%
-	{2015/04/12}{0.1 t1504122333}%MY TIMESTAMP HERE {0.1}
+	{2015/06/07}{0.1 t1506072002}%MY TIMESTAMP HERE {0.1}
 	{"Core"\space part\space of\space the\space class\space ctuthesis}
 
 
@@ -149,7 +149,7 @@
 }
 
 % Basic fields that are not language-dependent
-\tl_map_inline:nn { {author}{supervisor}{supervisor-address}{day}{month}{year}
+\tl_map_inline:nn { {author}{supervisor}{supervisor-specialist}{supervisor-address}{day}{month}{year}
 	  {facultynum}{specification-file}{preprint} } {
 	\keys_define:nn { ctuthesis } {
 		#1 .tl_gset:c = { g_ctuthesis_field_#1_tl },
@@ -374,7 +374,7 @@
 % the timestamp on every page.
 \cs_new:Npx \ctuverlog {
 	ctuthesis ~ \use_ii:nn
-	{2015/04/12}{ t1504122333}%MY TIMESTAMP HERE {}	
+	{2015/06/07}{ t1506072002}%MY TIMESTAMP HERE {}	
 }
 
 

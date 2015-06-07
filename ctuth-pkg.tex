@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/04/12}{0.1 t1504122333}%MY TIMESTAMP HERE {0.1}
+	{2015/06/07}{0.1 t1506072002}%MY TIMESTAMP HERE {0.1}
 	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
@@ -637,19 +637,15 @@
 \DeclareDocumentCommand \cleardoublepage { s } {
 	\clearpage
 	\if@twoside\ifodd\c@page\else
-		\IfBooleanTF { #1 } {
+%		\IfBooleanTF { #1 } {
 			% Starred variant: completely empty page
 			\leavevmode
 			\thispagestyle{empty}
-		} {
-			% Non-starred variant: include page number and three cute dots in the middle of the page
-			\hbox{}\vspace*{\fill}
-			\centerline { \prg_replicate:nn { 3 } { \box_use:N \g_ctuthesis_fancy_bluerule_c_box } }
-			\vspace*{\fill}
-			\hbox{}
-			% The spacial pagestyle for this page
+%		} {
+			% Non-starred variant: include page number
+			\leavevmode
 			\thispagestyle{cleardoublepage}
-		}
+%		}
 		\newpage
 		% In twocolumn, we need \newpage twice
 		\if@twocolumn\hbox{}\newpage\fi
