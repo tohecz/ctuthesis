@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/11/15}{0.1 t1511150951}%MY TIMESTAMP HERE {0.1}
+	{2015/11/15}{0.1 t1511151022}%MY TIMESTAMP HERE {0.1}
 	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
@@ -380,7 +380,7 @@
   \ignorespaces}
 % Part title setting
 \bool_new:N \g_ctuthesis_title_haspart_bool
-\titleformat \part [ctupt] {\Huge} {{\huge\partname\ }\thepart} {0pt} {\huge} [0.6\textheight]
+\titleformat \part [ctupt] {\Huge} {{\huge\partname\nobreakspace}\thepart} {0pt} {\huge} [0.6\textheight]
 \titlespacing* \part {0pt} {0pt} {0pt}
 % Tweak into titlesec to make part number contain \numberline. They did not include it for some reason.
 \def\ttl@tocpart{\def\ttl@a{\protect\numberline{\thepart}}}
@@ -488,7 +488,7 @@
 	\leavevmode
 	\null
 	\nobreak
-	\def\numberline##1{\partname\ ##1\\}%
+	\def\numberline##1{\partname \nobreakspace ##1\\}%
 	\sffamily \bfseries
 	#1
 	\par
