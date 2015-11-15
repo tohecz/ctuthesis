@@ -6,7 +6,7 @@
 \RequirePackage[utf8]{inputenc}
 
 \ProvidesExplClass{ctuthesis}%
-	{2015/06/07}{0.1 t1506072002}%MY TIMESTAMP HERE {0.1}
+	{2015/11/15}{0.1 t1511150951}%MY TIMESTAMP HERE {0.1}
 	{Class for typesetting CTU theses and alike}
 
 % Some general remarks: the module name for this class is `ctuthesis`. Yes, it is quite long,
