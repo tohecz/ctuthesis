@@ -2,7 +2,7 @@
 %!TEX ROOT = ctutest.tex
 
 \ProvidesExplFile{ctuth-pkg.tex}%
-	{2015/11/15}{0.1 t1511151022}%MY TIMESTAMP HERE {0.1}
+	{2016/04/04}{0.1 t1604041107}%MY TIMESTAMP HERE {0.1}
 	{"Packages"\space part\space of\space the\space class\space ctuthesis}
 
 % A lot of the code here is not latex3, but rather the good'ol latex2e code. The reason is that
@@ -294,7 +294,7 @@
 \long\def\ctu@title@boxify@x#1#2#3#4#5{
 	\sffamily
 	\bfseries
-	\setbox\ctu@title@box\vbox{\hsize\dimexpr\linewidth-\ctu@title@rulewidth-\ctu@title@rulesep\relax
+	\setbox\ctu@title@box\vbox{\parskip0pt\hsize\dimexpr\linewidth-\ctu@title@rulewidth-\ctu@title@rulesep\relax
 		\vskip#1
 		\raggedright
 		#4
