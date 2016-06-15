@@ -100,7 +100,7 @@
 
 % This is a "ToC macro" for the twocolumn context
 % Arguments: 1) suffix, 2) ToC name
-\cs_new:Nn \ctuthesis_maketoc_twocol:nn {
+\cs_new_protected:Nn \ctuthesis_maketoc_twocol:nn {
 	% Start the chapter
 	\chapter* { #2 }
 	% locally make rugged pages
@@ -226,7 +226,7 @@
 \dim_const:Nn \g_ctuthesis_geometry_innermargin_dim { 1in + \the\oddsidemargin }
 
 % The frontmatter pages are a bit wider
-\cs_new:Nn \ctuthesis_geometry_title: {
+\cs_new_protected:Nn \ctuthesis_geometry_title: {
 	\newgeometry {
 		% Use the stored innermargin value
 		inner = \g_ctuthesis_geometry_innermargin_dim ,
@@ -240,7 +240,7 @@
 	}
 }
 
-\cs_new:Nn \ctuthesis_geometry_plain: {
+\cs_new_protected:Nn \ctuthesis_geometry_plain: {
 	\newgeometry {
 		% Use the stored innermargin value
 		inner = \dim_use:N \g_ctuthesis_geometry_innermargin_dim ,
@@ -601,7 +601,7 @@
 
 % The leaders macro for the fancyhead: nice little boxes,
 % the parameter #1 chooses one of the boxes above
-\cs_new:Nn \ctuthesis_fancy_leaders:n {
+\cs_new_protected:Nn \ctuthesis_fancy_leaders:n {
 	\hspace*{-1pt}
 	\leaders \box_use:c {g_ctuthesis_fancy_bluerule_#1_box} \hfill
 	\hspace*{-1pt}
@@ -610,7 +610,7 @@
 % This macro works as follows: The width of the material is actually zero. We use \hbox_overlap_left/right
 % to make the headers as wide as we wish, the direction is in #1. In #2 is the contents, and we suppose
 % that it contains \ctuthesis_fancy_leaders: and \left/rightmark in desired order; it's typeset gray sf it
-\cs_new:Nn \ctuthesis_fancy_xlap:nn {
+\cs_new_protected:Nn \ctuthesis_fancy_xlap:nn {
 	\color{ctugray} \sffamily\itshape
 	\leavevmode \use:c { hbox_overlap_#1:n } {
 		\hbox_to_wd:nn { \paperwidth - 1in - \evensidemargin + 1em } { #2 }
@@ -721,7 +721,7 @@
 \box_new:N \g_ctuthesis_tempa_box
 % Macro used to generate the itemize labels
 % parameters 1:depth, 2: raise (without ex), 3: scale, 4:color
-\cs_new:Nn \ctuthesis_list_prepare_labelitem:nnnn {
+\cs_new_protected:Nn \ctuthesis_list_prepare_labelitem:nnnn {
 	% Each label stored in a box
 	\box_new:c { g_ctuthesis_list_label_#1_box }
 	% use the temp box to measure the symbol
@@ -749,7 +749,7 @@
 % Macro for making the box with lmss bf dot "." scaled to the size of \strutbox
 % #1 is the width of the box (relative to the width of the resulting dot) and
 % #2 is the color of the box
-\cs_new:Nn \ctuthesis_list_enumdot:nn {
+\cs_new_protected:Nn \ctuthesis_list_enumdot:nn {
 	\hbox_to_wd:nn { #1\ht\strutbox + #1\dp\strutbox } {
 		\hss
 		\raisebox{-\dp\strutbox}{
@@ -945,13 +945,14 @@
 		allbordercolors=ctuorange,
 	}
 	% Prepare PDFinfo
-	\cs_new:Nx \ctuthesis_hyperref_pdfinfo: {
+	\tl_new:N \g_ctuthesis_hyperref_pdfinfo_tl
+	\tl_set:Nx \g_ctuthesis_hyperref_pdfinfo_tl {
 		pdfinfo = {
-			Title = \ctuthesis_field_use:n {pdftitle},
-			Author = \ctuthesis_field_use:n {pdfauthor},
+			Title = \ctuthesis_field_use:nn { title } { title },
+			Author = \ctuthesis_field_use:n { author },
 		}
 	} 
-	\exp_args:NV \hypersetup \ctuthesis_hyperref_pdfinfo:
+	\exp_args:NV \hypersetup \g_ctuthesis_hyperref_pdfinfo_tl
 }{}
 
 %\ctuifswitch { pkg-hyperref } {
